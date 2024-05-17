@@ -8,7 +8,7 @@ set(SOURCES
     src/clickhouse-cpp-c-bridge.cpp
 )
 
-add_library(clickhouse-cpp-c-bridge SHARED SOURCES)
+add_library(${PROJECT_NAME} SHARED SOURCES)
 
 # ----------------------------------------
 # ClickHouse C++ client (copied from https://github.com/ClickHouse/clickhouse-cpp)
