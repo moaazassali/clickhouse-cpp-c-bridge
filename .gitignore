@@ -49,3 +49,4 @@ _deps
 
 # Project specific
 out/
+.idea/
