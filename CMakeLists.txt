@@ -4,4 +4,8 @@ project(clickhouse-cpp-c-bridge)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_library(testclion SHARED clickhouse-cpp-c-bridge.cpp)
+set(SOURCES
+    src/clickhouse-cpp-c-bridge.cpp
+)
+
+add_library(clickhouse-cpp-c-bridge SHARED SOURCES)
