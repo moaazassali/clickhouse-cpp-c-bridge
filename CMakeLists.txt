@@ -9,3 +9,10 @@ set(SOURCES
 )
 
 add_library(clickhouse-cpp-c-bridge SHARED SOURCES)
+
+# ----------------------------------------
+# ClickHouse C++ client (copied from https://github.com/ClickHouse/clickhouse-cpp)
+# ----------------------------------------
+add_subdirectory(dependencies/clickhouse-cpp)
+target_include_directories(${PROJECT_NAME} PRIVATE dependencies/clickhouse-cpp/ dependencies/clickhouse-cpp/contrib/absl)
+target_link_libraries(${PROJECT_NAME} PRIVATE clickhouse-cpp-lib)
