@@ -7,9 +7,9 @@ struct ClickHouseError{
 	char* message;
 };
 
-extern "C" __declspec(dllexport) inline void FreeClickHouseError(const ClickHouseError * error) {
+extern "C" __declspec(dllexport) inline void FreeClickHouseError(ClickHouseError * error) {
 	delete[] error->message;
-	delete error;
+	error->message = nullptr;
 }
 
 inline void SetMessage(ClickHouseError & error, const char* message) {
