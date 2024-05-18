@@ -9,7 +9,7 @@ struct ClickHouseError{
 	const char* message;
 };
 
-void SetMessage(ClickHouseError & error, const char* message) {
+inline void SetMessage(ClickHouseError & error, const char* message) {
 	// why dangling pointer?
 	error.message = std::string(message).c_str();
 }
