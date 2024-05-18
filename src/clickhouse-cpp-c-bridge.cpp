@@ -1,5 +1,5 @@
 #include "client_wrapper.h"
-#include "clickhouse_error.h"
+#include "clickhouse_result.h"
 #include "query_wrapper.h"
 #include "block_wrapper.h"
 

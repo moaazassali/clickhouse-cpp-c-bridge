@@ -9,7 +9,7 @@ set(SOURCES
 )
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
-#add_executable(${PROJECT_NAME} src/clickhouse-cpp-c-bridge.cpp)
+#add_executable(${PROJECT_NAME} ${SOURCES})
 
 # ----------------------------------------
 # ClickHouse C++ client (copied from https://github.com/ClickHouse/clickhouse-cpp)
