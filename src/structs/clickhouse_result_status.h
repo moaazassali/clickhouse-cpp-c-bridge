@@ -7,7 +7,7 @@ struct ClickHouseResultStatus{
     char* message;
 };
 
-extern "C" __declspec(dllexport) inline void FreeClickHouseError(ClickHouseResultStatus * result) {
+extern "C" __declspec(dllexport) inline void FreeClickHouseStatusMessage(ClickHouseResultStatus * result) {
     delete[] result->message;
     result->message = nullptr;
 }
@@ -18,7 +18,7 @@ inline void SetMessage(ClickHouseResultStatus & result, const char* message) {
     // Allocate new memory for the message and copy it
     const size_t length = std::strlen(message);
     result.message = new char[length + 1];
-    std::strcpy(result.message, message);
+    strcpy_s(result.message, length + 1, message);
 }
 
 template <typename Func>

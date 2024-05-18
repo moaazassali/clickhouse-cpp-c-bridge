@@ -25,24 +25,8 @@
 #include <iostream>
 
 int main() {
-    try {
-        std::cout << "Hello, World!dsvdsv" << std::endl;
-        const auto client = CreateClient("192.168.70.176");
-
-        std::cout << "Created client" << std::endl;
-
-        /// Create a table.
-        const auto query = CreateQuery("DROP TABLE test.gg");
-        auto error = Execute(client, query);
-
-        std::cout << error.code << std::endl;
-        std::cout << error.message << std::endl;
-
-        delete[] error.message;
-        error.message = nullptr;
-    } catch (const std::exception& e) {
-        std::cerr << e.what() << std::endl;
-    }
+    std::cout << "Hello, World!dsvdsv" << std::endl;
+    const auto client = CreateClient("192.168.70.176");
 
     /*
     Execute(client, "CREATE TABLE IF NOT EXISTS default.numbers (id UInt64, name String) ENGINE = Memory");
