@@ -5,15 +5,15 @@
 
 using namespace clickhouse;
 
-extern "C" __declspec(dllexport) Client * CreateClient(const char* host) {
+extern "C" __declspec(dllexport) inline Client * CreateClient(const char* host) {
 	return new Client(ClientOptions().SetHost(host));
 }
 
-extern "C" __declspec(dllexport) inline void FreeClient(Client * client) {
+extern "C" __declspec(dllexport) inline void FreeClient(const Client * client) {
 	delete client;
 }
 
-extern "C" __declspec(dllexport) inline ClickHouseError Execute(Client * client, Query query) {
+extern "C" __declspec(dllexport) inline ClickHouseError Execute(Client * client, const Query query) {
 	return TryCatchClickHouseError([&]() {
 		client->Execute(query);
 		});
@@ -67,14 +67,12 @@ extern "C" __declspec(dllexport) inline ClickHouseError ResetConnection(Client *
 		});
 }
 
-extern "C" __declspec(dllexport) inline const ServerInfo & GetServerInfo(Client * client) {
+extern "C" __declspec(dllexport) inline const ServerInfo & GetServerInfo(const Client * client) {
 	return client->GetServerInfo();
 }
 
-extern "C" __declspec(dllexport) inline const Endpoint * GetCurrentEndpoint(Client * client) {
-	const auto& optionalEndpoint = client->GetCurrentEndpoint();
-
-	if (optionalEndpoint.has_value()) {
+extern "C" __declspec(dllexport) inline const Endpoint * GetCurrentEndpoint(const Client * client) {
+	if (const auto& optionalEndpoint = client->GetCurrentEndpoint(); optionalEndpoint.has_value()) {
 		return &optionalEndpoint.value();
 	}
 	else {
@@ -88,6 +86,6 @@ extern "C" __declspec(dllexport) inline ClickHouseError ResetConnectionEndpoint(
 		});
 }
 
-extern "C" __declspec(dllexport) inline Client::Version GetVersion(Client * client) {
+extern "C" __declspec(dllexport) inline Client::Version GetVersion(const Client * client) {
 	return client->GetVersion();
 }
