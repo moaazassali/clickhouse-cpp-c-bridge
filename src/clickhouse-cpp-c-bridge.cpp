@@ -21,16 +21,20 @@
 #include <iostream>
 
 int main() {
-    std::cout << "Hello, World!dsvdsv" << std::endl;
-    const auto client = CreateClient("192.168.70.176");
+    try {
+        std::cout << "Hello, World!dsvdsv" << std::endl;
+        const auto client = CreateClient("192.168.70.176");
 
-    std::cout << "Created client" << std::endl;
+        std::cout << "Created client" << std::endl;
 
-    /// Create a table.
-    const auto query = CreateQuery("DROP TABLE test.gg");
-    const auto [code, message] = Execute(client, query);
+        /// Create a table.
+        const auto query = CreateQuery("DROP TABLE test.gg");
+        const auto [code, message] = Execute(client, query);
 
-    std::cout << code << " " << message << std::endl;
+        std::cout << code << " " << message << std::endl;
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
 
     /*
     Execute(client, "CREATE TABLE IF NOT EXISTS default.numbers (id UInt64, name String) ENGINE = Memory");
