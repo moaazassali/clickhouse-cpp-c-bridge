@@ -4,6 +4,6 @@
 
 using namespace clickhouse;
 
-extern "C" __declspec(dllexport) inline void FreeColumn(Column * col) {
+extern "C" __declspec(dllexport) inline void FreeColumn(const Column * col) {
 	delete col;
 }

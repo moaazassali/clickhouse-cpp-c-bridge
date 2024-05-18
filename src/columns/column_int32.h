@@ -8,6 +8,6 @@ extern "C" __declspec(dllexport) inline ColumnInt32 * CreateColumnInt32() {
 	return new ColumnInt32();
 }
 
-extern "C" __declspec(dllexport) inline void ColumnInt32Append(ColumnInt32 & column, int32_t value) {
-	column.Append(value);
+extern "C" __declspec(dllexport) inline void ColumnInt32Append(ColumnInt32 * column, const int32_t value) {
+	column->Append(value);
 }
