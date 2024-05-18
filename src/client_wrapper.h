@@ -13,9 +13,9 @@ extern "C" __declspec(dllexport) inline void FreeClient(const Client * client) {
 	delete client;
 }
 
-extern "C" __declspec(dllexport) inline ClickHouseError Execute(Client * client, const Query query) {
+extern "C" __declspec(dllexport) inline ClickHouseError Execute(Client * client, const Query * query) {
 	return TryCatchClickHouseError([&]() {
-		client->Execute(query);
+		client->Execute(*query);
 		});
 }
 
