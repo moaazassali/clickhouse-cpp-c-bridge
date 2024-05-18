@@ -29,9 +29,13 @@ int main() {
 
         /// Create a table.
         const auto query = CreateQuery("DROP TABLE test.gg");
-        const auto [code, message] = Execute(client, query);
+        auto error = Execute(client, query);
 
-        std::cout << code << " " << message << std::endl;
+        std::cout << error.code << std::endl;
+        std::cout << error.message << std::endl;
+
+        delete[] error.message;
+        error.message = nullptr;
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
     }
