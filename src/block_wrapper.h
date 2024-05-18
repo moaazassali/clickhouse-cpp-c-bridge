@@ -45,12 +45,12 @@ extern "C" __declspec(dllexport) inline size_t RefreshRowCount(Block * block)
 	return block->RefreshRowCount();
 }
 
-extern "C" __declspec(dllexport) inline const char* GetColumnName(const Block * block, size_t idx)
+extern "C" __declspec(dllexport) inline const char* GetColumnName(const Block * block, const size_t idx)
 {
 	return block->GetColumnName(idx).c_str();
 }
 
-extern "C" __declspec(dllexport) inline Column * GetColumnAt(const Block * block, size_t idx)
+extern "C" __declspec(dllexport) inline Column * GetColumnAt(const Block * block, const size_t idx)
 {
 	return (*block)[idx].get();
 }
