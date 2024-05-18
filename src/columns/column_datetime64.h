@@ -4,7 +4,7 @@
 
 using namespace clickhouse;
 
-extern "C" __declspec(dllexport) inline ColumnDateTime64 * CreateColumnDateTime64(size_t precision) {
+extern "C" __declspec(dllexport) inline ColumnDateTime64 * CreateColumnDateTime64(const size_t precision) {
 	return new ColumnDateTime64(precision);
 }
 
