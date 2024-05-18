@@ -1,8 +1,8 @@
 #include "client_wrapper.h"
-#include "clickhouse_result_status.h"
 #include "query_wrapper.h"
 #include "block_wrapper.h"
 
+// columns
 #include "columns/column_wrapper.h"
 #include "columns/column_int8.h"
 #include "columns/column_int16.h"
@@ -17,6 +17,10 @@
 #include "columns/column_string.h"
 #include "columns/column_datetime.h"
 #include "columns/column_datetime64.h"
+
+// structs
+#include "structs/clickhouse_result_status.h"
+#include "structs/server_info_wrapper.h"
 
 #include <iostream>
 

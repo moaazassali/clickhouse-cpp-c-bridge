@@ -1,7 +1,7 @@
 #pragma once
 
 #include <clickhouse/client.h>
-#include "clickhouse_result_status.h"
+#include "structs/clickhouse_result_status.h"
 
 using namespace clickhouse;
 
