@@ -2,12 +2,14 @@
 
 #include <clickhouse/exceptions.h>
 
-// Possible memory leak here or dangling pointers? Idk...
-
 struct ClickHouseError{
 	int code;
 	char* message;
 };
+
+extern "C" __declspec(dllexport) inline void FreeClickHouseError(const ClickHouseError * error) {
+	delete[] error->message;
+}
 
 inline void SetMessage(ClickHouseError & error, const char* message) {
 	delete[] error.message;
