@@ -5,7 +5,7 @@ project(clickhouse-cpp-c-bridge)
 set(CMAKE_CXX_STANDARD 17)
 
 set(SOURCES
-    src/clickhouse-cpp-c-bridge.cpp
+        src/main.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES})

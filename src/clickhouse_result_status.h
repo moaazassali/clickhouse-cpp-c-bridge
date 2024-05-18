@@ -2,17 +2,17 @@
 
 #include <clickhouse/exceptions.h>
 
-struct ClickHouseResult{
+struct ClickHouseResultStatus{
     int code;
     char* message;
 };
 
-extern "C" __declspec(dllexport) inline void FreeClickHouseError(ClickHouseResult * result) {
+extern "C" __declspec(dllexport) inline void FreeClickHouseError(ClickHouseResultStatus * result) {
     delete[] result->message;
     result->message = nullptr;
 }
 
-inline void SetMessage(ClickHouseResult & result, const char* message) {
+inline void SetMessage(ClickHouseResultStatus & result, const char* message) {
     delete[] result.message;
 
     // Allocate new memory for the message and copy it
@@ -22,8 +22,8 @@ inline void SetMessage(ClickHouseResult & result, const char* message) {
 }
 
 template <typename Func>
-ClickHouseResult TryCatchClickHouseError(Func&& func) {
-    ClickHouseResult result = { 0, nullptr };
+ClickHouseResultStatus TryCatchClickHouseError(Func&& func) {
+    ClickHouseResultStatus result = { 0, nullptr };
 
     try {
         // Call the provided function
