@@ -1,13 +1,14 @@
 #pragma once
 
 #include <clickhouse/exceptions.h>
+#include "export.h"
 
 struct ClickHouseResultStatus{
     int code;
     char* message;
 };
 
-extern "C" __declspec(dllexport) inline void FreeClickHouseStatusMessage(ClickHouseResultStatus * result) {
+extern "C" EXPORT inline void FreeClickHouseStatusMessage(ClickHouseResultStatus * result) {
     delete[] result->message;
     result->message = nullptr;
 }

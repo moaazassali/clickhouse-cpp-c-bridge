@@ -4,10 +4,10 @@
 
 using namespace clickhouse;
 
-extern "C" __declspec(dllexport) inline ColumnUInt8 * CreateColumnUInt8() {
+extern "C" EXPORT inline ColumnUInt8 * CreateColumnUInt8() {
 	return new ColumnUInt8();
 }
 
-extern "C" __declspec(dllexport) inline void ColumnUInt8Append(ColumnUInt8 * column, const uint8_t value) {
+extern "C" EXPORT inline void ColumnUInt8Append(ColumnUInt8 * column, const uint8_t value) {
 	column->Append(value);
 }

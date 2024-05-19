@@ -1,5 +1,7 @@
 #pragma once
 
+#include "export.h"
+
 struct ServerInfoWrapper {
     const char *name;
     const char *timezone;
@@ -10,7 +12,7 @@ struct ServerInfoWrapper {
     uint64_t revision;
 };
 
-extern "C" __declspec(dllexport) inline void FreeServerInfo(const ServerInfoWrapper *info) {
+extern "C" EXPORT inline void FreeServerInfo(const ServerInfoWrapper *info) {
     delete[] info->name;
     delete[] info->timezone;
     delete[] info->display_name;
