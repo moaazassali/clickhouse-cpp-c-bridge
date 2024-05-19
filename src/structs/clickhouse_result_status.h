@@ -19,7 +19,7 @@ inline void SetMessage(ClickHouseResultStatus & result, const char* message) {
     // Allocate new memory for the message and copy it
     const size_t length = std::strlen(message);
     result.message = new char[length + 1];
-    strcpy_s(result.message, length + 1, message);
+    std::strcpy(result.message, message);
 }
 
 template <typename Func>

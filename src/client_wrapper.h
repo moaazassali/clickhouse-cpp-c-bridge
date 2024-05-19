@@ -94,15 +94,15 @@ extern "C" EXPORT inline ServerInfoWrapper GetServerInfo(const Client *client) {
     // Allocate memory and copy string contents
     const size_t nameLen = serverInfo.name.length();
     const auto name = new char[nameLen + 1];
-    strcpy_s(name, nameLen + 1, serverInfo.name.c_str());
+    std::strcpy(name, serverInfo.name.c_str());
 
     const size_t timezoneLen = serverInfo.timezone.length();
     const auto timezone = new char[timezoneLen + 1];
-    strcpy_s(timezone, timezoneLen + 1, serverInfo.timezone.c_str());
+    std::strcpy(timezone, serverInfo.timezone.c_str());
 
     const size_t displayNameLen = serverInfo.display_name.length();
     const auto display_name = new char[displayNameLen + 1];
-    strcpy_s(display_name, displayNameLen + 1, serverInfo.display_name.c_str());
+    std::strcpy(display_name, serverInfo.display_name.c_str());
 
     const ServerInfoWrapper wrapper{
         name,
