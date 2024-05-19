@@ -1,5 +1,6 @@
+#pragma once
 #ifdef _WIN32
 #  define EXPORT __declspec( dllexport )
 #else
-#  define EXPORT
+#  define EXPORT __attribute__((used))
 #endif
