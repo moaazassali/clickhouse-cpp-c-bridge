@@ -1,7 +1,7 @@
 #pragma once
 
 #include <clickhouse/exceptions.h>
-#include "export.h"
+#include "../export.h"
 
 struct ClickHouseResultStatus{
     int code;

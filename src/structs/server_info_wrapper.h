@@ -1,6 +1,6 @@
 #pragma once
 
-#include "export.h"
+#include "../export.h"
 
 struct ServerInfoWrapper {
     const char *name;
