@@ -11,7 +11,7 @@ struct ClientOptionsWrapper {
     size_t endpoints_count;
     const char *default_database;
     const char *user;
-    char *password;
+    const char *password;
     bool rethrow_exceptions;
     bool ping_before_query;
     uint32_t send_retries;
