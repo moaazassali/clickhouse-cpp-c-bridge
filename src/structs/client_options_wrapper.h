@@ -2,29 +2,31 @@
 
 #include "endpoint_wrapper.h"
 
+using namespace clickhouse;
+
 struct ClientOptionsWrapper {
     const char *host;
-    const uint16_t port;
+    uint16_t port;
     const EndpointWrapper *endpoints;
     size_t endpoints_count;
     const char *default_database;
     const char *user;
-    const char *password;
-    const bool rethrow_exceptions;
-    const bool ping_before_query;
-    const uint32_t send_retries;
-    const int64_t retry_timeout;
-    const int32_t compression_method;
-    const bool tcp_keepalive;
-    const int64_t tcp_keepalive_idle;
-    const int64_t tcp_keepalive_intvl;
-    const uint32_t tcp_keepalive_cnt;
-    const bool tcp_nodelay;
-    const int64_t connection_connect_timeout;
-    const int64_t connection_recv_timeout;
-    const int64_t connection_send_timeout;
-    const bool backward_compatibility_lowcardinality_as_wrapped_column;
-    const uint32_t max_compression_chunk_size;
+    char *password;
+    bool rethrow_exceptions;
+    bool ping_before_query;
+    uint32_t send_retries;
+    int64_t retry_timeout;
+    int32_t compression_method;
+    bool tcp_keepalive;
+    int64_t tcp_keepalive_idle;
+    int64_t tcp_keepalive_intvl;
+    uint32_t tcp_keepalive_cnt;
+    bool tcp_nodelay;
+    int64_t connection_connect_timeout;
+    int64_t connection_recv_timeout;
+    int64_t connection_send_timeout;
+    bool backward_compatibility_lowcardinality_as_wrapped_column;
+    uint32_t max_compression_chunk_size;
 
     ClientOptionsWrapper() : host(nullptr),
                              port(9000),
@@ -96,7 +98,7 @@ struct ClientOptionsWrapper {
     }
 };
 
-extern "C" EXPORT inline void FreeClientOptions(ClientOptionsWrapper *options) {
+extern "C" EXPORT inline void FreeClientOptionsWrapper(ClientOptionsWrapper *options) {
     delete[] options->host;
     delete[] options->endpoints;
     delete[] options->default_database;

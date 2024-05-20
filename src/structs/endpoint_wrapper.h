@@ -1,8 +1,10 @@
 #pragma once
 
+using namespace clickhouse;
+
 struct EndpointWrapper {
     const char *host;
-    const uint16_t port;
+    uint16_t port;
 
     EndpointWrapper() : host(nullptr),
                         port(9000) {
