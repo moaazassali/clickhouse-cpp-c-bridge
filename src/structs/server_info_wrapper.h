@@ -12,7 +12,7 @@ struct ServerInfoWrapper {
     uint64_t revision;
 };
 
-extern "C" EXPORT inline void FreeServerInfo(const ServerInfoWrapper *info) {
+extern "C" EXPORT inline void FreeServerInfoWrapper(const ServerInfoWrapper *info) {
     delete[] info->name;
     delete[] info->timezone;
     delete[] info->display_name;
