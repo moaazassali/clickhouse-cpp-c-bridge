@@ -22,6 +22,7 @@
 #include "structs/client_options_wrapper.h"
 #include "structs/clickhouse_result_status.h"
 #include "structs/server_info_wrapper.h"
+#include "structs/endpoint_wrapper.h"
 
 #include <iostream>
 
