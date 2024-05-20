@@ -4,11 +4,12 @@
 #include "structs/clickhouse_result_status.h"
 #include "structs/server_info_wrapper.h"
 #include "export.h"
+#include "structs/client_options_wrapper.h"
 
 using namespace clickhouse;
 
-extern "C" EXPORT inline Client *CreateClient(const char *host) {
-    return new Client(ClientOptions().SetHost(host));
+extern "C" EXPORT inline Client *CreateClient(ClientOptionsWrapper optionsWrapper) {
+    return new Client(optionsWrapper.toClientOptions());
 }
 
 extern "C" EXPORT inline void FreeClient(const Client *client) {
