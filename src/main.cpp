@@ -19,6 +19,7 @@
 #include "columns/column_datetime64.h"
 
 // structs
+#include "structs/client_options_wrapper.h"
 #include "structs/clickhouse_result_status.h"
 #include "structs/server_info_wrapper.h"
 
