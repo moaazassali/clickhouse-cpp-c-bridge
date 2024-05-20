@@ -97,18 +97,3 @@ struct ClientOptionsWrapper {
         }
     }
 };
-
-extern "C" EXPORT inline void FreeClientOptionsWrapper(ClientOptionsWrapper *options) {
-    delete[] options->host;
-    delete[] options->endpoints;
-    delete[] options->default_database;
-    delete[] options->user;
-    delete[] options->password;
-
-    options->host = nullptr;
-    options->endpoints = nullptr;
-    options->endpoints_count = 0;
-    options->default_database = nullptr;
-    options->user = nullptr;
-    options->password = nullptr;
-}
