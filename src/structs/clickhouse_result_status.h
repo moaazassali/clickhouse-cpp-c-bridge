@@ -8,7 +8,7 @@ struct ClickHouseResultStatus{
     char* message;
 };
 
-extern "C" EXPORT inline void FreeClickHouseStatusMessage(ClickHouseResultStatus * result) {
+extern "C" EXPORT inline void FreeClickHouseResultStatus(ClickHouseResultStatus * result) {
     delete[] result->message;
     result->message = nullptr;
 }

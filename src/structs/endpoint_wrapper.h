@@ -17,7 +17,7 @@ struct EndpointWrapper {
     }
 };
 
-extern "C" EXPORT inline void FreeEndpointWrapper(const EndpointWrapper *wrapper) {
+extern "C" EXPORT inline void FreeEndpointWrapper(EndpointWrapper *wrapper) {
     delete[] wrapper->host;
-    delete wrapper;
+    wrapper->host = nullptr;
 }

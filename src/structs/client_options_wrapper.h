@@ -6,7 +6,7 @@ struct ClientOptionsWrapper {
     const char *host;
     const uint16_t port;
     const EndpointWrapper *endpoints;
-    const size_t endpoints_count;
+    size_t endpoints_count;
     const char *default_database;
     const char *user;
     const char *password;
@@ -96,11 +96,17 @@ struct ClientOptionsWrapper {
     }
 };
 
-extern "C" EXPORT inline void FreeClientOptions(const ClientOptionsWrapper *options) {
+extern "C" EXPORT inline void FreeClientOptions(ClientOptionsWrapper *options) {
     delete[] options->host;
     delete[] options->endpoints;
     delete[] options->default_database;
     delete[] options->user;
     delete[] options->password;
-    delete options;
+
+    options->host = nullptr;
+    options->endpoints = nullptr;
+    options->endpoints_count = 0;
+    options->default_database = nullptr;
+    options->user = nullptr;
+    options->password = nullptr;
 }
