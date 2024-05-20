@@ -8,8 +8,8 @@
 
 using namespace clickhouse;
 
-extern "C" EXPORT inline Client *CreateClient(ClientOptionsWrapper optionsWrapper) {
-    return new Client(optionsWrapper.toClientOptions());
+extern "C" EXPORT inline Client *CreateClient(const ClientOptionsWrapper *optionsWrapper) {
+    return new Client(optionsWrapper->toClientOptions());
 }
 
 extern "C" EXPORT inline void FreeClient(const Client *client) {
@@ -23,7 +23,7 @@ extern "C" EXPORT inline ClickHouseResultStatus Execute(Client *client, const Qu
 }
 
 extern "C" EXPORT inline ClickHouseResultStatus Select(Client *client, const char *query,
-                                                                      SelectCallback cb) {
+                                                       SelectCallback cb) {
     return TryCatchClickHouseError([&]() {
         client->Select(query, cb);
     });
@@ -51,7 +51,7 @@ extern "C" EXPORT inline ClickHouseResultStatus SelectCancelableWithQueryId(
 }
 
 extern "C" EXPORT inline ClickHouseResultStatus Insert(Client *client, const char *table_name,
-                                                                      const Block *block) {
+                                                       const Block *block) {
     return TryCatchClickHouseError([&]() {
         client->Insert(table_name, *block);
     });
@@ -118,12 +118,22 @@ extern "C" EXPORT inline ServerInfoWrapper GetServerInfo(const Client *client) {
     return wrapper;
 }
 
-extern "C" EXPORT inline const Endpoint *GetCurrentEndpoint(const Client *client) {
+extern "C" EXPORT inline EndpointWrapper GetCurrentEndpoint(const Client *client) {
+    auto endpointWrapper = EndpointWrapper();
     if (const auto &optionalEndpoint = client->GetCurrentEndpoint(); optionalEndpoint.has_value()) {
-        return &optionalEndpoint.value();
+        endpointWrapper.port = optionalEndpoint.value().port;
+
+        const size_t displayNameLen = optionalEndpoint.value().host.length();
+        const auto display_name = new char[displayNameLen + 1];
+        std::strcpy(display_name, optionalEndpoint.value().host.c_str());
+
+        endpointWrapper.host = display_name;
     } else {
-        return nullptr;
+        endpointWrapper.port = 0;
+        endpointWrapper.host = "";
     }
+
+    return endpointWrapper;
 }
 
 extern "C" EXPORT inline ClickHouseResultStatus ResetConnectionEndpoint(Client *client) {
