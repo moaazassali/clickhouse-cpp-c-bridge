@@ -98,6 +98,7 @@ struct ClientOptionsWrapper {
 
 extern "C" EXPORT inline void FreeClientOptions(const ClientOptionsWrapper *options) {
     delete[] options->host;
+    delete[] options->endpoints;
     delete[] options->default_database;
     delete[] options->user;
     delete[] options->password;
