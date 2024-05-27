@@ -142,6 +142,6 @@ extern "C" EXPORT inline ClickHouseResultStatus ResetConnectionEndpoint(Client *
     });
 }
 
-extern "C" EXPORT inline Client::Version GetVersion(const Client *client) {
+extern "C" EXPORT inline Client::Version GetVersion() {
     return Client::GetVersion();
 }
