@@ -17,6 +17,8 @@
 #include "columns/column_string.h"
 #include "columns/column_datetime.h"
 #include "columns/column_datetime64.h"
+#include "columns/column_date.h"
+#include "columns/column_date32.h"
 
 // structs
 #include "structs/client_options_wrapper.h"
@@ -27,32 +29,15 @@
 #include <iostream>
 
 int main() {
+    auto col = new ColumnDate();
     std::cout << "Hello, World!dsvdsv" << std::endl;
-    const auto client = CreateClient("192.168.70.176");
-
-    /*
-    Execute(client, "CREATE TABLE IF NOT EXISTS default.numbers (id UInt64, name String) ENGINE = Memory");
-
-    auto block = CreateBlock();
-
-    auto idCol = CreateColumnUInt64();
-    ColumnUInt64Append(*idCol, 1);
-    ColumnUInt64Append(*idCol, 7);
-
-
-    auto nameCol = CreateColumnString();
-    ColumnStringAppend(*nameCol, "one");
-    ColumnStringAppend(*nameCol, "seven");
-
-    AppendColumn(block, "id", idCol);
-    AppendColumn(block, "name", nameCol);
-
-    Insert(client, "default.numbers", block);
-
-    FreeColumn(idCol);
-    FreeColumn(nameCol);
-    FreeBlock(block);
-    */
+    auto options = ClientOptionsWrapper();
+    auto query = Query();
+    options.host = "192.168.70.176";
+    std::cout << "Host set:" << options.host << std::endl;
+    const auto client = CreateClient(&options);
+    //const auto client = new Client(ClientOptions().SetHost("192.168.70.176"));
+    std::cout << "Client created" << std::endl;
 
     // keep the console window open
     std::cin.get();
