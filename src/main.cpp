@@ -19,6 +19,8 @@
 #include "columns/column_datetime64.h"
 #include "columns/column_date.h"
 #include "columns/column_date32.h"
+#include "columns/column_uuid.h"
+#include "columns/column_ipv4.h"
 
 // structs
 #include "structs/client_options_wrapper.h"
@@ -29,7 +31,6 @@
 #include <iostream>
 
 int main() {
-    auto col = new ColumnDate();
     std::cout << "Hello, World!dsvdsv" << std::endl;
     auto options = ClientOptionsWrapper();
     auto query = Query();
