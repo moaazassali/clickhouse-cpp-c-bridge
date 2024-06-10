@@ -11,3 +11,7 @@ extern "C" EXPORT inline ColumnFloat32 * CreateColumnFloat32() {
 extern "C" EXPORT inline void ColumnFloat32Append(ColumnFloat32 * column, const float value) {
 	column->Append(value);
 }
+
+extern "C" EXPORT inline float ColumnFloat32At(const ColumnFloat32 * column, const size_t index) {
+	return column->At(index);
+}
