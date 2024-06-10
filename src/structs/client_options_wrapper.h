@@ -52,7 +52,7 @@ struct ClientOptionsWrapper {
                              max_compression_chunk_size(65535) {
     };
 
-    // method to conver to ClientOptions
+    // method to convert to ClientOptions
     [[nodiscard]] ClientOptions toClientOptions() const {
         ClientOptions options;
         options.host = host == nullptr ? std::string() : std::string(host);
