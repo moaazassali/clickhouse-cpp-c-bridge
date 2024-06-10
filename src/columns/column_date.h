@@ -11,3 +11,7 @@ extern "C" EXPORT inline ColumnDate * CreateColumnDate() {
 extern "C" EXPORT inline void ColumnDateAppendRaw(ColumnDate * column, const uint16_t value) {
     column->AppendRaw(value);
 }
+
+extern "C" EXPORT inline uint16_t ColumnDateRawAt(const ColumnDate * column, const size_t index) {
+    return column->RawAt(index);
+}
