@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <clickhouse/client.h>
 #include "structs/clickhouse_result_status.h"
 #include "structs/server_info_wrapper.h"
@@ -22,31 +23,34 @@ extern "C" EXPORT inline ClickHouseResultStatus Execute(Client *client, const Qu
     });
 }
 
-extern "C" EXPORT inline ClickHouseResultStatus Select(Client *client, const char *query,
-                                                       SelectCallback cb) {
+/*
+ * We only expose the Select() function with Query *query since the one that accepts a string is redundant.
+ * The clickhouse-cpp library converts all string queries to Query objects internally anyways.
+ * So, if we want to add support for Select() with a string query, we can add an overloaded function that accepts a
+ * string and converts it to a query object in the actual client library.
+ */
+typedef void (*SelectCallbackWrapper)(const Block *block);
+
+extern "C" EXPORT inline ClickHouseResultStatus Select(Client *client, Query *query, SelectCallbackWrapper cb) {
+    query->OnData([&cb](const Block &block) {
+        cb(&block);
+    });
+
     return TryCatchClickHouseError([&]() {
-        client->Select(query, cb);
+        client->Select(*query);
     });
 }
 
-extern "C" EXPORT inline ClickHouseResultStatus SelectWithQueryId(
-    Client *client, const char *query, const char *query_id, SelectCallback cb) {
-    return TryCatchClickHouseError([&]() {
-        client->Select(query, query_id, cb);
-    });
-}
+typedef bool (*SelectCancelableCallbackWrapper)(const Block *block);
 
-extern "C" EXPORT inline ClickHouseResultStatus SelectCancelable(
-    Client *client, const char *query, SelectCancelableCallback cb) {
-    return TryCatchClickHouseError([&]() {
-        client->SelectCancelable(query, cb);
+extern "C" EXPORT inline ClickHouseResultStatus SelectCancelable(Client *client, Query *query,
+                                                                 SelectCancelableCallbackWrapper cb) {
+    query->OnDataCancelable([&cb](const Block &block) {
+        return cb(&block);
     });
-}
 
-extern "C" EXPORT inline ClickHouseResultStatus SelectCancelableWithQueryId(
-    Client *client, const char *query, const char *query_id, SelectCancelableCallback cb) {
     return TryCatchClickHouseError([&]() {
-        client->SelectCancelable(query, query_id, cb);
+        client->Select(*query);
     });
 }
 
