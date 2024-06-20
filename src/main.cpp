@@ -15,6 +15,7 @@
 #include "columns/column_float32.h"
 #include "columns/column_float64.h"
 #include "columns/column_string.h"
+#include "columns/column_fixed_string.h"
 #include "columns/column_datetime.h"
 #include "columns/column_datetime64.h"
 #include "columns/column_date.h"
