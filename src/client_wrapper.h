@@ -9,8 +9,11 @@
 
 using namespace clickhouse;
 
-extern "C" EXPORT inline Client *CreateClient(const ClientOptionsWrapper *optionsWrapper) {
-    return new Client(optionsWrapper->toClientOptions());
+extern "C" EXPORT inline ClickHouseResultStatus CreateClient(const ClientOptionsWrapper *optionsWrapper,
+                                                             Client **client) {
+    return TryCatchClickHouseError([&]() {
+        *client = new Client(optionsWrapper->toClientOptions());
+    });
 }
 
 extern "C" EXPORT inline void FreeClient(const Client *client) {

@@ -36,7 +36,8 @@ int main() {
     auto query = Query();
     options.host = "192.168.70.176";
     std::cout << "Host set:" << options.host << std::endl;
-    const auto client = CreateClient(&options);
+    Client *client;
+    CreateClient(&options, &client);
     //const auto client = new Client(ClientOptions().SetHost("192.168.70.176"));
     std::cout << "Client created" << std::endl;
 
