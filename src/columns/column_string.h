@@ -9,9 +9,13 @@ extern "C" EXPORT inline ColumnString *CreateColumnString() {
     return new ColumnString();
 }
 
+// Append(const char* str) creates a copy of the string
 extern "C" EXPORT inline void ColumnStringAppend(ColumnString *column, const char *value) {
     column->Append(value);
 }
+
+// Might add AppendNoManagedLifetime() in the future for better performance as it doesn't create a copy of the string
+// but the caller must free each string when freeing the ColumnString as well
 
 extern "C" EXPORT inline StringViewWrapper ColumnStringAt(const ColumnString *column, const size_t index) {
     auto sv = column->At(index);
