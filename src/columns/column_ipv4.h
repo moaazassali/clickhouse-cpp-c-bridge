@@ -1,7 +1,5 @@
 #pragma once
 
-#include <clickhouse/columns/numeric.h>
-
 #include "clickhouse/base/socket.h"
 
 using namespace clickhouse;
