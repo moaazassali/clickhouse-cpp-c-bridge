@@ -15,5 +15,5 @@ extern "C" EXPORT inline void ColumnInt128Append(ColumnInt128 *column, const int
 
 extern "C" EXPORT inline Int128Wrapper ColumnInt128At(const ColumnInt128 *column, const size_t index) {
     const auto value = column->At(index);
-    return {Int128High64(value)(), Int128Low64(value)};
+    return {Int128High64(value), Int128Low64(value)};
 }
