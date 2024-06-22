@@ -24,6 +24,7 @@
 #include "columns/column_ipv4.h"
 #include "columns/column_ipv6.h"
 #include "columns/column_int128.h"
+#include "columns/column_decimal.h"
 
 // structs
 #include "structs/client_options_wrapper.h"
