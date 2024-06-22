@@ -15,7 +15,7 @@ extern "C" EXPORT inline void ColumnIPv6Append(ColumnIPv6 *column, const unsigne
 }
 
 // returns a 16-byte array
-// NOTE: the array is owned by the ColumnIPv6 and will be invalid when the ColumnIPv6 is freed
+// NOTE: the array is owned by the ColumnIPv6 and will be invalid when the column is freed
 extern "C" EXPORT inline unsigned char *ColumnIPv6At(const ColumnIPv6 *column, const size_t index) {
     return column->At(index).s6_addr;
 }
