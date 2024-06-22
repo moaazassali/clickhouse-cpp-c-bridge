@@ -4,5 +4,5 @@
 
 struct Int128Wrapper {
     int64_t high;
-    int64_t low;
+    uint64_t low;
 };
