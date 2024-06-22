@@ -22,12 +22,16 @@
 #include "columns/column_date32.h"
 #include "columns/column_uuid.h"
 #include "columns/column_ipv4.h"
+#include "columns/column_ipv6.h"
+#include "columns/column_int128.h"
 
 // structs
 #include "structs/client_options_wrapper.h"
 #include "structs/clickhouse_result_status.h"
 #include "structs/server_info_wrapper.h"
 #include "structs/endpoint_wrapper.h"
+#include "structs/uuid_wrapper.h"
+#include "structs/int128_wrapper.h"
 
 #include <iostream>
 
