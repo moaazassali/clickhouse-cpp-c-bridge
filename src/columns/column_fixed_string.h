@@ -17,3 +17,26 @@ extern "C" EXPORT inline StringViewWrapper ColumnFixedStringAt(const ColumnFixed
     auto sv = column->At(index);
     return {sv.data(), sv.length()};
 }
+
+// ================================
+// LowCardinality(FixedString)
+// ================================
+extern "C" EXPORT inline ColumnLowCardinalityT<ColumnFixedString> *
+CreateColumnLowCardinality_FixedString(const size_t n) {
+    return new ColumnLowCardinalityT<ColumnFixedString>(n);
+}
+
+extern "C" EXPORT inline ClickHouseResultStatus ColumnLowCardinality_FixedStringAppend(
+    ColumnLowCardinalityT<ColumnFixedString> *column,
+    const char *value) {
+    return TryCatchClickHouseError([&]() {
+        column->Append(value);
+    });
+}
+
+extern "C" EXPORT inline StringViewWrapper ColumnLowCardinality_FixedStringAt(
+    const ColumnLowCardinalityT<ColumnFixedString> *column,
+    const size_t index) {
+    auto sv = column->At(index);
+    return {sv.data(), sv.length()};
+}
