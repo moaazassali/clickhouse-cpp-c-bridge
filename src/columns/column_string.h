@@ -9,7 +9,7 @@ extern "C" EXPORT inline ColumnString *CreateColumnString() {
     return new ColumnString();
 }
 
-// Append(const char* str) creates a copy of the string
+// Append(const char* str) creates a copy of the string, so you can free 'value' right after calling this function
 extern "C" EXPORT inline void ColumnStringAppend(ColumnString *column, const char *value) {
     column->Append(value);
 }
