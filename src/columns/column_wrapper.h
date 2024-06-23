@@ -17,3 +17,7 @@ extern "C" EXPORT inline void ReserveColumn(Column *col, const size_t new_cap) {
 extern "C" EXPORT inline void ClearColumn(Column *col) {
     col->Clear();
 }
+
+extern "C" EXPORT inline size_t GetColumnSize(const Column *col) {
+    return col->Size();
+}
