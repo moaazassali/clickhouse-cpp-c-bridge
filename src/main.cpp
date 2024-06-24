@@ -27,6 +27,8 @@
 #include "columns/column_decimal.h"
 #include "columns/column_tuple.h"
 #include "columns/column_nullable.h"
+#include "columns/column_enum8.h"
+#include "columns/column_enum16.h"
 
 // structs
 #include "structs/client_options_wrapper.h"
