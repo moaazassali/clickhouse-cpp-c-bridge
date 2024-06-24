@@ -34,6 +34,7 @@
 #include "structs/endpoint_wrapper.h"
 #include "structs/uuid_wrapper.h"
 #include "structs/int128_wrapper.h"
+#include "structs/optional_wrapper.h"
 
 #include <iostream>
 
