@@ -40,3 +40,47 @@ extern "C" EXPORT inline StringViewWrapper ColumnLowCardinality_String_At(
     auto sv = column->At(index);
     return {sv.data(), sv.length()};
 }
+
+// ==================================
+// Nullable(String)
+// ==================================
+extern "C" EXPORT inline ColumnNullableT<ColumnString> *CreateColumnNullable_String() {
+    return new ColumnNullableT<ColumnString>();
+}
+
+extern "C" EXPORT inline void ColumnNullable_String_Append(ColumnNullableT<ColumnString> *column, const char *value) {
+    column->Append(value);
+}
+
+extern "C" EXPORT inline OptionalStringViewWrapper ColumnNullable_String_At(
+    const ColumnNullableT<ColumnString> *column,
+    const size_t index
+) {
+    const auto value = column->At(index);
+    return value.has_value()
+               ? OptionalStringViewWrapper{true, StringViewWrapper{value.value().data(), value.value().length()}}
+               : OptionalStringViewWrapper{false, StringViewWrapper{nullptr, 0}};
+}
+
+// ==================================
+// LowCardinality(Nullable(String))
+// ==================================
+extern "C" EXPORT inline ColumnLowCardinalityT<ColumnNullableT<ColumnString> > *
+CreateColumnLowCardinality_Nullable_String() {
+    return new ColumnLowCardinalityT<ColumnNullableT<ColumnString> >();
+}
+
+extern "C" EXPORT inline void ColumnLowCardinality_Nullable_String_Append(
+    ColumnLowCardinalityT<ColumnNullableT<ColumnString> > *column,
+    const char *value) {
+    column->Append(value);
+}
+
+extern "C" EXPORT inline OptionalStringViewWrapper ColumnLowCardinality_Nullable_String_At(
+    const ColumnLowCardinalityT<ColumnNullableT<ColumnString> > *column,
+    const size_t index) {
+    const auto value = column->At(index);
+    return value.has_value()
+               ? OptionalStringViewWrapper{true, StringViewWrapper{value.value().data(), value.value().length()}}
+               : OptionalStringViewWrapper{false, StringViewWrapper{nullptr, 0}};
+}
