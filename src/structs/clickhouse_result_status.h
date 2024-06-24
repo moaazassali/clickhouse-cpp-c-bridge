@@ -3,17 +3,17 @@
 #include <clickhouse/exceptions.h>
 #include "../export.h"
 
-struct ClickHouseResultStatus{
+struct ClickHouseResultStatus {
     int code;
-    char* message;
+    char *message;
 };
 
-extern "C" EXPORT inline void FreeClickHouseResultStatus(ClickHouseResultStatus * result) {
+extern "C" EXPORT inline void FreeClickHouseResultStatus(ClickHouseResultStatus *result) {
     delete[] result->message;
     result->message = nullptr;
 }
 
-inline void SetMessage(ClickHouseResultStatus & result, const char* message) {
+inline void SetMessage(ClickHouseResultStatus &result, const char *message) {
     delete[] result.message;
 
     // Allocate new memory for the message and copy it
@@ -22,48 +22,47 @@ inline void SetMessage(ClickHouseResultStatus & result, const char* message) {
     std::strcpy(result.message, message);
 }
 
-template <typename Func>
-ClickHouseResultStatus TryCatchClickHouseError(Func&& func) {
-    ClickHouseResultStatus result = { 0, nullptr };
+template<typename Func>
+ClickHouseResultStatus TryCatchClickHouseError(Func &&func) {
+    ClickHouseResultStatus result = {0, nullptr};
 
     try {
         // Call the provided function
         func();
-    }
-    catch (const clickhouse::ServerException& e) {
+    } catch (const clickhouse::ServerException &e) {
         result.code = e.GetCode();
         SetMessage(result, e.what());
     }
-    catch (const clickhouse::ValidationError& e) {
-        result.code = -1; // Validation error
+    catch (const clickhouse::ValidationError &e) {
+        result.code = -1;
         SetMessage(result, e.what());
     }
-    catch (const clickhouse::ProtocolError& e) {
-        result.code = -2; // Protocol error
+    catch (const clickhouse::ProtocolError &e) {
+        result.code = -2;
         SetMessage(result, e.what());
     }
-    catch (const clickhouse::UnimplementedError& e) {
-        result.code = -3; // Unimplemented error
+    catch (const clickhouse::UnimplementedError &e) {
+        result.code = -3;
         SetMessage(result, e.what());
     }
-    catch (const clickhouse::AssertionError& e) {
-        result.code = -4; // Assertion error
+    catch (const clickhouse::AssertionError &e) {
+        result.code = -4;
         SetMessage(result, e.what());
     }
-    catch (const clickhouse::OpenSSLError& e) {
-        result.code = -5; // OpenSSL error
+    catch (const clickhouse::OpenSSLError &e) {
+        result.code = -5;
         SetMessage(result, e.what());
     }
-    catch (const clickhouse::LZ4Error& e) {
-        result.code = -6; // LZ4 error
+    catch (const clickhouse::CompressionError &e) {
+        result.code = -6;
         SetMessage(result, e.what());
     }
-    catch (const clickhouse::Error& e) {
+    catch (const clickhouse::Error &e) {
         result.code = -7; // Runtime error
         SetMessage(result, e.what());
     }
-    catch (const std::exception& e) {
-        result.code = -8; // Standard exception
+    catch (const std::exception &e) {
+        result.code = -8;
         SetMessage(result, e.what());
     }
     catch (...) {
