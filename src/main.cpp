@@ -26,6 +26,7 @@
 #include "columns/column_int128.h"
 #include "columns/column_decimal.h"
 #include "columns/column_tuple.h"
+#include "columns/column_nullable.h"
 
 // structs
 #include "structs/client_options_wrapper.h"
