@@ -1,3 +1,4 @@
 [submodule "dependencies/clickhouse-cpp"]
 	path = dependencies/clickhouse-cpp
-	url = https://github.com/ClickHouse/clickhouse-cpp
+	url = https://github.com/moaazassali/clickhouse-cpp
+	branch = feature-nullable-raw
