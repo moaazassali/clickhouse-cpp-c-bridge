@@ -22,19 +22,19 @@ extern "C" EXPORT inline StringViewWrapper ColumnStringAt(const ColumnString *co
     return {sv.data(), sv.length()};
 }
 
-// ================================
+// ==================================
 // LowCardinality(String)
-// ================================
+// ==================================
 extern "C" EXPORT inline ColumnLowCardinalityT<ColumnString> *CreateColumnLowCardinality_String() {
     return new ColumnLowCardinalityT<ColumnString>();
 }
 
-extern "C" EXPORT inline void ColumnLowCardinality_StringAppend(ColumnLowCardinalityT<ColumnString> *column,
-                                                                const char *value) {
+extern "C" EXPORT inline void ColumnLowCardinality_String_Append(ColumnLowCardinalityT<ColumnString> *column,
+                                                                 const char *value) {
     column->Append(value);
 }
 
-extern "C" EXPORT inline StringViewWrapper ColumnLowCardinality_StringAt(
+extern "C" EXPORT inline StringViewWrapper ColumnLowCardinality_String_At(
     const ColumnLowCardinalityT<ColumnString> *column,
     const size_t index) {
     auto sv = column->At(index);
