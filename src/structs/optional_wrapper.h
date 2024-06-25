@@ -33,6 +33,4 @@ typedef OptionalWrapper(double, OptionalFloat64Wrapper);
 
 typedef OptionalWrapper(UUIDWrapper, OptionalUUIDWrapper);
 
-typedef OptionalWrapper(uint32_t, OptionalIPv4Wrapper);
-
 typedef OptionalWrapper(const unsigned char *, OptionalIPv6Wrapper);

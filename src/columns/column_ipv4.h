@@ -30,8 +30,10 @@ extern "C" EXPORT inline void ColumnNullable_IPv4_Append(ColumnNullableT<ColumnI
     column->Append(addr);
 }
 
-extern "C" EXPORT inline OptionalIPv4Wrapper ColumnNullable_IPv4_At(const ColumnNullableT<ColumnIPv4> *column,
-                                                                    const size_t index) {
+extern "C" EXPORT inline OptionalUInt32Wrapper ColumnNullable_IPv4_At(const ColumnNullableT<ColumnIPv4> *column,
+                                                                      const size_t index) {
     const auto value = column->At(index);
-    return value.has_value() ? OptionalIPv4Wrapper{true, value.value().s_addr} : OptionalIPv4Wrapper{false, 0};
+    return value.has_value()
+               ? OptionalUInt32Wrapper{true, value.value().s_addr}
+               : OptionalUInt32Wrapper{false, 0};
 }
