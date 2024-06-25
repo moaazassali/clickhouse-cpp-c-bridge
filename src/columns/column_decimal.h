@@ -4,7 +4,7 @@
 
 using namespace clickhouse;
 
-extern "C" EXPORT inline ColumnDecimal *CreateColumnDecimal(size_t precision, size_t scale) {
+extern "C" EXPORT inline ColumnDecimal *CreateColumnDecimal(const size_t precision, const size_t scale) {
     return new ColumnDecimal(precision, scale);
 }
 
