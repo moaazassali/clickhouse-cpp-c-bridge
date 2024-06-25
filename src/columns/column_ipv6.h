@@ -40,6 +40,6 @@ extern "C" EXPORT inline OptionalIPv6Wrapper ColumnNullable_IPv6_At(const Column
                                                                     const size_t index) {
     const auto value = column->At(index);
     return value.has_value()
-               ? OptionalIPv6Wrapper{true, &value.value().s6_addr[0]}
+               ? OptionalIPv6Wrapper{true, value.value().s6_addr}
                : OptionalIPv6Wrapper{false, nullptr};
 }
