@@ -20,9 +20,9 @@ extern "C" EXPORT inline Int128Wrapper ColumnDecimalAt(const ColumnDecimal *colu
 // ================================
 // Nullable(Decimal)
 // ================================
-// extern "C" EXPORT inline ColumnNullableT<ColumnDecimal> *CreateColumnNullable_Decimal(size_t precision, size_t scale) {
-//     return new ColumnNullableT<ColumnDecimal>(precision, scale);
-// }
+extern "C" EXPORT inline ColumnNullableT<ColumnDecimal> *CreateColumnNullable_Decimal(size_t precision, size_t scale) {
+    return new ColumnNullableT<ColumnDecimal>(precision, scale);
+}
 
 extern "C" EXPORT inline void ColumnNullable_Decimal_Append(ColumnNullableT<ColumnDecimal> *column, const int64_t high,
                                                             const uint64_t low) {

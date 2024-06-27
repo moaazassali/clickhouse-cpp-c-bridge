@@ -10,7 +10,11 @@ inline void ColumnNullableAppendNull(ColumnNullableT<T> *column) {
     column->Append(std::nullopt);
 }
 
-extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable(const Type::Code code, Column **column) {
+// For FixedString and Decimal, pass length/precision as a
+// For DateTime64, pass precision and scale as a and b respectively
+// For all other types, a and b does not have any effect, pass whatever you want
+extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable(const Type::Code code, const size_t a,
+                                                                     const size_t b, Column **column) {
     return TryCatchClickHouseError([&]() {
         switch (code) {
             case Type::UInt8:
@@ -50,9 +54,8 @@ extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable(const Type:
                 *column = new ColumnNullableT<ColumnFloat64>();
                 break;
             case Type::Decimal:
-                throw ValidationError(
-                    std::string(
-                        "Library Implementation Error: Should be using CreateColumnNullable_Decimal instead of CreateColumnArray for Decimal"));
+                *column = new ColumnNullableT<ColumnDecimal>(a, b);
+                break;
             case Type::Date:
                 *column = new ColumnNullableT<ColumnDate>();
                 break;
@@ -63,9 +66,8 @@ extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable(const Type:
                 *column = new ColumnNullableT<ColumnDateTime>();
                 break;
             case Type::DateTime64:
-                throw ValidationError(
-                    std::string(
-                        "Library Implementation Error: Should be using CreateColumnNullable_DateTime64 instead of CreateColumnArray for DateTime64"));
+                *column = new ColumnNullableT<ColumnDateTime64>(a);
+                break;
             case Type::Enum8:
                 *column = new ColumnNullableT<ColumnEnum8>({});
                 break;
@@ -76,9 +78,8 @@ extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable(const Type:
                 *column = new ColumnNullableT<ColumnString>();
                 break;
             case Type::FixedString:
-                throw ValidationError(
-                    std::string(
-                        "Library Implementation Error: Should be using CreateColumnNullable_FixedString instead of CreateColumnArray for FixedString"));
+                *column = new ColumnNullableT<ColumnFixedString>(a);
+                break;
             case Type::IPv4:
                 *column = new ColumnNullableT<ColumnIPv4>();
                 break;
@@ -91,26 +92,6 @@ extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable(const Type:
                     std::string("Provided type is not supported for Nullable columns: ") +
                     Type::TypeName(code) + "=" + std::to_string(code));
         }
-    });
-}
-
-extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable_FixedString(const size_t n, Column **column) {
-    return TryCatchClickHouseError([&]() {
-        *column = new ColumnNullableT<ColumnFixedString>(n);
-    });
-}
-
-extern "C" EXPORT inline ClickHouseResultStatus
-CreateColumnNullable_DateTime64(const size_t precision, Column **column) {
-    return TryCatchClickHouseError([&]() {
-        *column = new ColumnNullableT<ColumnFixedString>(precision);
-    });
-}
-
-extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable_Decimal(
-    const size_t precision, const size_t scale, Column **column) {
-    return TryCatchClickHouseError([&]() {
-        *column = new ColumnNullableT<ColumnDecimal>(precision, scale);
     });
 }
 
