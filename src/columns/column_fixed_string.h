@@ -44,9 +44,9 @@ extern "C" EXPORT inline StringViewWrapper ColumnLowCardinality_FixedString_At(
 // ========================================
 // Nullable(FixedString)
 // ========================================
-extern "C" EXPORT inline ColumnNullableT<ColumnFixedString> *CreateColumnNullable_FixedString(const size_t n) {
-    return new ColumnNullableT<ColumnFixedString>(n);
-}
+// extern "C" EXPORT inline ColumnNullableT<ColumnFixedString> *CreateColumnNullable_FixedString(const size_t n) {
+//     return new ColumnNullableT<ColumnFixedString>(n);
+// }
 
 extern "C" EXPORT inline ClickHouseResultStatus ColumnNullable_FixedString_Append(
     ColumnNullableT<ColumnFixedString> *column,

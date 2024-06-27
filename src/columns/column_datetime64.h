@@ -19,9 +19,9 @@ extern "C" EXPORT inline int64_t ColumnDateTime64At(const ColumnDateTime64 *colu
 // ================================
 // Nullable(DateTime64)
 // ================================
-extern "C" EXPORT inline ColumnNullableT<ColumnDateTime64> *CreateColumnNullable_DateTime64(const size_t precision) {
-    return new ColumnNullableT<ColumnDateTime64>(precision);
-}
+// extern "C" EXPORT inline ColumnNullableT<ColumnDateTime64> *CreateColumnNullable_DateTime64(const size_t precision) {
+//     return new ColumnNullableT<ColumnDateTime64>(precision);
+// }
 
 extern "C" EXPORT inline void ColumnNullable_DateTime64_Append(ColumnNullableT<ColumnDateTime64> *column,
                                                                const int64_t value) {
