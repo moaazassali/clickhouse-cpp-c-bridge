@@ -113,3 +113,9 @@ extern "C" EXPORT inline ClickHouseResultStatus CreateNestedColumnArray(
         *column = CreateNestedArray(code, nullableCode, depth, a, b);
     });
 }
+
+extern "C" EXPORT inline ClickHouseResultStatus CreateColumnArray(Column *inColumn, Column **outColumn) {
+    return TryCatchClickHouseError([&]() {
+        *outColumn = new ColumnArray(std::shared_ptr<Column>(inColumn));
+    });
+}
