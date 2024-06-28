@@ -69,10 +69,10 @@ extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable(const Type:
                 *column = new ColumnNullableT<ColumnDateTime64>(a);
                 break;
             case Type::Enum8:
-                *column = new ColumnNullableT<ColumnEnum8>({});
+                *column = new ColumnNullableT<ColumnEnum8>(Type::CreateEnum8({}));
                 break;
             case Type::Enum16:
-                *column = new ColumnNullableT<ColumnEnum16>({});
+                *column = new ColumnNullableT<ColumnEnum16>(Type::CreateEnum8({}));
                 break;
             case Type::String:
                 *column = new ColumnNullableT<ColumnString>();
