@@ -18,8 +18,7 @@ extern "C" EXPORT inline void FreeBlock(const Block * block)
 extern "C" EXPORT inline void AppendColumn(Block * block, const char* name, Column * col)
 {
 	// fake shared_ptr to comply with the method signature
-	const std::shared_ptr<Column> colSharedPtr(col, [](Column*) {});
-	block->AppendColumn(name, colSharedPtr);
+	block->AppendColumn(name, make_fake_shared(col));
 }
 
 extern "C" EXPORT inline size_t GetColumnCount(const Block * block)
