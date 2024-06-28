@@ -447,8 +447,6 @@ extern "C" EXPORT inline void *ColumnNullableAt(ColumnNullable *column, const si
                        : new OptionalIPv6Wrapper{false, nullptr};
         }
         default:
-            throw ValidationError(
-                std::string("Provided type is not supported for Nullable columns. Received ")
-                + nestedType->GetName() + "=" + std::to_string(nestedType->GetCode()));
+            return nullptr;
     }
 }
