@@ -2,3 +2,6 @@
 	path = dependencies/clickhouse-cpp
 	url = https://github.com/moaazassali/clickhouse-cpp
 	branch = feature-nullable-raw
+[submodule "dependencies/doctest"]
+	path = dependencies/doctest
+	url = https://github.com/doctest/doctest
