@@ -9,10 +9,7 @@ extern "C" EXPORT inline ColumnTuple *CreateColumnTuple(int n, ...) {
 
     for (int i = 0; i < n; ++i) {
         Column *col = va_arg(args, Column*);
-        // fake shared_ptr to comply with the method signature
-        const std::shared_ptr<Column> colSharedPtr(col, [](Column *) {
-        });
-        columns.push_back(colSharedPtr);
+        columns.push_back(make_fake_shared(col));
     }
 
     va_end(args);
