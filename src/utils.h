@@ -10,7 +10,7 @@ std::shared_ptr<T> make_fake_shared(T *ptr) {
 }
 
 /// Downcast raw pointer to the specific column's subtype as a raw pointer.
-// This is an alternative to column->AsStrict<>() to return a raw pointer instead of a shared_ptr.
+// This is an alternative to column->AsStrict<>() so we can get a raw pointer instead of a shared_ptr.
 template<typename T>
 inline T *AsStrict(Column *column) {
     auto result = dynamic_cast<T *>(column);
