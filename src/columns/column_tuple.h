@@ -17,7 +17,7 @@ extern "C" EXPORT inline ColumnTuple *CreateColumnTuple(int n, ...) {
     return new ColumnTuple(columns);
 }
 
-extern "C" EXPORT inline Column *ColumnTupleGetColumnAt(const ColumnTuple *column, const size_t index) {
+extern "C" EXPORT inline Column *ColumnTupleColumnAt(const ColumnTuple *column, const size_t index) {
     return column->At(index).get();
 }
 
