@@ -21,6 +21,6 @@ extern "C" EXPORT inline Column *ColumnTupleColumnAt(const ColumnTuple *column, 
     return column->At(index).get();
 }
 
-extern "C" EXPORT inline size_t ColumnTupleSize(const ColumnTuple *column) {
+extern "C" EXPORT inline size_t ColumnTupleColumnCount(const ColumnTuple *column) {
     return column->TupleSize();
 }
