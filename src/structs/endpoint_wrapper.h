@@ -1,5 +1,10 @@
 #pragma once
 
+#include <cstdint>
+#include <clickhouse/client.h>
+
+#include <export.h>
+
 using namespace clickhouse;
 
 struct EndpointWrapper {

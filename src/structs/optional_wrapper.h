@@ -1,8 +1,13 @@
 #pragma once
 
-#include "int128_wrapper.h"
-#include "string_view_wrapper.h"
-#include "uuid_wrapper.h"
+#include <clickhouse/types/types.h>
+
+#include <structs/int128_wrapper.h>
+#include <structs/string_view_wrapper.h>
+#include <structs/uuid_wrapper.h>
+#include <export.h>
+
+using namespace clickhouse;
 
 #define OptionalWrapper(type, name) struct { bool has_value; type value; } name;
 

@@ -1,6 +1,11 @@
 #pragma once
 
-#include "endpoint_wrapper.h"
+#include <chrono>
+#include <cstdint>
+#include <vector>
+#include <clickhouse/client.h>
+
+#include <structs/endpoint_wrapper.h>
 
 using namespace clickhouse;
 
