@@ -6,7 +6,7 @@
 TEST_CASE("Constructed ColumnInt8 is valid") {
     const auto col = CreateColumnInt8();
 
-    SUBCASE("Type is Int16") {
+    SUBCASE("Type is Int8") {
         CHECK(col->Type()->GetCode() == Type::Int8);
     }
 
