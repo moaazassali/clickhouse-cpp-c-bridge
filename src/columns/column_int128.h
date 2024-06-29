@@ -1,7 +1,11 @@
 #pragma once
 
 #include <clickhouse/columns/numeric.h>
-#include "../structs/int128_wrapper.h"
+#include <clickhouse/columns/nullable.h>
+
+#include "export.h"
+#include "structs/optional_wrapper.h"
+#include "structs/int128_wrapper.h"
 
 using namespace clickhouse;
 
