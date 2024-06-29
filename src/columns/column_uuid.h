@@ -8,8 +8,8 @@ extern "C" EXPORT inline ColumnUUID *CreateColumnUUID() {
     return new ColumnUUID();
 }
 
-extern "C" EXPORT inline void ColumnUUIDAppend(ColumnUUID *column, const uint64_t value1, const uint64_t value2) {
-    column->Append(std::make_pair(value1, value2));
+extern "C" EXPORT inline void ColumnUUIDAppend(ColumnUUID *column, const UUIDWrapper value) {
+    column->Append(std::make_pair(value.first, value.second));
 }
 
 // Should we return a pointer to the UUIDWrapper instead?
