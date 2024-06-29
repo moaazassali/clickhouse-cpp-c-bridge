@@ -1,6 +1,11 @@
 #pragma once
 
-#include "../structs/uuid_wrapper.h"
+#include <clickhouse/columns/uuid.h>
+#include <clickhouse/columns/nullable.h>
+
+#include "export.h"
+#include "structs/uuid_wrapper.h"
+#include "structs/optional_wrapper.h"
 
 using namespace clickhouse;
 
