@@ -19,18 +19,18 @@ TEST_CASE("Appending to and retrieving from ColumnInt16 correctly") {
     const auto col = CreateColumnInt16();
 
     ColumnInt16Append(col, 1);
-    CHECK(col->At(0) == 1);
+    CHECK(ColumnInt16At(col, 0) == 1);
     CHECK(col->Size() == 1);
 
     ColumnInt16Append(col, std::numeric_limits<int16_t>::max());
     SUBCASE("Returns same value when appending int16_t max value") {
-        CHECK(col->At(1) == std::numeric_limits<int16_t>::max());
+        CHECK(ColumnInt16At(col, 1) == std::numeric_limits<int16_t>::max());
         CHECK(col->Size() == 2);
     }
 
     ColumnInt16Append(col, std::numeric_limits<int16_t>::min());
     SUBCASE("Returns same value when appending int16_t min value") {
-        CHECK(col->At(2) == std::numeric_limits<int16_t>::min());
+        CHECK(ColumnInt16At(col, 2) == std::numeric_limits<int16_t>::min());
         CHECK(col->Size() == 3);
     }
 }

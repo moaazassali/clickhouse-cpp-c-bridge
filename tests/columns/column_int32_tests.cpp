@@ -19,18 +19,18 @@ TEST_CASE("Appending to and retrieving from ColumnInt32 correctly") {
     const auto col = CreateColumnInt32();
 
     ColumnInt32Append(col, 1);
-    CHECK(col->At(0) == 1);
+    CHECK(ColumnInt32At(col, 0) == 1);
     CHECK(col->Size() == 1);
 
     ColumnInt32Append(col, std::numeric_limits<int32_t>::max());
     SUBCASE("Returns same value when appending int32_t max value") {
-        CHECK(col->At(1) == std::numeric_limits<int32_t>::max());
+        CHECK(ColumnInt32At(col, 1) == std::numeric_limits<int32_t>::max());
         CHECK(col->Size() == 2);
     }
 
     ColumnInt32Append(col, std::numeric_limits<int32_t>::min());
     SUBCASE("Returns same value when appending int32_t min value") {
-        CHECK(col->At(2) == std::numeric_limits<int32_t>::min());
+        CHECK(ColumnInt32At(col, 2) == std::numeric_limits<int32_t>::min());
         CHECK(col->Size() == 3);
     }
 }

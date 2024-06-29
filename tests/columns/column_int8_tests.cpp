@@ -19,18 +19,18 @@ TEST_CASE("Appending to and retrieving from ColumnInt8 correctly") {
     const auto col = CreateColumnInt8();
 
     ColumnInt8Append(col, 1);
-    CHECK(col->At(0) == 1);
+    CHECK(ColumnInt8At(col, 0) == 1);
     CHECK(col->Size() == 1);
 
     ColumnInt8Append(col, std::numeric_limits<int8_t>::max());
     SUBCASE("Returns same value when appending int8_t max value") {
-        CHECK(col->At(1) == std::numeric_limits<int8_t>::max());
+        CHECK(ColumnInt8At(col, 1) == std::numeric_limits<int8_t>::max());
         CHECK(col->Size() == 2);
     }
 
     ColumnInt8Append(col, std::numeric_limits<int8_t>::min());
     SUBCASE("Returns same value when appending int8_t min value") {
-        CHECK(col->At(2) == std::numeric_limits<int8_t>::min());
+        CHECK(ColumnInt8At(col, 2) == std::numeric_limits<int8_t>::min());
         CHECK(col->Size() == 3);
     }
 }

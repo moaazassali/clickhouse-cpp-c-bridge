@@ -19,18 +19,18 @@ TEST_CASE("Appending to and retrieving from ColumnInt64 correctly") {
     const auto col = CreateColumnInt64();
 
     ColumnInt64Append(col, 1);
-    CHECK(col->At(0) == 1);
+    CHECK(ColumnInt64At(col, 0) == 1);
     CHECK(col->Size() == 1);
 
     ColumnInt64Append(col, std::numeric_limits<int64_t>::max());
     SUBCASE("Returns same value when appending int64_t max value") {
-        CHECK(col->At(1) == std::numeric_limits<int64_t>::max());
+        CHECK(ColumnInt64At(col, 1) == std::numeric_limits<int64_t>::max());
         CHECK(col->Size() == 2);
     }
 
     ColumnInt64Append(col, std::numeric_limits<int64_t>::min());
     SUBCASE("Returns same value when appending int64_t min value") {
-        CHECK(col->At(2) == std::numeric_limits<int64_t>::min());
+        CHECK(ColumnInt64At(col, 2) == std::numeric_limits<int64_t>::min());
         CHECK(col->Size() == 3);
     }
 }
