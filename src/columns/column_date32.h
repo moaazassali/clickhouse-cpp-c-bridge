@@ -1,6 +1,10 @@
 #pragma once
 
 #include <clickhouse/columns/date.h>
+#include <clickhouse/columns/nullable.h>
+
+#include "export.h"
+#include "structs/optional_wrapper.h"
 
 using namespace clickhouse;
 
