@@ -1,3 +1,4 @@
+#include "utils.h"
 #include "client_wrapper.h"
 #include "query_wrapper.h"
 #include "block_wrapper.h"
