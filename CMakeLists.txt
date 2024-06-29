@@ -24,7 +24,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE clickhouse-cpp-lib)
 enable_testing()
 
 # Find all test files under tests/
-file(GLOB TEST_SOURCES "tests/*.cpp")
+file(GLOB_RECURSE TEST_SOURCES "tests/*.cpp")
 add_executable(${PROJECT_NAME}-tests ${TEST_SOURCES})
 
 # Link the project library
