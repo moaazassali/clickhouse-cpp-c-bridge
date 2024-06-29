@@ -30,6 +30,7 @@
 #include "columns/column_nullable.h"
 #include "columns/column_enum8.h"
 #include "columns/column_enum16.h"
+#include "columns/column_array.h"
 
 // structs
 #include "structs/client_options_wrapper.h"
