@@ -16,7 +16,7 @@ TEST_CASE("Constructed ColumnUUID is valid") {
     }
 }
 
-TEST_CASE("Appending to ColumnUUID and retrieving correctly") {
+TEST_CASE("Appending to and retrieving from ColumnUUID correctly") {
     const auto col = CreateColumnUUID();
 
     std::random_device rd;

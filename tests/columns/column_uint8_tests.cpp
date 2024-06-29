@@ -15,7 +15,7 @@ TEST_CASE("Constructed ColumnUInt8 is valid") {
     }
 }
 
-TEST_CASE("Appending to ColumnUInt8 and retrieving correctly") {
+TEST_CASE("Appending to and retrieving from ColumnUInt8 correctly") {
     const auto col = CreateColumnUInt8();
 
     ColumnUInt8Append(col, 50);

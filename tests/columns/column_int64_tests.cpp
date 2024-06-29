@@ -15,7 +15,7 @@ TEST_CASE("Constructed ColumnInt64 is valid") {
     }
 }
 
-TEST_CASE("Appending to ColumnInt64 and retrieving correctly") {
+TEST_CASE("Appending to and retrieving from ColumnInt64 correctly") {
     const auto col = CreateColumnInt64();
 
     ColumnInt64Append(col, 1);

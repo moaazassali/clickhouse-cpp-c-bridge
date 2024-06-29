@@ -15,7 +15,7 @@ TEST_CASE("Constructed ColumnInt128 is valid") {
     }
 }
 
-TEST_CASE("Appending to ColumnInt128 and retrieving correctly") {
+TEST_CASE("Appending to and retrieving from ColumnInt128 correctly") {
     const auto col = CreateColumnInt128();
 
     ColumnInt128Append(col, {0, 1});

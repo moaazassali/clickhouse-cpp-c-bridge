@@ -15,7 +15,7 @@ TEST_CASE("Constructed ColumnInt32 is valid") {
     }
 }
 
-TEST_CASE("Appending to ColumnInt32 and retrieving correctly") {
+TEST_CASE("Appending to and retrieving from ColumnInt32 correctly") {
     const auto col = CreateColumnInt32();
 
     ColumnInt32Append(col, 1);

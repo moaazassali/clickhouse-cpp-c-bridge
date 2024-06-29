@@ -15,7 +15,7 @@ TEST_CASE("Constructed ColumnInt16 is valid") {
     }
 }
 
-TEST_CASE("Appending to ColumnInt16 and retrieving correctly") {
+TEST_CASE("Appending to and retrieving from ColumnInt16 correctly") {
     const auto col = CreateColumnInt16();
 
     ColumnInt16Append(col, 1);
