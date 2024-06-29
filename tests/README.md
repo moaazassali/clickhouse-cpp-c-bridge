@@ -4,9 +4,9 @@ This directory contains tests for the Clickhouse C++ C Bridge.
 
 The tests are written in C++ and use the [doctest](https://github.com/doctest/doctest]) testing framework.
 
-To build the tests, use CMake and do the following:
+To build and run the tests:
 
-1. Build the `clickhouse-cpp-c-bridge-tests` target.
+1. Use CMake to build the `clickhouse-cpp-c-bridge-tests` target.
 2. Run `cd out/<your_build_dir>`
 3. Run `ctest`
 
