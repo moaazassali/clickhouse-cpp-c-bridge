@@ -6,7 +6,7 @@
 TEST_CASE("Constructed ColumnDecimal is valid") {
     const auto col = CreateColumnDecimal(1, 0);
 
-    SUBCASE("Type is DateTime") {
+    SUBCASE("Type is Decimal") {
         CHECK(col->Type()->GetCode() == Type::Decimal);
     }
 
