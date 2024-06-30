@@ -10,6 +10,7 @@
 #include <clickhouse/base/socket.h>
 
 #include "export.h"
+#include "utils.h"
 #include "structs/clickhouse_result_status.h"
 #include "structs/int128_wrapper.h"
 #include "structs/optional_wrapper.h"
@@ -24,91 +25,174 @@ inline void ColumnNullableAppendNull(ColumnNullableT<T> *column) {
 // For FixedString and Decimal, pass length/precision as a
 // For DateTime64, pass precision and scale as a and b respectively
 // For all other types, a and b does not have any effect, pass whatever you want
-extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable(const Type::Code code, const size_t a,
-                                                                     const size_t b, Column **column) {
+// extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable(const Type::Code code, const size_t a,
+//                                                                      const size_t b, Column **column) {
+//     return TryCatchClickHouseError([&]() {
+//         switch (code) {
+//             case Type::UInt8:
+//                 *column = new ColumnNullableT<ColumnUInt8>();
+//                 break;
+//             case Type::UInt16:
+//                 *column = new ColumnNullableT<ColumnUInt16>();
+//                 break;
+//             case Type::UInt32:
+//                 *column = new ColumnNullableT<ColumnUInt32>();
+//                 break;
+//             case Type::UInt64:
+//                 *column = new ColumnNullableT<ColumnUInt64>();
+//                 break;
+//             case Type::Int8:
+//                 *column = new ColumnNullableT<ColumnInt8>();
+//                 break;
+//             case Type::Int16:
+//                 *column = new ColumnNullableT<ColumnInt16>();
+//                 break;
+//             case Type::Int32:
+//                 *column = new ColumnNullableT<ColumnInt32>();
+//                 break;
+//             case Type::Int64:
+//                 *column = new ColumnNullableT<ColumnInt64>();
+//                 break;
+//             case Type::Int128:
+//                 *column = new ColumnNullableT<ColumnInt128>();
+//                 break;
+//             case Type::UUID:
+//                 *column = new ColumnNullableT<ColumnUUID>();
+//                 break;
+//             case Type::Float32:
+//                 *column = new ColumnNullableT<ColumnFloat32>();
+//                 break;
+//             case Type::Float64:
+//                 *column = new ColumnNullableT<ColumnFloat64>();
+//                 break;
+//             case Type::Decimal:
+//                 *column = new ColumnNullableT<ColumnDecimal>(a, b);
+//                 break;
+//             case Type::Date:
+//                 *column = new ColumnNullableT<ColumnDate>();
+//                 break;
+//             case Type::Date32:
+//                 *column = new ColumnNullableT<ColumnDate32>();
+//                 break;
+//             case Type::DateTime:
+//                 *column = new ColumnNullableT<ColumnDateTime>();
+//                 break;
+//             case Type::DateTime64:
+//                 *column = new ColumnNullableT<ColumnDateTime64>(a);
+//                 break;
+//             case Type::Enum8:
+//                 *column = new ColumnNullableT<ColumnEnum8>(Type::CreateEnum8({}));
+//                 break;
+//             case Type::Enum16:
+//                 *column = new ColumnNullableT<ColumnEnum16>(Type::CreateEnum8({}));
+//                 break;
+//             case Type::String:
+//                 *column = new ColumnNullableT<ColumnString>();
+//                 break;
+//             case Type::FixedString:
+//                 *column = new ColumnNullableT<ColumnFixedString>(a);
+//                 break;
+//             case Type::IPv4:
+//                 *column = new ColumnNullableT<ColumnIPv4>();
+//                 break;
+//             case Type::IPv6:
+//                 *column = new ColumnNullableT<ColumnIPv6>();
+//                 break;
+//
+//             default:
+//                 throw ValidationError(
+//                     std::string("Provided type is not supported for Nullable columns: ") +
+//                     Type::TypeName(code) + "=" + std::to_string(code));
+//         }
+//     });
+// }
+
+// inColumn should not be freed after calling this method as Nullable uses it directly
+// But we still keep memory management of inColumn the responsibility of the caller side
+// So make sure to free inColumn after freeing outColumn (or whenever appropriate otherwise)
+// inColumn should ideally be hidden from the end user
+extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable(Column *inColumn, Column **outColumn) {
+    const auto type = inColumn->Type();
+
     return TryCatchClickHouseError([&]() {
-        switch (code) {
+        switch (type->GetCode()) {
             case Type::UInt8:
-                *column = new ColumnNullableT<ColumnUInt8>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnUInt8 *>(inColumn)));
                 break;
             case Type::UInt16:
-                *column = new ColumnNullableT<ColumnUInt16>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnUInt16 *>(inColumn)));
                 break;
             case Type::UInt32:
-                *column = new ColumnNullableT<ColumnUInt32>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnUInt32 *>(inColumn)));
                 break;
             case Type::UInt64:
-                *column = new ColumnNullableT<ColumnUInt64>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnUInt64 *>(inColumn)));
                 break;
             case Type::Int8:
-                *column = new ColumnNullableT<ColumnInt8>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnInt8 *>(inColumn)));
                 break;
             case Type::Int16:
-                *column = new ColumnNullableT<ColumnInt16>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnInt16 *>(inColumn)));
                 break;
             case Type::Int32:
-                *column = new ColumnNullableT<ColumnInt32>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnInt16 *>(inColumn)));
                 break;
             case Type::Int64:
-                *column = new ColumnNullableT<ColumnInt64>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnInt32 *>(inColumn)));
                 break;
             case Type::Int128:
-                *column = new ColumnNullableT<ColumnInt128>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnInt128 *>(inColumn)));
                 break;
             case Type::UUID:
-                *column = new ColumnNullableT<ColumnUUID>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnUUID *>(inColumn)));
                 break;
             case Type::Float32:
-                *column = new ColumnNullableT<ColumnFloat32>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnFloat32 *>(inColumn)));
                 break;
             case Type::Float64:
-                *column = new ColumnNullableT<ColumnFloat64>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnFloat64 *>(inColumn)));
                 break;
             case Type::Decimal:
-                *column = new ColumnNullableT<ColumnDecimal>(a, b);
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnDecimal *>(inColumn)));
                 break;
             case Type::Date:
-                *column = new ColumnNullableT<ColumnDate>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnDate *>(inColumn)));
                 break;
             case Type::Date32:
-                *column = new ColumnNullableT<ColumnDate32>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnDate32 *>(inColumn)));
                 break;
             case Type::DateTime:
-                *column = new ColumnNullableT<ColumnDateTime>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnDateTime *>(inColumn)));
                 break;
             case Type::DateTime64:
-                *column = new ColumnNullableT<ColumnDateTime64>(a);
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnDateTime64 *>(inColumn)));
                 break;
             case Type::Enum8:
-                *column = new ColumnNullableT<ColumnEnum8>(Type::CreateEnum8({}));
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnEnum8 *>(inColumn)));
                 break;
             case Type::Enum16:
-                *column = new ColumnNullableT<ColumnEnum16>(Type::CreateEnum8({}));
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnEnum16 *>(inColumn)));
                 break;
             case Type::String:
-                *column = new ColumnNullableT<ColumnString>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnString *>(inColumn)));
                 break;
             case Type::FixedString:
-                *column = new ColumnNullableT<ColumnFixedString>(a);
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnFixedString *>(inColumn)));
                 break;
             case Type::IPv4:
-                *column = new ColumnNullableT<ColumnIPv4>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnIPv4 *>(inColumn)));
                 break;
             case Type::IPv6:
-                *column = new ColumnNullableT<ColumnIPv6>();
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnIPv6 *>(inColumn)));
                 break;
 
             default:
                 throw ValidationError(
                     std::string("Provided type is not supported for Nullable columns: ") +
-                    Type::TypeName(code) + "=" + std::to_string(code));
+                    type->GetName() + "=" + std::to_string(type->GetCode()));
         }
     });
 }
-
-// extern "C" EXPORT inline void CreateTestNullable(Column *inColumn, Column **outColumn) {
-//     *outColumn = new ColumnNullableT(std::shared_ptr<Column>(inColumn));
-// }
 
 template<typename T>
 ColumnNullableT<T> *dynamic_cast_column_nullable(ColumnNullable *column) {
