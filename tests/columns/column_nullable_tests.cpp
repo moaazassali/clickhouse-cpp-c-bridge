@@ -645,7 +645,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullable *outCol;
         CreateColumnNullable(inCol, &outCol);
 
-        u_char in1[16] = {
+        unsigned char in1[16] = {
             0x00, 0x01, 0x02, 0x03,
             0x04, 0x05, 0x06, 0x07,
             0x08, 0x09, 0x0A, 0x0B,
