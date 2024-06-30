@@ -12,6 +12,8 @@
 #include "export.h"
 #include "structs/clickhouse_result_status.h"
 
+using namespace clickhouse;
+
 template<typename T>
 inline void ColumnNullableAppendNull(ColumnNullableT<T> *column) {
     column->Append(std::nullopt);
