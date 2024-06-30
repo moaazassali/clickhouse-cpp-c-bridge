@@ -31,6 +31,7 @@
 #include "columns/column_enum8.h"
 #include "columns/column_enum16.h"
 #include "columns/column_array.h"
+#include "columns/column_low_cardinality.h"
 
 // structs
 #include "structs/client_options_wrapper.h"
