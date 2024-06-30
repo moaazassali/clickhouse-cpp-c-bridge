@@ -1,6 +1,9 @@
 #pragma once
 
-#include "clickhouse/base/socket.h"
+#include <clickhouse/base/socket.h>
+
+#include "export.h"
+#include "structs/optional_wrapper.h"
 
 using namespace clickhouse;
 
