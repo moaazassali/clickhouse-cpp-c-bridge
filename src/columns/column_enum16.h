@@ -1,5 +1,9 @@
 #pragma once
 
+#include <clickhouse/columns/enum.h>
+
+#include "export.h"
+
 using namespace clickhouse;
 
 extern "C" EXPORT inline ColumnEnum16 *CreateColumnEnum16() {
