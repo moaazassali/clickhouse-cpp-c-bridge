@@ -1,5 +1,10 @@
 #pragma once
 
+#include <clickhouse/base/socket.h>
+
+#include "export.h"
+#include "structs/optional_wrapper.h"
+
 using namespace clickhouse;
 
 extern "C" EXPORT inline ColumnIPv6 *CreateColumnIPv6() {
