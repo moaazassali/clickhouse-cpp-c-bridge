@@ -111,7 +111,7 @@ extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable2(const Type
 // But we still keep memory management of inColumn the responsibility of the caller side
 // So make sure to free inColumn after freeing outColumn (or whenever appropriate otherwise)
 // inColumn should ideally be hidden from the end user
-extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable(Column *inColumn, Column **outColumn) {
+extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable(Column *inColumn, ColumnNullable **outColumn) {
     const auto type = inColumn->Type();
 
     return TryCatchClickHouseError([&]() {
