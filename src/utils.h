@@ -14,10 +14,10 @@ std::shared_ptr<T> make_fake_shared(T *ptr) {
 template<typename T>
 inline T *AsStrict(Column *column) {
     auto result = dynamic_cast<T *>(column);
-    if (!result) {
+    if (result == nullptr) {
         throw ValidationError(
-            "dynamic_cast failed. Casting type does not match the provided column's type. Expected column "
-            + std::string(typeid(T).name()) + " but got " + column->Type()->GetName());
+            "dynamic_cast failed. Expected column "
+            + std::string(typeid(T).name()) + " but got " + typeid(*column).name());
     }
     return result;
 }
