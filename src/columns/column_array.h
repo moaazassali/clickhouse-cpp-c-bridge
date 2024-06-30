@@ -1,6 +1,6 @@
 #pragma once
 
-#include "clickhouse/columns/array.h"
+#include "columns/column_nullable.h"
 
 using namespace clickhouse;
 

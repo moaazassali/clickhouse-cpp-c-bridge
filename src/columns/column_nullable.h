@@ -5,6 +5,13 @@
  * Refer to each column type that supports Nullable for specific functions.
  */
 
+#include <clickhouse/columns/nullable.h>
+#include <clickhouse/types/types.h>
+#include <clickhouse/base/socket.h>
+
+#include "export.h"
+#include "structs/clickhouse_result_status.h"
+
 template<typename T>
 inline void ColumnNullableAppendNull(ColumnNullableT<T> *column) {
     column->Append(std::nullopt);
@@ -94,6 +101,10 @@ extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable(const Type:
         }
     });
 }
+
+// extern "C" EXPORT inline void CreateTestNullable(Column *inColumn, Column **outColumn) {
+//     *outColumn = new ColumnNullableT(std::shared_ptr<Column>(inColumn));
+// }
 
 template<typename T>
 ColumnNullableT<T> *dynamic_cast_column_nullable(ColumnNullable *column) {
