@@ -13,10 +13,10 @@ set(LIB_SOURCES
 )
 add_library(${PROJECT_NAME} SHARED ${LIB_SOURCES})
 
-# To have absolute include paths from src/ directory instead of relative paths
+# We include src/ to have absolute include paths from src/ directory instead of relative paths
 # Also since our public header files use #include of external dependencies, we need to make this PUBLIC
 # Otherwise, dependent projects will not be able to find the headers to build and will give errors
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
 # ClickHouse C++ client (copied from https://github.com/ClickHouse/clickhouse-cpp)
 add_subdirectory(${PROJECT_SOURCE_DIR}/dependencies/clickhouse-cpp)
