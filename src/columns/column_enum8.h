@@ -3,7 +3,7 @@
 using namespace clickhouse;
 
 extern "C" EXPORT inline ColumnEnum8 *CreateColumnEnum8() {
-    return new ColumnEnum8({});
+    return new ColumnEnum8(Type::CreateEnum8({}));
 }
 
 extern "C" EXPORT inline void ColumnEnum8Append(ColumnEnum8 *column, const int8_t value) {
