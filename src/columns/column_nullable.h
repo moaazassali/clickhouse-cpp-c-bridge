@@ -26,7 +26,7 @@ inline void ColumnNullableAppendNull(ColumnNullableT<T> *column) {
 // For DateTime64, pass precision and scale as a and b respectively
 // For all other types, a and b does not have any effect, pass whatever you want
 extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable2(const Type::Code code, const size_t a,
-                                                                     const size_t b, Column **column) {
+                                                                      const size_t b, Column **column) {
     return TryCatchClickHouseError([&]() {
         switch (code) {
             case Type::UInt8:
@@ -369,19 +369,27 @@ extern "C" EXPORT inline ClickHouseResultStatus ColumnNullableAppend(ColumnNulla
             }
             case Type::IPv4: {
                 const auto derivedColumn = dynamic_cast_column_nullable<ColumnIPv4>(column);
-                in_addr addr{};
-                addr.s_addr = *static_cast<const uint32_t *>(value);
-                derivedColumn->Append(value == nullptr ? std::nullopt : std::optional(addr));
+                if (value != nullptr) {
+                    derivedColumn->Append(std::nullopt);
+                } else {
+                    in_addr addr{};
+                    addr.s_addr = *static_cast<const uint32_t *>(value);
+                    derivedColumn->Append(std::optional(addr));
+                }
                 break;
             }
             case Type::IPv6: {
                 const auto derivedColumn = dynamic_cast_column_nullable<ColumnIPv6>(column);
                 const auto derivedValue = static_cast<const unsigned char *>(value);
-                in6_addr addr{};
-                for (int i = 0; i < 16; i++) {
-                    addr.s6_addr[i] = derivedValue[i];
+                if (value == nullptr) {
+                    derivedColumn->Append(std::nullopt);
+                } else {
+                    in6_addr addr{};
+                    for (int i = 0; i < 16; i++) {
+                        addr.s6_addr[i] = derivedValue[i];
+                    }
+                    derivedColumn->Append(std::optional(addr));
                 }
-                derivedColumn->Append(value == nullptr ? std::nullopt : std::optional(addr));
                 break;
             }
 
