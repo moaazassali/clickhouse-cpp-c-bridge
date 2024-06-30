@@ -369,7 +369,7 @@ extern "C" EXPORT inline ClickHouseResultStatus ColumnNullableAppend(ColumnNulla
             }
             case Type::IPv4: {
                 const auto derivedColumn = dynamic_cast_column_nullable<ColumnIPv4>(column);
-                if (value != nullptr) {
+                if (value == nullptr) {
                     derivedColumn->Append(std::nullopt);
                 } else {
                     in_addr addr{};
