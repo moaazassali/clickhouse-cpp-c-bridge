@@ -11,6 +11,8 @@
 
 #include "export.h"
 #include "structs/clickhouse_result_status.h"
+#include "structs/int128_wrapper.h"
+#include "structs/optional_wrapper.h"
 
 using namespace clickhouse;
 
