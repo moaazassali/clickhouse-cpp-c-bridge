@@ -8,8 +8,8 @@ extern "C" EXPORT inline ColumnDecimal *CreateColumnDecimal(const size_t precisi
     return new ColumnDecimal(precision, scale);
 }
 
-extern "C" EXPORT inline void ColumnDecimalAppend(ColumnDecimal *column, const int64_t high, const uint64_t low) {
-    column->Append(absl::MakeInt128(high, low));
+extern "C" EXPORT inline void ColumnDecimalAppend(ColumnDecimal *column, const Int128Wrapper value) {
+    column->Append(absl::MakeInt128(value.high, value.low));
 }
 
 extern "C" EXPORT inline Int128Wrapper ColumnDecimalAt(const ColumnDecimal *column, const size_t index) {
