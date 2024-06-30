@@ -6,6 +6,7 @@
 #include "columns/column_fixed_string.h"
 #include "columns/column_int8.h"
 #include "columns/column_wrapper.h"
+#include "columns/column_nullable.h"
 
 TEST_CASE("Constructed ColumnLowCardinality is valid") {
     SUBCASE("Correctly create LowCardinality(String)") {
@@ -30,9 +31,13 @@ TEST_CASE("Constructed ColumnLowCardinality is valid") {
 
     SUBCASE("Correctly create LowCardinality(Nullable(String))") {
         Column *col;
-        auto inCol = CreateColumnNullable_String();
-        auto [code, message] = CreateColumnLowCardinality(inCol, &col);
-        delete inCol;
+        auto inNullCol = CreateColumnString();
+        Column *inLcCol;
+        CreateColumnNullable(inNullCol, &inLcCol);
+        auto [code, message] = CreateColumnLowCardinality(inLcCol, &col);
+        delete inNullCol;
+        delete inLcCol;
+
         CHECK(code == 0);
         CHECK(col->Type()->GetName() == "LowCardinality(Nullable(String))");
         CHECK(col->Size() == 0);
@@ -40,9 +45,13 @@ TEST_CASE("Constructed ColumnLowCardinality is valid") {
 
     SUBCASE("Correctly create LowCardinality(Nullable(FixedString))") {
         Column *col;
-        auto inCol = CreateColumnNullable_FixedString(20);
-        auto [code, message] = CreateColumnLowCardinality(inCol, &col);
-        delete inCol;
+        auto inNullCol = CreateColumnFixedString(20);
+        Column *inLcCol;
+        CreateColumnNullable(inNullCol, &inLcCol);
+        auto [code, message] = CreateColumnLowCardinality(inLcCol, &col);
+        delete inNullCol;
+        delete inLcCol;
+
         CHECK(code == 0);
         CHECK(col->Type()->GetName() == "LowCardinality(Nullable(FixedString(20)))");
         CHECK(col->Size() == 0);
@@ -117,9 +126,12 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
 
     SUBCASE("Append and retrieve from LowCardinality(Nullable(String))") {
         Column *col;
-        auto inCol = CreateColumnNullable_String();
-        auto [code, message] = CreateColumnLowCardinality(inCol, &col);
-        delete inCol;
+        auto inNullCol = CreateColumnString();
+        Column *inLcCol;
+        CreateColumnNullable(inNullCol, &inLcCol);
+        auto [code, message] = CreateColumnLowCardinality(inLcCol, &col);
+        delete inNullCol;
+        delete inLcCol;
 
         CHECK(code == 0);
         CHECK(col->Type()->GetName() == "LowCardinality(Nullable(String))");
@@ -147,9 +159,12 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
 
     SUBCASE("Append and retrieve from LowCardinality(Nullable(FixedString))") {
         Column *col;
-        auto inCol = CreateColumnNullable_FixedString(5);
-        auto [code, message] = CreateColumnLowCardinality(inCol, &col);
-        delete inCol;
+        auto inNullCol = CreateColumnFixedString(5);
+        Column *inLcCol;
+        CreateColumnNullable(inNullCol, &inLcCol);
+        auto [code, message] = CreateColumnLowCardinality(inLcCol, &col);
+        delete inNullCol;
+        delete inLcCol;
 
         CHECK(code == 0);
         CHECK(col->Type()->GetName() == "LowCardinality(Nullable(FixedString(5)))");
