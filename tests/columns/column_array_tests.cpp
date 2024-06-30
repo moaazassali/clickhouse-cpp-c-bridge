@@ -1,8 +1,8 @@
 #include <doctest/doctest.h>
 #include <clickhouse/types/types.h>
-#include <columns/column_int8.h>
 
 #include "columns/column_array.h"
+#include "columns/column_int8.h"
 #include "utils.h"
 
 Column *CreateNestedArray(Column *innerCol, const size_t depth) {
