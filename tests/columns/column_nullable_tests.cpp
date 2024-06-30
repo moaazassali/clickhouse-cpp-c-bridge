@@ -28,7 +28,7 @@
 TEST_CASE("Constructed ColumnNullable is valid") {
     SUBCASE("Correctly create Nullable(UInt8)") {
         auto inCol = CreateColumnUInt8();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(UInt8)");
@@ -36,7 +36,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(UInt16)") {
         auto inCol = CreateColumnUInt16();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(UInt16)");
@@ -44,7 +44,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(UInt32)") {
         auto inCol = CreateColumnUInt32();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(UInt32)");
@@ -52,7 +52,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(UInt64)") {
         auto inCol = CreateColumnUInt64();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(UInt64)");
@@ -60,7 +60,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(Int8)") {
         auto inCol = CreateColumnInt8();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Int8)");
@@ -68,7 +68,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(Int16)") {
         auto inCol = CreateColumnInt16();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Int16)");
@@ -76,7 +76,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(Int32)") {
         auto inCol = CreateColumnInt32();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Int32)");
@@ -84,7 +84,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(Int64)") {
         auto inCol = CreateColumnInt64();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Int64)");
@@ -92,7 +92,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(Int128)") {
         auto inCol = CreateColumnInt128();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Int128)");
@@ -100,7 +100,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(UUID)") {
         auto inCol = CreateColumnUUID();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(UUID)");
@@ -108,7 +108,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(Float32)") {
         auto inCol = CreateColumnFloat32();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Float32)");
@@ -116,7 +116,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(Float64)") {
         auto inCol = CreateColumnFloat64();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Float64)");
@@ -124,7 +124,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(Decimal)") {
         auto inCol = CreateColumnDecimal(9, 4);
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Decimal(9,4))");
@@ -132,7 +132,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(Date)") {
         auto inCol = CreateColumnDate();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Date)");
@@ -140,7 +140,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(Date32)") {
         auto inCol = CreateColumnDate32();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Date32)");
@@ -148,7 +148,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(DateTime)") {
         auto inCol = CreateColumnDateTime();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(DateTime)");
@@ -156,7 +156,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(DateTime64)") {
         auto inCol = CreateColumnDateTime64(3);
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(DateTime64(3))");
@@ -164,7 +164,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(Enum8)") {
         auto inCol = CreateColumnEnum8();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Enum8())");
@@ -172,7 +172,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(Enum16)") {
         auto inCol = CreateColumnEnum16();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Enum16())");
@@ -180,7 +180,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(String)") {
         auto inCol = CreateColumnString();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(String)");
@@ -188,7 +188,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(FixedString)") {
         auto inCol = CreateColumnFixedString(10);
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(FixedString(10))");
@@ -196,7 +196,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(IPv4)") {
         auto inCol = CreateColumnIPv4();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(IPv4)");
@@ -204,7 +204,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     }
     SUBCASE("Correctly create Nullable(IPv6)") {
         auto inCol = CreateColumnIPv6();
-        Column *outCol;
+        ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(IPv6)");
