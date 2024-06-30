@@ -32,7 +32,7 @@ TEST_CASE("Constructed ColumnLowCardinality is valid") {
     SUBCASE("Correctly create LowCardinality(Nullable(String))") {
         Column *col;
         auto inNullCol = CreateColumnString();
-        Column *inLcCol;
+        ColumnNullable *inLcCol;
         CreateColumnNullable(inNullCol, &inLcCol);
         auto [code, message] = CreateColumnLowCardinality(inLcCol, &col);
         delete inNullCol;
@@ -46,7 +46,7 @@ TEST_CASE("Constructed ColumnLowCardinality is valid") {
     SUBCASE("Correctly create LowCardinality(Nullable(FixedString))") {
         Column *col;
         auto inNullCol = CreateColumnFixedString(20);
-        Column *inLcCol;
+        ColumnNullable *inLcCol;
         CreateColumnNullable(inNullCol, &inLcCol);
         auto [code, message] = CreateColumnLowCardinality(inLcCol, &col);
         delete inNullCol;
@@ -127,7 +127,7 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
     SUBCASE("Append and retrieve from LowCardinality(Nullable(String))") {
         Column *col;
         auto inNullCol = CreateColumnString();
-        Column *inLcCol;
+        ColumnNullable *inLcCol;
         CreateColumnNullable(inNullCol, &inLcCol);
         auto [code, message] = CreateColumnLowCardinality(inLcCol, &col);
         delete inNullCol;
@@ -160,7 +160,7 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
     SUBCASE("Append and retrieve from LowCardinality(Nullable(FixedString))") {
         Column *col;
         auto inNullCol = CreateColumnFixedString(5);
-        Column *inLcCol;
+        ColumnNullable *inLcCol;
         CreateColumnNullable(inNullCol, &inLcCol);
         auto [code, message] = CreateColumnLowCardinality(inLcCol, &col);
         delete inNullCol;
