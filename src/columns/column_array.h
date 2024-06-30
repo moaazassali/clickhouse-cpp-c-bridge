@@ -56,7 +56,7 @@ inline Column *CreateInnerMostColumn(const Type::Code code, const Type::Code nul
         case Type::IPv6:
             return new ColumnArrayT<ColumnIPv6>();
         case Type::Nullable:
-            const auto status = CreateColumnNullable(nullableCode, a, b, nestedColumn);
+            const auto status = CreateColumnNullable2(nullableCode, a, b, nestedColumn);
         // rethrow the error if not successful
             if (status.code != 0) {
                 throw ValidationError(status.message);

@@ -25,87 +25,87 @@ inline void ColumnNullableAppendNull(ColumnNullableT<T> *column) {
 // For FixedString and Decimal, pass length/precision as a
 // For DateTime64, pass precision and scale as a and b respectively
 // For all other types, a and b does not have any effect, pass whatever you want
-// extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable(const Type::Code code, const size_t a,
-//                                                                      const size_t b, Column **column) {
-//     return TryCatchClickHouseError([&]() {
-//         switch (code) {
-//             case Type::UInt8:
-//                 *column = new ColumnNullableT<ColumnUInt8>();
-//                 break;
-//             case Type::UInt16:
-//                 *column = new ColumnNullableT<ColumnUInt16>();
-//                 break;
-//             case Type::UInt32:
-//                 *column = new ColumnNullableT<ColumnUInt32>();
-//                 break;
-//             case Type::UInt64:
-//                 *column = new ColumnNullableT<ColumnUInt64>();
-//                 break;
-//             case Type::Int8:
-//                 *column = new ColumnNullableT<ColumnInt8>();
-//                 break;
-//             case Type::Int16:
-//                 *column = new ColumnNullableT<ColumnInt16>();
-//                 break;
-//             case Type::Int32:
-//                 *column = new ColumnNullableT<ColumnInt32>();
-//                 break;
-//             case Type::Int64:
-//                 *column = new ColumnNullableT<ColumnInt64>();
-//                 break;
-//             case Type::Int128:
-//                 *column = new ColumnNullableT<ColumnInt128>();
-//                 break;
-//             case Type::UUID:
-//                 *column = new ColumnNullableT<ColumnUUID>();
-//                 break;
-//             case Type::Float32:
-//                 *column = new ColumnNullableT<ColumnFloat32>();
-//                 break;
-//             case Type::Float64:
-//                 *column = new ColumnNullableT<ColumnFloat64>();
-//                 break;
-//             case Type::Decimal:
-//                 *column = new ColumnNullableT<ColumnDecimal>(a, b);
-//                 break;
-//             case Type::Date:
-//                 *column = new ColumnNullableT<ColumnDate>();
-//                 break;
-//             case Type::Date32:
-//                 *column = new ColumnNullableT<ColumnDate32>();
-//                 break;
-//             case Type::DateTime:
-//                 *column = new ColumnNullableT<ColumnDateTime>();
-//                 break;
-//             case Type::DateTime64:
-//                 *column = new ColumnNullableT<ColumnDateTime64>(a);
-//                 break;
-//             case Type::Enum8:
-//                 *column = new ColumnNullableT<ColumnEnum8>(Type::CreateEnum8({}));
-//                 break;
-//             case Type::Enum16:
-//                 *column = new ColumnNullableT<ColumnEnum16>(Type::CreateEnum8({}));
-//                 break;
-//             case Type::String:
-//                 *column = new ColumnNullableT<ColumnString>();
-//                 break;
-//             case Type::FixedString:
-//                 *column = new ColumnNullableT<ColumnFixedString>(a);
-//                 break;
-//             case Type::IPv4:
-//                 *column = new ColumnNullableT<ColumnIPv4>();
-//                 break;
-//             case Type::IPv6:
-//                 *column = new ColumnNullableT<ColumnIPv6>();
-//                 break;
-//
-//             default:
-//                 throw ValidationError(
-//                     std::string("Provided type is not supported for Nullable columns: ") +
-//                     Type::TypeName(code) + "=" + std::to_string(code));
-//         }
-//     });
-// }
+extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable2(const Type::Code code, const size_t a,
+                                                                     const size_t b, Column **column) {
+    return TryCatchClickHouseError([&]() {
+        switch (code) {
+            case Type::UInt8:
+                *column = new ColumnNullableT<ColumnUInt8>();
+                break;
+            case Type::UInt16:
+                *column = new ColumnNullableT<ColumnUInt16>();
+                break;
+            case Type::UInt32:
+                *column = new ColumnNullableT<ColumnUInt32>();
+                break;
+            case Type::UInt64:
+                *column = new ColumnNullableT<ColumnUInt64>();
+                break;
+            case Type::Int8:
+                *column = new ColumnNullableT<ColumnInt8>();
+                break;
+            case Type::Int16:
+                *column = new ColumnNullableT<ColumnInt16>();
+                break;
+            case Type::Int32:
+                *column = new ColumnNullableT<ColumnInt32>();
+                break;
+            case Type::Int64:
+                *column = new ColumnNullableT<ColumnInt64>();
+                break;
+            case Type::Int128:
+                *column = new ColumnNullableT<ColumnInt128>();
+                break;
+            case Type::UUID:
+                *column = new ColumnNullableT<ColumnUUID>();
+                break;
+            case Type::Float32:
+                *column = new ColumnNullableT<ColumnFloat32>();
+                break;
+            case Type::Float64:
+                *column = new ColumnNullableT<ColumnFloat64>();
+                break;
+            case Type::Decimal:
+                *column = new ColumnNullableT<ColumnDecimal>(a, b);
+                break;
+            case Type::Date:
+                *column = new ColumnNullableT<ColumnDate>();
+                break;
+            case Type::Date32:
+                *column = new ColumnNullableT<ColumnDate32>();
+                break;
+            case Type::DateTime:
+                *column = new ColumnNullableT<ColumnDateTime>();
+                break;
+            case Type::DateTime64:
+                *column = new ColumnNullableT<ColumnDateTime64>(a);
+                break;
+            case Type::Enum8:
+                *column = new ColumnNullableT<ColumnEnum8>(Type::CreateEnum8({}));
+                break;
+            case Type::Enum16:
+                *column = new ColumnNullableT<ColumnEnum16>(Type::CreateEnum8({}));
+                break;
+            case Type::String:
+                *column = new ColumnNullableT<ColumnString>();
+                break;
+            case Type::FixedString:
+                *column = new ColumnNullableT<ColumnFixedString>(a);
+                break;
+            case Type::IPv4:
+                *column = new ColumnNullableT<ColumnIPv4>();
+                break;
+            case Type::IPv6:
+                *column = new ColumnNullableT<ColumnIPv6>();
+                break;
+
+            default:
+                throw ValidationError(
+                    std::string("Provided type is not supported for Nullable columns: ") +
+                    Type::TypeName(code) + "=" + std::to_string(code));
+        }
+    });
+}
 
 // inColumn should not be freed after calling this method as Nullable uses it directly
 // But we still keep memory management of inColumn the responsibility of the caller side
