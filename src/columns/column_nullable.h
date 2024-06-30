@@ -135,10 +135,10 @@ extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable(Column *inC
                 *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnInt16 *>(inColumn)));
                 break;
             case Type::Int32:
-                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnInt16 *>(inColumn)));
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnInt32 *>(inColumn)));
                 break;
             case Type::Int64:
-                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnInt32 *>(inColumn)));
+                *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnInt64 *>(inColumn)));
                 break;
             case Type::Int128:
                 *outColumn = new ColumnNullableT(make_fake_shared(static_cast<ColumnInt128 *>(inColumn)));
