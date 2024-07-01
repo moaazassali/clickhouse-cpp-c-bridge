@@ -116,6 +116,6 @@ extern "C" EXPORT inline ClickHouseResultStatus CreateNestedColumnArray(
 
 extern "C" EXPORT inline ClickHouseResultStatus CreateColumnArray(Column *inColumn, Column **outColumn) {
     return TryCatchClickHouseError([&]() {
-        *outColumn = new ColumnArrayT(std::shared_ptr<Column>(inColumn));
+        *outColumn = new ColumnArrayT(make_fake_shared(inColumn));
     });
 }
