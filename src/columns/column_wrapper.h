@@ -1,5 +1,9 @@
 #pragma once
 
+#include <clickhouse/columns/column.h>
+
+#include "export.h"
+
 using namespace clickhouse;
 
 extern "C" EXPORT inline void FreeColumn(const Column *col) {
