@@ -1,7 +1,7 @@
 [submodule "dependencies/clickhouse-cpp"]
 	path = dependencies/clickhouse-cpp
 	url = https://github.com/moaazassali/clickhouse-cpp
-	branch = feature-nullable-raw
+	branch = c-bridge
 [submodule "dependencies/doctest"]
 	path = dependencies/doctest
 	url = https://github.com/doctest/doctest
