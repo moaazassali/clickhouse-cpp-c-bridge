@@ -114,6 +114,7 @@ extern "C" EXPORT inline ClickHouseResultStatus CreateNestedColumnArray(
     });
 }
 
+// Like CreateColumnTuple(), we use a fake shared_ptr to give the external library full control over the columns.
 extern "C" EXPORT inline ClickHouseResultStatus CreateColumnArray(Column *inColumn, Column **outColumn) {
     return TryCatchClickHouseError([&]() {
         *outColumn = new ColumnArrayT(make_fake_shared(inColumn));
