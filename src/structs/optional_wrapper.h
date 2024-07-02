@@ -2,10 +2,11 @@
 
 #include <clickhouse/types/types.h>
 
-#include <structs/int128_wrapper.h>
-#include <structs/string_view_wrapper.h>
-#include <structs/uuid_wrapper.h>
-#include <export.h>
+#include "structs/int128_wrapper.h"
+#include "structs/string_view_wrapper.h"
+#include "structs/uuid_wrapper.h"
+#include "export.h"
+#include "clickhouse/base/socket.h"
 
 using namespace clickhouse;
 
@@ -38,7 +39,10 @@ typedef OptionalWrapper(double, OptionalFloat64Wrapper);
 
 typedef OptionalWrapper(UUIDWrapper, OptionalUUIDWrapper);
 
-typedef OptionalWrapper(const unsigned char *, OptionalIPv6Wrapper);
+struct OptionalIPv6Wrapper {
+    bool has_value;
+    in6_addr value;
+};
 
 extern "C" EXPORT inline void FreeOptionalWrapper(const void *wrapper, const Type::Code code) {
     switch (code) {

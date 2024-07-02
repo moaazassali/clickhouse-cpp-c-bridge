@@ -657,11 +657,11 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(GetColumnSize(outCol) == 2);
 
-        auto out1 = static_cast<OptionalStringViewWrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalStringViewWrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<OptionalIPv6Wrapper *>(ColumnNullableAt(outCol, 0));
+        auto out2 = static_cast<OptionalIPv6Wrapper *>(ColumnNullableAt(outCol, 1));
 
         CHECK(out1->has_value == true);
-        CHECK(memcmp(out1->value.data, in1, out1->value.length) == 0);
+        CHECK(memcmp(&out1->value, in1, 16) == 0);
         CHECK(out2->has_value == false);
     }
 }

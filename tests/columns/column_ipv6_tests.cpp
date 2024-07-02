@@ -25,6 +25,7 @@ TEST_CASE("Appending to and retrieving from ColumnIPv6 correctly") {
         0x0C, 0x0D, 0x0E, 0x0F
     };
     ColumnIPv6Append(col, value);
-    CHECK(memcmp(ColumnIPv6At(col, 0), value, 16) == 0);
+    const auto out = ColumnIPv6At(col, 0);
+    CHECK(memcmp(&out, value, 16) == 0);
     CHECK(col->Size() == 1);
 }

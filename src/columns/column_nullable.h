@@ -455,8 +455,8 @@ extern "C" EXPORT inline void *ColumnNullableAt(ColumnNullable *column, const si
         case Type::IPv6: {
             const auto value = dynamic_cast_column_nullable<ColumnIPv6>(column)->At(index);
             return value.has_value()
-                       ? new OptionalIPv6Wrapper{true, value.value().s6_addr}
-                       : new OptionalIPv6Wrapper{false, nullptr};
+                       ? new OptionalIPv6Wrapper{true, value.value()}
+                       : new OptionalIPv6Wrapper{false, {}};
         }
         default:
             return nullptr;
