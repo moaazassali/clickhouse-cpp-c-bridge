@@ -671,7 +671,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         CHECK(out2->has_value == false);
     }
     SUBCASE("Returns non-zero result code for unsupported nullable type") {
-        const auto outCol = new ColumnNullableT<ColumnArrayT<ColumnInt8>>();
+        const auto outCol = new ColumnNullableT<ColumnArrayT<ColumnInt8> >();
 
         constexpr auto in1 = 1;
         auto res = ColumnNullableAppend(outCol, &in1);
