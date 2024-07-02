@@ -211,6 +211,12 @@ TEST_CASE("Constructed ColumnNullable is valid") {
         CHECK(outCol->Type()->GetName() == "Nullable(IPv6)");
         CHECK(outCol->Size() == 0);
     }
+    SUBCASE("Returns non-zero result code for unsupported nullable type") {
+        auto inCol = new ColumnArrayT<ColumnInt8>();
+        ColumnNullable *outCol;
+        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        CHECK(code == -1);
+    }
 }
 
 TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
@@ -663,5 +669,16 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         CHECK(out1->has_value == true);
         CHECK(memcmp(&out1->value, in1, 16) == 0);
         CHECK(out2->has_value == false);
+    }
+    SUBCASE("Returns non-zero result code for unsupported nullable type") {
+        const auto outCol = new ColumnNullableT<ColumnArrayT<ColumnInt8>>();
+
+        constexpr auto in1 = 1;
+        auto res = ColumnNullableAppend(outCol, &in1);
+
+        CHECK(res.code == -1);
+
+        auto value = ColumnNullableAt(outCol, 0);
+        CHECK(value == nullptr);
     }
 }
