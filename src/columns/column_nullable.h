@@ -113,12 +113,6 @@ ColumnNullableT<T> *dynamic_cast_column_nullable(ColumnNullable *column) {
 // Pass nullptr to append a NULL value
 extern "C" EXPORT inline ClickHouseResultStatus ColumnNullableAppend(ColumnNullable *column, const void *value) {
     return TryCatchClickHouseError([&]() {
-        if (const auto columnType = column->Type(); columnType->GetCode() != Type::Nullable) {
-            throw ValidationError(
-                std::string("Provided column is not Nullable. Received ") + columnType->GetName()
-                + "=" + std::to_string(columnType->GetCode()));
-        }
-
         const auto nestedType = column->Nested()->Type();
 
         switch (nestedType->GetCode()) {
