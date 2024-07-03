@@ -121,7 +121,7 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
         CHECK(res2.code == -1);
 
         auto out1 = static_cast<StringViewWrapper *>(ColumnLowCardinalityAt(lcCol, 0));
-        CHECK(ColumnSize(lcCol) == 1);
+        CHECK(chc_column_size(lcCol) == 1);
 
         CHECK(strncmp(out1->data, in1, out1->length) == 0);
     }
@@ -185,7 +185,7 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
         CHECK(res2.code == -1);
         CHECK(res3.code == 0);
 
-        CHECK(ColumnSize(lcCol) == 2);
+        CHECK(chc_column_size(lcCol) == 2);
 
         auto out1 = static_cast<OptionalStringViewWrapper *>(ColumnLowCardinalityAt(lcCol, 0));
         auto out3 = static_cast<OptionalStringViewWrapper *>(ColumnLowCardinalityAt(lcCol, 1));

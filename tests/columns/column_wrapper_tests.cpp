@@ -5,17 +5,17 @@
 
 TEST_CASE("Column is nullptr after being freed") {
     const auto col = new ColumnInt8();
-    CHECK_NOTHROW(ColumnFree(col));
+    CHECK_NOTHROW(chc_column_free(col));
 }
 
 TEST_CASE("GetColumnType() returns correct type") {
     const auto col = new ColumnInt8();
-    CHECK(ColumnType(col) == Type::Int8);
+    CHECK(chc_column_type(col) == Type::Int8);
 }
 
 TEST_CASE("ReserveColumn() correctly changes capacity") {
     const auto col = new ColumnInt8();
-    ColumnReserve(col, 100);
+    chc_column_reserve(col, 100);
     CHECK(col->Capacity() == 100);
 }
 
@@ -24,7 +24,7 @@ TEST_CASE("ClearColumn() clears the column") {
     col->Append(1);
     col->Append(2);
     col->Append(3);
-    ColumnClear(col);
+    chc_column_clear(col);
     CHECK(col->Size() == 0);
 }
 
@@ -33,5 +33,5 @@ TEST_CASE("GetColumnSize() returns correct size") {
     col->Append(1);
     col->Append(2);
     col->Append(3);
-    CHECK(ColumnSize(col) == 3);
+    CHECK(chc_column_size(col) == 3);
 }

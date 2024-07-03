@@ -230,7 +230,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalUInt8Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalUInt8Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -249,7 +249,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalUInt16Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalUInt16Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -268,7 +268,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalUInt32Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalUInt32Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -287,7 +287,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalUInt64Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalUInt64Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -306,7 +306,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalInt8Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalInt8Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -325,7 +325,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalInt16Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalInt16Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -344,7 +344,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalInt32Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalInt32Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -363,7 +363,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalInt64Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalInt64Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -382,7 +382,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalInt128Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalInt128Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -402,7 +402,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalUUIDWrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalUUIDWrapper *>(ColumnNullableAt(outCol, 1));
@@ -422,7 +422,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalFloat32Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalFloat32Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -441,7 +441,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalFloat64Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalFloat64Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -460,7 +460,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalInt128Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalInt128Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -480,7 +480,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalUInt16Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalUInt16Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -499,7 +499,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalInt32Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalInt32Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -518,7 +518,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalUInt32Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalUInt32Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -537,7 +537,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalInt64Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalInt64Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -556,7 +556,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalInt8Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalInt8Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -575,7 +575,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalInt16Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalInt16Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -594,7 +594,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalStringViewWrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalStringViewWrapper *>(ColumnNullableAt(outCol, 1));
@@ -637,7 +637,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, &in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalUInt32Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalUInt32Wrapper *>(ColumnNullableAt(outCol, 1));
@@ -661,7 +661,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         ColumnNullableAppend(outCol, in1);
         ColumnNullableAppend(outCol, in2);
 
-        CHECK(ColumnSize(outCol) == 2);
+        CHECK(chc_column_size(outCol) == 2);
 
         auto out1 = static_cast<OptionalIPv6Wrapper *>(ColumnNullableAt(outCol, 0));
         auto out2 = static_cast<OptionalIPv6Wrapper *>(ColumnNullableAt(outCol, 1));
