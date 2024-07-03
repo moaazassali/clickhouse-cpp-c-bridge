@@ -32,30 +32,6 @@ extern "C" EXPORT inline ClickHouseResultStatus Execute(Client *client, const Qu
  * So, if we want to add support for Select() with a string query, we can add an overloaded function that accepts a
  * string and converts it to a query object in the actual client library.
  */
-typedef void (*SelectCallbackWrapper)(const Block *block);
-
-extern "C" EXPORT inline ClickHouseResultStatus Select(Client *client, Query *query, SelectCallbackWrapper cb) {
-    query->OnData([&cb](const Block &block) {
-        cb(&block);
-    });
-
-    return TryCatchClickHouseError([&]() {
-        client->Select(*query);
-    });
-}
-
-typedef bool (*SelectCancelableCallbackWrapper)(const Block *block);
-
-extern "C" EXPORT inline ClickHouseResultStatus SelectCancelable(Client *client, Query *query,
-                                                                 SelectCancelableCallbackWrapper cb) {
-    query->OnDataCancelable([&cb](const Block &block) {
-        return cb(&block);
-    });
-
-    return TryCatchClickHouseError([&]() {
-        client->Select(*query);
-    });
-}
 
 extern "C" EXPORT inline ClickHouseResultStatus Insert(Client *client, const char *table_name,
                                                        const Block *block) {
