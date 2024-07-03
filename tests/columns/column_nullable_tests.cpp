@@ -232,12 +232,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_uint8 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_uint8 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == uint8);
+        CHECK(out1.value.uint8 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(UInt16)") {
         const auto inCol = chc_column_uint16_create();
@@ -251,12 +251,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_uint16 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_uint16 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == uint16);
+        CHECK(out1.value.uint16 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(UInt32)") {
         const auto inCol = chc_column_uint32_create();
@@ -270,12 +270,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_uint32 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_uint32 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == uint32);
+        CHECK(out1.value.uint32 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(UInt64)") {
         const auto inCol = chc_column_uint64_create();
@@ -289,12 +289,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_uint64 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_uint64 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == uint64);
+        CHECK(out1.value.uint64 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(Int8)") {
         const auto inCol = chc_column_int8_create();
@@ -308,12 +308,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_int8 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_int8 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == int8);
+        CHECK(out1.value.int8 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(Int16)") {
         const auto inCol = chc_column_int16_create();
@@ -327,12 +327,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_int16 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_int16 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == int16);
+        CHECK(out1.value.int16 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(Int32)") {
         const auto inCol = chc_column_int32_create();
@@ -346,12 +346,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_int32 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_int32 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == int32);
+        CHECK(out1.value.int32 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(Int64)") {
         const auto inCol = chc_column_int64_create();
@@ -365,12 +365,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_int64 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_int64 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == int64);
+        CHECK(out1.value.int64 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(Int128)") {
         const auto inCol = chc_column_int128_create();
@@ -384,13 +384,13 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_int128 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_int128 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value.high == std::numeric_limits<int64_t>::max());
-        CHECK(out1->value.low == std::numeric_limits<uint64_t>::max());
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == int128);
+        CHECK(out1.value.int128.high == std::numeric_limits<int64_t>::max());
+        CHECK(out1.value.int128.low == std::numeric_limits<uint64_t>::max());
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(UUID)") {
         const auto inCol = chc_column_uuid_create();
@@ -404,13 +404,13 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_uuid *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_uuid *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value.first == std::numeric_limits<uint64_t>::max());
-        CHECK(out1->value.second == std::numeric_limits<int64_t>::max());
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == uuid);
+        CHECK(out1.value.uuid.first == std::numeric_limits<uint64_t>::max());
+        CHECK(out1.value.uuid.second == std::numeric_limits<int64_t>::max());
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(Float32)") {
         const auto inCol = chc_column_float32_create();
@@ -424,12 +424,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_float32 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_float32 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == float32);
+        CHECK(out1.value.float32 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(Float64)") {
         const auto inCol = chc_column_float64_create();
@@ -443,12 +443,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_float64 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_float64 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == float64);
+        CHECK(out1.value.float64 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(Decimal)") {
         const auto inCol = chc_column_decimal_create(10, 5); // Decimal64
@@ -462,13 +462,13 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_int128 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_int128 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value.high == 0);
-        CHECK(out1->value.low == std::numeric_limits<int64_t>::max());
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == int128);
+        CHECK(out1.value.int128.high == 0);
+        CHECK(out1.value.int128.low == std::numeric_limits<int64_t>::max());
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(Date)") {
         const auto inCol = chc_column_date_create();
@@ -482,12 +482,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_uint16 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_uint16 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == uint16);
+        CHECK(out1.value.uint16 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(Date32)") {
         const auto inCol = chc_column_date32_create();
@@ -501,12 +501,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_int32 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_int32 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == int32);
+        CHECK(out1.value.int32 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(DateTime)") {
         const auto inCol = chc_column_datetime_create();
@@ -520,12 +520,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_uint32 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_uint32 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == uint32);
+        CHECK(out1.value.uint32 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(DateTime64)") {
         const auto inCol = chc_column_datetime64_create(3);
@@ -539,12 +539,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_int64 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_int64 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == int64);
+        CHECK(out1.value.int64 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(Enum8)") {
         const auto inCol = chc_column_enum8_create();
@@ -558,12 +558,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_int8 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_int8 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == int8);
+        CHECK(out1.value.int8 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(Enum16)") {
         const auto inCol = chc_column_enum16_create();
@@ -577,12 +577,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_int16 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_int16 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == int16);
+        CHECK(out1.value.int16 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(String)") {
         const auto inCol = chc_column_string_create();
@@ -596,12 +596,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_string_view *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_string_view *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(strncmp(out1->value.data, in1, out1->value.length) == 0);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == string_view);
+        CHECK(strncmp(out1.value.string_view.data, in1, out1.value.string_view.length) == 0);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(FixedString)") {
         const auto inCol = chc_column_fixed_string_create(5);
@@ -620,12 +620,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         // This check fails as a result
         // CHECK(GetColumnSize(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_string_view *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_string_view *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(strncmp(out1->value.data, in1, out1->value.length) == 0);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == string_view);
+        CHECK(strncmp(out1.value.string_view.data, in1, out1.value.string_view.length) == 0);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(IPv4)") {
         const auto inCol = chc_column_ipv4_create();
@@ -639,12 +639,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_uint32 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_uint32 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(out1->value == in1);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == uint32);
+        CHECK(out1.value.uint32 == in1);
+        CHECK(out2.type == null);
     }
     SUBCASE("Append and retrieve from Nullable(IPv6)") {
         const auto inCol = chc_column_ipv6_create();
@@ -663,12 +663,12 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<chc_optional_ipv6 *>(chc_column_nullable_at(outCol, 0));
-        auto out2 = static_cast<chc_optional_ipv6 *>(chc_column_nullable_at(outCol, 1));
+        auto out1 = chc_column_nullable_at(outCol, 0);
+        auto out2 = chc_column_nullable_at(outCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(memcmp(&out1->value, in1, 16) == 0);
-        CHECK(out2->has_value == false);
+        CHECK(out1.type == ipv6);
+        CHECK(memcmp(&out1.value.ipv6, in1, 16) == 0);
+        CHECK(out2.type == null);
     }
     SUBCASE("Returns non-zero result code for unsupported nullable type") {
         const auto outCol = new ColumnNullableT<ColumnArrayT<ColumnInt8> >();
@@ -679,6 +679,6 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         CHECK(res.code == -1);
 
         auto value = chc_column_nullable_at(outCol, 0);
-        CHECK(value == nullptr);
+        CHECK(value.type == invalid);
     }
 }

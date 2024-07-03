@@ -94,17 +94,22 @@ extern "C" EXPORT inline chc_result_status chc_column_low_cardinality_append(
     });
 }
 
-extern "C" EXPORT inline void *chc_column_low_cardinality_at(ColumnLowCardinality *column, const size_t index) {
+extern "C" EXPORT inline chc_optional chc_column_low_cardinality_at(ColumnLowCardinality *column, const size_t index) {
     const auto nestedType = column->GetNestedType();
+    chc_optional result{};
 
     switch (nestedType->GetCode()) {
         case Type::String: {
             const auto value = static_cast<ColumnLowCardinalityT<ColumnString> *>(column)->At(index);
-            return new chc_string_view{value.data(), value.length()};
+            result.type = string_view;
+            result.value.string_view = chc_string_view{value.data(), value.length()};
+            return result;
         }
         case Type::FixedString: {
             const auto value = static_cast<ColumnLowCardinalityT<ColumnFixedString> *>(column)->At(index);
-            return new chc_string_view{value.data(), value.length()};
+            result.type = string_view;
+            result.value.string_view = chc_string_view{value.data(), value.length()};
+            return result;
         }
         case Type::Nullable: {
             const auto nullableType = nestedType->As<NullableType>()->GetNestedType();
@@ -114,23 +119,24 @@ extern "C" EXPORT inline void *chc_column_low_cardinality_at(ColumnLowCardinalit
                     const auto value = static_cast<ColumnLowCardinalityT<ColumnNullableT<ColumnString> > *>(column)->
                             At(index);
                     return value.has_value()
-                               ? new chc_optional_string_view{
-                                   true, chc_string_view{value.value().data(), value.value().length()}
-                               }
-                               : new chc_optional_string_view{false, chc_string_view{nullptr, 0}};
+                               ? (result.type = string_view, result.value.string_view = chc_string_view{
+                                      value.value().data(), value.value().length()
+                                  }, result)
+                               : (result.type = null, result);
                 }
                 case Type::FixedString: {
-                    const auto value = static_cast<ColumnLowCardinalityT<ColumnNullableT<ColumnFixedString> > *>(column)->
+                    const auto value = static_cast<ColumnLowCardinalityT<ColumnNullableT<ColumnFixedString> > *>(column)
+                            ->
                             At(index);
                     return value.has_value()
-                               ? new chc_optional_string_view{
-                                   true, chc_string_view{value.value().data(), value.value().length()}
-                               }
-                               : new chc_optional_string_view{false, chc_string_view{nullptr, 0}};
+                               ? (result.type = string_view, result.value.string_view = chc_string_view{
+                                      value.value().data(), value.value().length()
+                                  }, result)
+                               : (result.type = null, result);
                 }
-                default: return nullptr;
+                default: return {invalid, {}};
             }
         }
-        default: return nullptr;
+        default: return {invalid, {}};
     }
 }

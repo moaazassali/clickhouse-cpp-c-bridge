@@ -101,7 +101,7 @@ extern "C" EXPORT inline chc_result_status chc_column_nullable_create(Column *in
 
 template<typename T>
 ColumnNullableT<T> *static_cast_column_nullable(ColumnNullable *column) {
-    return dynamic_cast<ColumnNullableT<T> *>(column);
+    return static_cast<ColumnNullableT<T> *>(column);
 }
 
 // Pass nullptr to append a NULL value
@@ -294,159 +294,161 @@ extern "C" EXPORT inline chc_result_status chc_column_nullable_append(ColumnNull
     });
 }
 
-extern "C" EXPORT inline void *chc_column_nullable_at(ColumnNullable *column, const size_t index) {
+extern "C" EXPORT inline chc_optional chc_column_nullable_at(ColumnNullable *column, const size_t index) {
     const auto nestedType = column->Nested()->Type();
+    chc_optional result{};
+
+    // it is important to put each ternary operator in parentheses to avoid precedence issues
+    // like the compiler thinking it evaluates to (x ? y, z : w), v instead of x ? (y, z) : (w, v)
 
     switch (nestedType->GetCode()) {
         case Type::UInt8: {
             const auto value = static_cast_column_nullable<ColumnUInt8>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_uint8{true, value.value()}
-                       : new chc_optional_uint8{false, 0};
+                       ? (result.type = uint8, result.value.uint8 = value.value(), result)
+                       : (result.type = null, result);
         }
         case Type::UInt16: {
             const auto value = static_cast_column_nullable<ColumnUInt16>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_uint16{true, value.value()}
-                       : new chc_optional_uint16{false, 0};
+                       ? (result.type = uint16, result.value.uint16 = value.value(), result)
+                       : (result.type = null, result);
         }
         case Type::UInt32: {
             const auto value = static_cast_column_nullable<ColumnUInt32>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_uint32{true, value.value()}
-                       : new chc_optional_uint32{false, 0};
+                       ? (result.type = uint32, result.value.uint32 = value.value(), result)
+                       : (result.type = null, result);
         }
         case Type::UInt64: {
             const auto value = static_cast_column_nullable<ColumnUInt64>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_uint64{true, value.value()}
-                       : new chc_optional_uint64{false, 0};
+                       ? (result.type = uint64, result.value.uint64 = value.value(), result)
+                       : (result.type = null, result);
         }
         case Type::Int8: {
             const auto value = static_cast_column_nullable<ColumnInt8>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_int8{true, value.value()}
-                       : new chc_optional_int8{false, 0};
+                       ? (result.type = int8, result.value.int8 = value.value(), result)
+                       : (result.type = null, result);
         }
         case Type::Int16: {
             const auto value = static_cast_column_nullable<ColumnInt16>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_int16{true, value.value()}
-                       : new chc_optional_int16{false, 0};
+                       ? (result.type = int16, result.value.int16 = value.value(), result)
+                       : (result.type = null, result);
         }
         case Type::Int32: {
             const auto value = static_cast_column_nullable<ColumnInt32>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_int32{true, value.value()}
-                       : new chc_optional_int32{false, 0};
+                       ? (result.type = int32, result.value.int32 = value.value(), result)
+                       : (result.type = null, result);
         }
         case Type::Int64: {
             const auto value = static_cast_column_nullable<ColumnInt64>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_int64{true, value.value()}
-                       : new chc_optional_int64{false, 0};
+                       ? (result.type = int64, result.value.int64 = value.value(), result)
+                       : (result.type = null, result);
         }
         case Type::Int128: {
             const auto value = static_cast_column_nullable<ColumnInt128>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_int128{
-                           true,
-                           chc_int128{Int128High64(value.value()), Int128Low64(value.value())}
-                       }
-                       : new chc_optional_int128{false, 0, 0};
+                       ? (result.type = int128, result.value.int128 = chc_int128{
+                              Int128High64(value.value()), Int128Low64(value.value())
+                          }, result)
+                       : (result.type = null, result);
         }
         case Type::UUID: {
             const auto value = static_cast_column_nullable<ColumnUUID>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_uuid{true, value.value().first, value.value().second}
-                       : new chc_optional_uuid{false, 0, 0};
+                       ? (result.type = uuid, result.value.uuid = {value.value().first, value.value().second}, result)
+                       : (result.type = null, result);
         }
         case Type::Float32: {
             const auto value = static_cast_column_nullable<ColumnFloat32>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_float32{true, value.value()}
-                       : new chc_optional_float32{false, 0};
+                       ? (result.type = float32, result.value.float32 = value.value(), result)
+                       : (result.type = null, result);
         }
         case Type::Float64: {
             const auto value = static_cast_column_nullable<ColumnFloat64>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_float64{true, value.value()}
-                       : new chc_optional_float64{false, 0};
+                       ? (result.type = float64, result.value.float64 = value.value(), result)
+                       : (result.type = null, result);
         }
         case Type::Decimal: {
             const auto value = static_cast_column_nullable<ColumnDecimal>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_int128{
-                           true,
-                           chc_int128{Int128High64(value.value()), Int128Low64(value.value())}
-                       }
-                       : new chc_optional_int128{false, 0, 0};
+                       ? (result.type = int128, result.value.int128 = chc_int128{
+                              Int128High64(value.value()), Int128Low64(value.value())
+                          }, result)
+                       : (result.type = null, result);
         }
         case Type::Date: {
             const auto value = static_cast_column_nullable<ColumnDate>(column)->RawAt(index);
             return value.has_value()
-                       ? new chc_optional_uint16{true, value.value()}
-                       : new chc_optional_uint16{false, 0};
+                       ? (result.type = uint16, result.value.uint16 = value.value(), result)
+                       : (result.type = null, result);
         }
         case Type::Date32: {
             const auto value = static_cast_column_nullable<ColumnDate32>(column)->RawAt(index);
             return value.has_value()
-                       ? new chc_optional_int32{true, value.value()}
-                       : new chc_optional_int32{false, 0};
+                       ? (result.type = int32, result.value.int32 = value.value(), result)
+                       : (result.type = null, result);
         }
         case Type::DateTime: {
             const auto value = static_cast_column_nullable<ColumnDateTime>(column)->RawAt(index);
             return value.has_value()
-                       ? new chc_optional_uint32{true, value.value()}
-                       : new chc_optional_uint32{false, 0};
+                       ? (result.type = uint32, result.value.uint32 = value.value(), result)
+                       : (result.type = null, result);
         }
         case Type::DateTime64: {
             const auto value = static_cast_column_nullable<ColumnDateTime64>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_int64{true, value.value()}
-                       : new chc_optional_int64{false, 0};
+                       ? (result.type = int64, result.value.int64 = value.value(), result)
+                       : (result.type = null, result);
         }
         case Type::Enum8: {
             const auto value = static_cast_column_nullable<ColumnEnum8>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_int8{true, value.value()}
-                       : new chc_optional_int8{false, 0};
+                       ? (result.type = int8, result.value.int8 = value.value(), result)
+                       : (result.type = null, result);
         }
         case Type::Enum16: {
             const auto value = static_cast_column_nullable<ColumnEnum16>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_int16{true, value.value()}
-                       : new chc_optional_int16{false, 0};
+                       ? (result.type = int16, result.value.int16 = value.value(), result)
+                       : (result.type = null, result);
         }
         case Type::String: {
             const auto value = static_cast_column_nullable<ColumnString>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_string_view{
-                           true, chc_string_view{value.value().data(), value.value().length()}
-                       }
-                       : new chc_optional_string_view{false, chc_string_view{nullptr, 0}};
+                       ? (result.type = string_view, result.value.string_view = chc_string_view{
+                              value.value().data(), value.value().length()
+                          }, result)
+                       : (result.type = null, result);
         }
         case Type::FixedString: {
             const auto value = static_cast_column_nullable<ColumnFixedString>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_string_view{
-                           true, chc_string_view{value.value().data(), value.value().length()}
-                       }
-                       : new chc_optional_string_view{false, chc_string_view{nullptr, 0}};
+                       ? (result.type = string_view, result.value.string_view = chc_string_view{
+                              value.value().data(), value.value().length()
+                          }, result)
+                       : (result.type = null, result);
         }
         case Type::IPv4: {
             const auto value = static_cast_column_nullable<ColumnIPv4>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_uint32{true, value.value().s_addr}
-                       : new chc_optional_uint32{false, 0};
+                       ? (result.type = uint32, result.value.uint32 = value.value().s_addr, result)
+                       : (result.type = null, result);
         }
         case Type::IPv6: {
             const auto value = static_cast_column_nullable<ColumnIPv6>(column)->At(index);
             return value.has_value()
-                       ? new chc_optional_ipv6{true, value.value()}
-                       : new chc_optional_ipv6{false, {}};
+                       ? (result.type = ipv6, result.value.ipv6 = value.value(), result)
+                       : (result.type = null, result);
         }
         default:
-            return nullptr;
+            return {invalid, {}};
     }
 }

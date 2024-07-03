@@ -93,11 +93,14 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
         CHECK(res1.code == 0);
         CHECK(res2.code == 0);
 
-        auto out1 = static_cast<chc_string_view *>(chc_column_low_cardinality_at(lcCol, 0));
-        auto out2 = static_cast<chc_string_view *>(chc_column_low_cardinality_at(lcCol, 1));
+        auto out1 = chc_column_low_cardinality_at(lcCol, 0);
+        auto out2 = chc_column_low_cardinality_at(lcCol, 1);
 
-        CHECK(strncmp(out1->data, in1, out1->length) == 0);
-        CHECK(strncmp(out2->data, in2, out2->length) == 0);
+        CHECK(out1.type == string_view);
+        CHECK(strncmp(out1.value.string_view.data, in1, out1.value.string_view.length) == 0);
+
+        CHECK(out2.type == string_view);
+        CHECK(strncmp(out2.value.string_view.data, in2, out2.value.string_view.length) == 0);
     }
 
     SUBCASE("Append and retrieve from LowCardinality(FixedString)") {
@@ -115,15 +118,17 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
         auto in2 = "world!";
 
         auto res1 = chc_column_low_cardinality_append(lcCol, in1);
-        auto res2 = chc_column_low_cardinality_append(lcCol, in2); // causes validation error because in2 is 6 chars long
+        auto res2 = chc_column_low_cardinality_append(lcCol, in2);
+        // causes validation error because in2 is 6 chars long
 
         CHECK(res1.code == 0);
         CHECK(res2.code == -1);
 
-        auto out1 = static_cast<chc_string_view *>(chc_column_low_cardinality_at(lcCol, 0));
+        auto out1 = chc_column_low_cardinality_at(lcCol, 0);
         CHECK(chc_column_size(lcCol) == 1);
 
-        CHECK(strncmp(out1->data, in1, out1->length) == 0);
+        CHECK(out1.type == string_view);
+        CHECK(strncmp(out1.value.string_view.data, in1, out1.value.string_view.length) == 0);
     }
 
     SUBCASE("Append and retrieve from LowCardinality(Nullable(String))") {
@@ -149,14 +154,13 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
         CHECK(res1.code == 0);
         CHECK(res2.code == 0);
 
-        auto out1 = static_cast<chc_optional_string_view *>(chc_column_low_cardinality_at(lcCol, 0));
-        auto out2 = static_cast<chc_optional_string_view *>(chc_column_low_cardinality_at(lcCol, 1));
+        auto out1 = chc_column_low_cardinality_at(lcCol, 0);
+        auto out3 = chc_column_low_cardinality_at(lcCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(strncmp(out1->value.data, in1, out1->value.length) == 0);
+        CHECK(out1.type == string_view);
+        CHECK(strncmp(out1.value.string_view.data, in1, out1.value.string_view.length) == 0);
 
-        CHECK(out2->has_value == false);
-        CHECK(out2->value.data == nullptr);
+        CHECK(out3.type == null);
     }
 
     SUBCASE("Append and retrieve from LowCardinality(Nullable(FixedString))") {
@@ -187,13 +191,12 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
 
         CHECK(chc_column_size(lcCol) == 2);
 
-        auto out1 = static_cast<chc_optional_string_view *>(chc_column_low_cardinality_at(lcCol, 0));
-        auto out3 = static_cast<chc_optional_string_view *>(chc_column_low_cardinality_at(lcCol, 1));
+        auto out1 = chc_column_low_cardinality_at(lcCol, 0);
+        auto out3 = chc_column_low_cardinality_at(lcCol, 1);
 
-        CHECK(out1->has_value == true);
-        CHECK(strncmp(out1->value.data, in1, out1->value.length) == 0);
+        CHECK(out1.type == string_view);
+        CHECK(strncmp(out1.value.string_view.data, in1, out1.value.string_view.length) == 0);
 
-        CHECK(out3->has_value == false);
-        CHECK(out3->value.data == nullptr);
+        CHECK(out3.type == null);
     }
 }
