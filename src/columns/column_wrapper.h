@@ -6,7 +6,7 @@
 
 using namespace clickhouse;
 
-extern "C" EXPORT inline void FreeColumn(const Column *col) {
+extern "C" EXPORT inline void ColumnFree(const Column *col) {
     delete col;
 }
 

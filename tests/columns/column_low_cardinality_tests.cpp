@@ -64,8 +64,10 @@ TEST_CASE("Constructed ColumnLowCardinality is valid") {
     }
 
     SUBCASE("Return non-zero result code for unsupported nullable nested type") {
+        ColumnNullable *nullCol;
+        CreateColumnNullable(CreateColumnInt8(), &nullCol);
         Column *col;
-        auto [code, message] = CreateColumnLowCardinality(CreateColumnNullable_Int8(), &col);
+        auto [code, message] = CreateColumnLowCardinality(nullCol, &col);
         CHECK(code == -1);
     }
 }
@@ -119,7 +121,7 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
         CHECK(res2.code == -1);
 
         auto out1 = static_cast<StringViewWrapper *>(ColumnLowCardinalityAt(lcCol, 0));
-        CHECK(GetColumnSize(lcCol) == 1);
+        CHECK(ColumnSize(lcCol) == 1);
 
         CHECK(strncmp(out1->data, in1, out1->length) == 0);
     }
@@ -183,7 +185,7 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
         CHECK(res2.code == -1);
         CHECK(res3.code == 0);
 
-        CHECK(GetColumnSize(lcCol) == 2);
+        CHECK(ColumnSize(lcCol) == 2);
 
         auto out1 = static_cast<OptionalStringViewWrapper *>(ColumnLowCardinalityAt(lcCol, 0));
         auto out3 = static_cast<OptionalStringViewWrapper *>(ColumnLowCardinalityAt(lcCol, 1));
