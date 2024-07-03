@@ -7,6 +7,8 @@
 
 using namespace clickhouse;
 
+// a bool is technically sufficient, but since a bool is 1 byte, we might as well use a uint8_t
+// we could even use a 64-bit enum without wasting space due to padding, but that would be overkill
 enum chc_optional_type : uint8_t {
     invalid,
     null,
