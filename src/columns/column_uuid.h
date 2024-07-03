@@ -17,7 +17,6 @@ extern "C" EXPORT inline void chc_column_uuid_append(ColumnUUID *column, const c
     column->Append(std::make_pair(value.first, value.second));
 }
 
-// Should we return a pointer to the UUIDWrapper instead?
 extern "C" EXPORT inline chc_uuid chc_column_uuid_at(const ColumnUUID *column, const size_t index) {
     const auto [first, second] = column->At(index);
     return chc_uuid{first, second};
