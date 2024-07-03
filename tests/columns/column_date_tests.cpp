@@ -4,7 +4,7 @@
 #include "columns/column_date.h"
 
 TEST_CASE("Constructed ColumnDate is valid") {
-    const auto col = CreateColumnDate();
+    const auto col = chc_column_date_create();
 
     SUBCASE("Type is Date") {
         CHECK(col->Type()->GetCode() == Type::Date);
@@ -16,21 +16,21 @@ TEST_CASE("Constructed ColumnDate is valid") {
 }
 
 TEST_CASE("Appending to and retrieving from ColumnDate correctly") {
-    const auto col = CreateColumnDate();
+    const auto col = chc_column_date_create();
 
-    ColumnDateAppendRaw(col, 100);
-    CHECK(ColumnDateRawAt(col, 0) == 100);
+    chc_column_date_append(col, 100);
+    CHECK(chc_column_date_at(col, 0) == 100);
     CHECK(col->Size() == 1);
 
-    ColumnDateAppendRaw(col, std::numeric_limits<uint16_t>::max());
+    chc_column_date_append(col, std::numeric_limits<uint16_t>::max());
     SUBCASE("Returns same value when appending uint16_t max value") {
-        CHECK(ColumnDateRawAt(col, 1) == std::numeric_limits<uint16_t>::max());
+        CHECK(chc_column_date_at(col, 1) == std::numeric_limits<uint16_t>::max());
         CHECK(col->Size() == 2);
     }
 
-    ColumnDateAppendRaw(col, std::numeric_limits<uint16_t>::min());
+    chc_column_date_append(col, std::numeric_limits<uint16_t>::min());
     SUBCASE("Returns same value when appending uint16_t min value") {
-        CHECK(ColumnDateRawAt(col, 2) == std::numeric_limits<uint16_t>::min());
+        CHECK(chc_column_date_at(col, 2) == std::numeric_limits<uint16_t>::min());
         CHECK(col->Size() == 3);
     }
 }

@@ -13,7 +13,7 @@ using namespace clickhouse;
 // However, these columns should probably not be directly exposed to the end user.
 // Instead, the library should create them based on the passed types by the user and only expose ColumnTuple.
 // But there might be a use case for exposing the columns, so we won't limit the functionality here.
-extern "C" EXPORT inline ClickHouseResultStatus CreateColumnTuple(ColumnTuple **outColumn, int n, ...) {
+extern "C" EXPORT inline chc_result_status chc_column_tuple_create(ColumnTuple **outColumn, int n, ...) {
     va_list args;
     va_start(args, n);
 
@@ -38,10 +38,10 @@ extern "C" EXPORT inline ClickHouseResultStatus CreateColumnTuple(ColumnTuple **
     });
 }
 
-extern "C" EXPORT inline Column *ColumnTupleColumnAt(const ColumnTuple *column, const size_t index) {
+extern "C" EXPORT inline Column *chc_column_tuple_column_at(const ColumnTuple *column, const size_t index) {
     return column->At(index).get();
 }
 
-extern "C" EXPORT inline size_t ColumnTupleColumnCount(const ColumnTuple *column) {
+extern "C" EXPORT inline size_t chc_column_tuple_column_count(const ColumnTuple *column) {
     return column->TupleSize();
 }

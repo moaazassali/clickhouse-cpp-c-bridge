@@ -16,7 +16,7 @@ using namespace clickhouse;
 // But we still keep memory management of inColumn the responsibility of the caller side
 // So make sure to free inColumn after freeing outColumn (or whenever appropriate otherwise)
 // inColumn should ideally be hidden from the end user
-extern "C" EXPORT inline ClickHouseResultStatus CreateColumnNullable(Column *inColumn, ColumnNullable **outColumn) {
+extern "C" EXPORT inline chc_result_status chc_column_nullable_create(Column *inColumn, ColumnNullable **outColumn) {
     const auto type = inColumn->Type();
 
     return TryCatchClickHouseError([&]() {
@@ -105,7 +105,7 @@ ColumnNullableT<T> *static_cast_column_nullable(ColumnNullable *column) {
 }
 
 // Pass nullptr to append a NULL value
-extern "C" EXPORT inline ClickHouseResultStatus ColumnNullableAppend(ColumnNullable *column, const void *value) {
+extern "C" EXPORT inline chc_result_status chc_column_nullable_append(ColumnNullable *column, const void *value) {
     return TryCatchClickHouseError([&]() {
         const auto nestedType = column->Nested()->Type();
 
@@ -168,7 +168,7 @@ extern "C" EXPORT inline ClickHouseResultStatus ColumnNullableAppend(ColumnNulla
             }
             case Type::Int128: {
                 const auto derivedColumn = static_cast_column_nullable<ColumnInt128>(column);
-                const auto derivedValue = static_cast<const Int128Wrapper *>(value);
+                const auto derivedValue = static_cast<const chc_int128 *>(value);
                 derivedColumn->Append(value == nullptr
                                           ? std::nullopt
                                           : std::optional(absl::MakeInt128(derivedValue->high, derivedValue->low)));
@@ -176,7 +176,7 @@ extern "C" EXPORT inline ClickHouseResultStatus ColumnNullableAppend(ColumnNulla
             }
             case Type::UUID: {
                 const auto derivedColumn = static_cast_column_nullable<ColumnUUID>(column);
-                const auto derivedValue = static_cast<const UUIDWrapper *>(value);
+                const auto derivedValue = static_cast<const chc_uuid *>(value);
                 derivedColumn->Append(value == nullptr
                                           ? std::nullopt
                                           : std::optional(std::make_pair(derivedValue->first, derivedValue->second)));
@@ -198,7 +198,7 @@ extern "C" EXPORT inline ClickHouseResultStatus ColumnNullableAppend(ColumnNulla
             }
             case Type::Decimal: {
                 const auto derivedColumn = static_cast_column_nullable<ColumnDecimal>(column);
-                const auto derivedValue = static_cast<const Int128Wrapper *>(value);
+                const auto derivedValue = static_cast<const chc_int128 *>(value);
                 derivedColumn->Append(value == nullptr
                                           ? std::nullopt
                                           : std::optional(absl::MakeInt128(derivedValue->high, derivedValue->low)));
@@ -294,157 +294,157 @@ extern "C" EXPORT inline ClickHouseResultStatus ColumnNullableAppend(ColumnNulla
     });
 }
 
-extern "C" EXPORT inline void *ColumnNullableAt(ColumnNullable *column, const size_t index) {
+extern "C" EXPORT inline void *chc_column_nullable_at(ColumnNullable *column, const size_t index) {
     const auto nestedType = column->Nested()->Type();
 
     switch (nestedType->GetCode()) {
         case Type::UInt8: {
             const auto value = static_cast_column_nullable<ColumnUInt8>(column)->At(index);
             return value.has_value()
-                       ? new OptionalUInt8Wrapper{true, value.value()}
-                       : new OptionalUInt8Wrapper{false, 0};
+                       ? new chc_optional_uint8{true, value.value()}
+                       : new chc_optional_uint8{false, 0};
         }
         case Type::UInt16: {
             const auto value = static_cast_column_nullable<ColumnUInt16>(column)->At(index);
             return value.has_value()
-                       ? new OptionalUInt16Wrapper{true, value.value()}
-                       : new OptionalUInt16Wrapper{false, 0};
+                       ? new chc_optional_uint16{true, value.value()}
+                       : new chc_optional_uint16{false, 0};
         }
         case Type::UInt32: {
             const auto value = static_cast_column_nullable<ColumnUInt32>(column)->At(index);
             return value.has_value()
-                       ? new OptionalUInt32Wrapper{true, value.value()}
-                       : new OptionalUInt32Wrapper{false, 0};
+                       ? new chc_optional_uint32{true, value.value()}
+                       : new chc_optional_uint32{false, 0};
         }
         case Type::UInt64: {
             const auto value = static_cast_column_nullable<ColumnUInt64>(column)->At(index);
             return value.has_value()
-                       ? new OptionalUInt64Wrapper{true, value.value()}
-                       : new OptionalUInt64Wrapper{false, 0};
+                       ? new chc_optional_uint64{true, value.value()}
+                       : new chc_optional_uint64{false, 0};
         }
         case Type::Int8: {
             const auto value = static_cast_column_nullable<ColumnInt8>(column)->At(index);
             return value.has_value()
-                       ? new OptionalInt8Wrapper{true, value.value()}
-                       : new OptionalInt8Wrapper{false, 0};
+                       ? new chc_optional_int8{true, value.value()}
+                       : new chc_optional_int8{false, 0};
         }
         case Type::Int16: {
             const auto value = static_cast_column_nullable<ColumnInt16>(column)->At(index);
             return value.has_value()
-                       ? new OptionalInt16Wrapper{true, value.value()}
-                       : new OptionalInt16Wrapper{false, 0};
+                       ? new chc_optional_int16{true, value.value()}
+                       : new chc_optional_int16{false, 0};
         }
         case Type::Int32: {
             const auto value = static_cast_column_nullable<ColumnInt32>(column)->At(index);
             return value.has_value()
-                       ? new OptionalInt32Wrapper{true, value.value()}
-                       : new OptionalInt32Wrapper{false, 0};
+                       ? new chc_optional_int32{true, value.value()}
+                       : new chc_optional_int32{false, 0};
         }
         case Type::Int64: {
             const auto value = static_cast_column_nullable<ColumnInt64>(column)->At(index);
             return value.has_value()
-                       ? new OptionalInt64Wrapper{true, value.value()}
-                       : new OptionalInt64Wrapper{false, 0};
+                       ? new chc_optional_int64{true, value.value()}
+                       : new chc_optional_int64{false, 0};
         }
         case Type::Int128: {
             const auto value = static_cast_column_nullable<ColumnInt128>(column)->At(index);
             return value.has_value()
-                       ? new OptionalInt128Wrapper{
+                       ? new chc_optional_int128{
                            true,
-                           Int128Wrapper{Int128High64(value.value()), Int128Low64(value.value())}
+                           chc_int128{Int128High64(value.value()), Int128Low64(value.value())}
                        }
-                       : new OptionalInt128Wrapper{false, 0, 0};
+                       : new chc_optional_int128{false, 0, 0};
         }
         case Type::UUID: {
             const auto value = static_cast_column_nullable<ColumnUUID>(column)->At(index);
             return value.has_value()
-                       ? new OptionalUUIDWrapper{true, value.value().first, value.value().second}
-                       : new OptionalUUIDWrapper{false, 0, 0};
+                       ? new chc_optional_uuid{true, value.value().first, value.value().second}
+                       : new chc_optional_uuid{false, 0, 0};
         }
         case Type::Float32: {
             const auto value = static_cast_column_nullable<ColumnFloat32>(column)->At(index);
             return value.has_value()
-                       ? new OptionalFloat32Wrapper{true, value.value()}
-                       : new OptionalFloat32Wrapper{false, 0};
+                       ? new chc_optional_float32{true, value.value()}
+                       : new chc_optional_float32{false, 0};
         }
         case Type::Float64: {
             const auto value = static_cast_column_nullable<ColumnFloat64>(column)->At(index);
             return value.has_value()
-                       ? new OptionalFloat64Wrapper{true, value.value()}
-                       : new OptionalFloat64Wrapper{false, 0};
+                       ? new chc_optional_float64{true, value.value()}
+                       : new chc_optional_float64{false, 0};
         }
         case Type::Decimal: {
             const auto value = static_cast_column_nullable<ColumnDecimal>(column)->At(index);
             return value.has_value()
-                       ? new OptionalInt128Wrapper{
+                       ? new chc_optional_int128{
                            true,
-                           Int128Wrapper{Int128High64(value.value()), Int128Low64(value.value())}
+                           chc_int128{Int128High64(value.value()), Int128Low64(value.value())}
                        }
-                       : new OptionalInt128Wrapper{false, 0, 0};
+                       : new chc_optional_int128{false, 0, 0};
         }
         case Type::Date: {
             const auto value = static_cast_column_nullable<ColumnDate>(column)->RawAt(index);
             return value.has_value()
-                       ? new OptionalUInt16Wrapper{true, value.value()}
-                       : new OptionalUInt16Wrapper{false, 0};
+                       ? new chc_optional_uint16{true, value.value()}
+                       : new chc_optional_uint16{false, 0};
         }
         case Type::Date32: {
             const auto value = static_cast_column_nullable<ColumnDate32>(column)->RawAt(index);
             return value.has_value()
-                       ? new OptionalInt32Wrapper{true, value.value()}
-                       : new OptionalInt32Wrapper{false, 0};
+                       ? new chc_optional_int32{true, value.value()}
+                       : new chc_optional_int32{false, 0};
         }
         case Type::DateTime: {
             const auto value = static_cast_column_nullable<ColumnDateTime>(column)->RawAt(index);
             return value.has_value()
-                       ? new OptionalUInt32Wrapper{true, value.value()}
-                       : new OptionalUInt32Wrapper{false, 0};
+                       ? new chc_optional_uint32{true, value.value()}
+                       : new chc_optional_uint32{false, 0};
         }
         case Type::DateTime64: {
             const auto value = static_cast_column_nullable<ColumnDateTime64>(column)->At(index);
             return value.has_value()
-                       ? new OptionalInt64Wrapper{true, value.value()}
-                       : new OptionalInt64Wrapper{false, 0};
+                       ? new chc_optional_int64{true, value.value()}
+                       : new chc_optional_int64{false, 0};
         }
         case Type::Enum8: {
             const auto value = static_cast_column_nullable<ColumnEnum8>(column)->At(index);
             return value.has_value()
-                       ? new OptionalInt8Wrapper{true, value.value()}
-                       : new OptionalInt8Wrapper{false, 0};
+                       ? new chc_optional_int8{true, value.value()}
+                       : new chc_optional_int8{false, 0};
         }
         case Type::Enum16: {
             const auto value = static_cast_column_nullable<ColumnEnum16>(column)->At(index);
             return value.has_value()
-                       ? new OptionalInt16Wrapper{true, value.value()}
-                       : new OptionalInt16Wrapper{false, 0};
+                       ? new chc_optional_int16{true, value.value()}
+                       : new chc_optional_int16{false, 0};
         }
         case Type::String: {
             const auto value = static_cast_column_nullable<ColumnString>(column)->At(index);
             return value.has_value()
-                       ? new OptionalStringViewWrapper{
-                           true, StringViewWrapper{value.value().data(), value.value().length()}
+                       ? new chc_optional_string_view{
+                           true, chc_string_view{value.value().data(), value.value().length()}
                        }
-                       : new OptionalStringViewWrapper{false, StringViewWrapper{nullptr, 0}};
+                       : new chc_optional_string_view{false, chc_string_view{nullptr, 0}};
         }
         case Type::FixedString: {
             const auto value = static_cast_column_nullable<ColumnFixedString>(column)->At(index);
             return value.has_value()
-                       ? new OptionalStringViewWrapper{
-                           true, StringViewWrapper{value.value().data(), value.value().length()}
+                       ? new chc_optional_string_view{
+                           true, chc_string_view{value.value().data(), value.value().length()}
                        }
-                       : new OptionalStringViewWrapper{false, StringViewWrapper{nullptr, 0}};
+                       : new chc_optional_string_view{false, chc_string_view{nullptr, 0}};
         }
         case Type::IPv4: {
             const auto value = static_cast_column_nullable<ColumnIPv4>(column)->At(index);
             return value.has_value()
-                       ? new OptionalUInt32Wrapper{true, value.value().s_addr}
-                       : new OptionalUInt32Wrapper{false, 0};
+                       ? new chc_optional_uint32{true, value.value().s_addr}
+                       : new chc_optional_uint32{false, 0};
         }
         case Type::IPv6: {
             const auto value = static_cast_column_nullable<ColumnIPv6>(column)->At(index);
             return value.has_value()
-                       ? new OptionalIPv6Wrapper{true, value.value()}
-                       : new OptionalIPv6Wrapper{false, {}};
+                       ? new chc_optional_ipv6{true, value.value()}
+                       : new chc_optional_ipv6{false, {}};
         }
         default:
             return nullptr;

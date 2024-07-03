@@ -8,14 +8,14 @@
 
 using namespace clickhouse;
 
-extern "C" EXPORT inline ColumnFloat64 *CreateColumnFloat64() {
+extern "C" EXPORT inline ColumnFloat64 *chc_column_float64_create() {
     return new ColumnFloat64();
 }
 
-extern "C" EXPORT inline void ColumnFloat64Append(ColumnFloat64 *column, const double value) {
+extern "C" EXPORT inline void chc_column_float64_append(ColumnFloat64 *column, const double value) {
     column->Append(value);
 }
 
-extern "C" EXPORT inline double ColumnFloat64At(const ColumnFloat64 *column, const size_t index) {
+extern "C" EXPORT inline double chc_column_float64_at(const ColumnFloat64 *column, const size_t index) {
     return column->At(index);
 }

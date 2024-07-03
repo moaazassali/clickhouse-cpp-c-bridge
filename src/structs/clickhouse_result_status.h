@@ -4,17 +4,17 @@
 
 #include <export.h>
 
-struct ClickHouseResultStatus {
+struct chc_result_status {
     int code;
     char *message;
 };
 
-extern "C" EXPORT inline void FreeClickHouseResultStatus(ClickHouseResultStatus *result) {
+extern "C" EXPORT inline void chc_result_status_free(chc_result_status *result) {
     delete[] result->message;
     result->message = nullptr;
 }
 
-inline void SetMessage(ClickHouseResultStatus &result, const char *message) {
+inline void SetMessage(chc_result_status &result, const char *message) {
     delete[] result.message;
 
     // Allocate new memory for the message and copy it
@@ -24,8 +24,8 @@ inline void SetMessage(ClickHouseResultStatus &result, const char *message) {
 }
 
 template<typename Func>
-ClickHouseResultStatus TryCatchClickHouseError(Func &&func) {
-    ClickHouseResultStatus result = {0, nullptr};
+chc_result_status TryCatchClickHouseError(Func &&func) {
+    chc_result_status result = {0, nullptr};
 
     try {
         // Call the provided function

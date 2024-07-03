@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-struct Int128Wrapper {
+struct chc_int128 {
     int64_t high;
     uint64_t low;
 };

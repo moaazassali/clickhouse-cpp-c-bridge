@@ -11,8 +11,8 @@
 TEST_CASE("Constructed ColumnLowCardinality is valid") {
     SUBCASE("Correctly create LowCardinality(String)") {
         Column *col;
-        auto inCol = CreateColumnString();
-        auto [code, message] = CreateColumnLowCardinality(inCol, &col);
+        auto inCol = chc_column_string_create();
+        auto [code, message] = chc_column_low_cardinality_create(inCol, &col);
         delete inCol;
         CHECK(code == 0);
         CHECK(col->Type()->GetName() == "LowCardinality(String)");
@@ -21,8 +21,8 @@ TEST_CASE("Constructed ColumnLowCardinality is valid") {
 
     SUBCASE("Correctly create LowCardinality(FixedString)") {
         Column *col;
-        auto inCol = CreateColumnFixedString(10);
-        auto [code, message] = CreateColumnLowCardinality(inCol, &col);
+        auto inCol = chc_column_fixed_string_create(10);
+        auto [code, message] = chc_column_low_cardinality_create(inCol, &col);
         delete inCol;
         CHECK(code == 0);
         CHECK(col->Type()->GetName() == "LowCardinality(FixedString(10))");
@@ -31,10 +31,10 @@ TEST_CASE("Constructed ColumnLowCardinality is valid") {
 
     SUBCASE("Correctly create LowCardinality(Nullable(String))") {
         Column *col;
-        auto inNullCol = CreateColumnString();
+        auto inNullCol = chc_column_string_create();
         ColumnNullable *inLcCol;
-        CreateColumnNullable(inNullCol, &inLcCol);
-        auto [code, message] = CreateColumnLowCardinality(inLcCol, &col);
+        chc_column_nullable_create(inNullCol, &inLcCol);
+        auto [code, message] = chc_column_low_cardinality_create(inLcCol, &col);
         delete inNullCol;
         delete inLcCol;
 
@@ -45,10 +45,10 @@ TEST_CASE("Constructed ColumnLowCardinality is valid") {
 
     SUBCASE("Correctly create LowCardinality(Nullable(FixedString))") {
         Column *col;
-        auto inNullCol = CreateColumnFixedString(20);
+        auto inNullCol = chc_column_fixed_string_create(20);
         ColumnNullable *inLcCol;
-        CreateColumnNullable(inNullCol, &inLcCol);
-        auto [code, message] = CreateColumnLowCardinality(inLcCol, &col);
+        chc_column_nullable_create(inNullCol, &inLcCol);
+        auto [code, message] = chc_column_low_cardinality_create(inLcCol, &col);
         delete inNullCol;
         delete inLcCol;
 
@@ -59,15 +59,15 @@ TEST_CASE("Constructed ColumnLowCardinality is valid") {
 
     SUBCASE("Return non-zero result code for unsupported nested type") {
         Column *col;
-        auto [code, message] = CreateColumnLowCardinality(CreateColumnInt8(), &col);
+        auto [code, message] = chc_column_low_cardinality_create(chc_column_int8_create(), &col);
         CHECK(code == -1);
     }
 
     SUBCASE("Return non-zero result code for unsupported nullable nested type") {
         ColumnNullable *nullCol;
-        CreateColumnNullable(CreateColumnInt8(), &nullCol);
+        chc_column_nullable_create(chc_column_int8_create(), &nullCol);
         Column *col;
-        auto [code, message] = CreateColumnLowCardinality(nullCol, &col);
+        auto [code, message] = chc_column_low_cardinality_create(nullCol, &col);
         CHECK(code == -1);
     }
 }
@@ -75,8 +75,8 @@ TEST_CASE("Constructed ColumnLowCardinality is valid") {
 TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
     SUBCASE("Append and retrieve from LowCardinality(String)") {
         Column *col;
-        auto inCol = CreateColumnString();
-        auto [code, message] = CreateColumnLowCardinality(inCol, &col);
+        auto inCol = chc_column_string_create();
+        auto [code, message] = chc_column_low_cardinality_create(inCol, &col);
         delete inCol;
 
         CHECK(code == 0);
@@ -87,14 +87,14 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
         auto in1 = "hello";
         auto in2 = "world!";
 
-        auto res1 = ColumnLowCardinalityAppend(lcCol, in1);
-        auto res2 = ColumnLowCardinalityAppend(lcCol, in2);
+        auto res1 = chc_column_low_cardinality_append(lcCol, in1);
+        auto res2 = chc_column_low_cardinality_append(lcCol, in2);
 
         CHECK(res1.code == 0);
         CHECK(res2.code == 0);
 
-        auto out1 = static_cast<StringViewWrapper *>(ColumnLowCardinalityAt(lcCol, 0));
-        auto out2 = static_cast<StringViewWrapper *>(ColumnLowCardinalityAt(lcCol, 1));
+        auto out1 = static_cast<chc_string_view *>(chc_column_low_cardinality_at(lcCol, 0));
+        auto out2 = static_cast<chc_string_view *>(chc_column_low_cardinality_at(lcCol, 1));
 
         CHECK(strncmp(out1->data, in1, out1->length) == 0);
         CHECK(strncmp(out2->data, in2, out2->length) == 0);
@@ -102,8 +102,8 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
 
     SUBCASE("Append and retrieve from LowCardinality(FixedString)") {
         Column *col;
-        auto inCol = CreateColumnFixedString(5);
-        auto [code, message] = CreateColumnLowCardinality(inCol, &col);
+        auto inCol = chc_column_fixed_string_create(5);
+        auto [code, message] = chc_column_low_cardinality_create(inCol, &col);
         delete inCol;
 
         CHECK(code == 0);
@@ -114,13 +114,13 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
         auto in1 = "hello";
         auto in2 = "world!";
 
-        auto res1 = ColumnLowCardinalityAppend(lcCol, in1);
-        auto res2 = ColumnLowCardinalityAppend(lcCol, in2); // causes validation error because in2 is 6 chars long
+        auto res1 = chc_column_low_cardinality_append(lcCol, in1);
+        auto res2 = chc_column_low_cardinality_append(lcCol, in2); // causes validation error because in2 is 6 chars long
 
         CHECK(res1.code == 0);
         CHECK(res2.code == -1);
 
-        auto out1 = static_cast<StringViewWrapper *>(ColumnLowCardinalityAt(lcCol, 0));
+        auto out1 = static_cast<chc_string_view *>(chc_column_low_cardinality_at(lcCol, 0));
         CHECK(chc_column_size(lcCol) == 1);
 
         CHECK(strncmp(out1->data, in1, out1->length) == 0);
@@ -128,10 +128,10 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
 
     SUBCASE("Append and retrieve from LowCardinality(Nullable(String))") {
         Column *col;
-        auto inNullCol = CreateColumnString();
+        auto inNullCol = chc_column_string_create();
         ColumnNullable *inLcCol;
-        CreateColumnNullable(inNullCol, &inLcCol);
-        auto [code, message] = CreateColumnLowCardinality(inLcCol, &col);
+        chc_column_nullable_create(inNullCol, &inLcCol);
+        auto [code, message] = chc_column_low_cardinality_create(inLcCol, &col);
         delete inNullCol;
         delete inLcCol;
 
@@ -143,14 +143,14 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
         auto in1 = "hello";
         auto in2 = nullptr;
 
-        auto res1 = ColumnLowCardinalityAppend(lcCol, in1);
-        auto res2 = ColumnLowCardinalityAppend(lcCol, in2);
+        auto res1 = chc_column_low_cardinality_append(lcCol, in1);
+        auto res2 = chc_column_low_cardinality_append(lcCol, in2);
 
         CHECK(res1.code == 0);
         CHECK(res2.code == 0);
 
-        auto out1 = static_cast<OptionalStringViewWrapper *>(ColumnLowCardinalityAt(lcCol, 0));
-        auto out2 = static_cast<OptionalStringViewWrapper *>(ColumnLowCardinalityAt(lcCol, 1));
+        auto out1 = static_cast<chc_optional_string_view *>(chc_column_low_cardinality_at(lcCol, 0));
+        auto out2 = static_cast<chc_optional_string_view *>(chc_column_low_cardinality_at(lcCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(strncmp(out1->value.data, in1, out1->value.length) == 0);
@@ -161,10 +161,10 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
 
     SUBCASE("Append and retrieve from LowCardinality(Nullable(FixedString))") {
         Column *col;
-        auto inNullCol = CreateColumnFixedString(5);
+        auto inNullCol = chc_column_fixed_string_create(5);
         ColumnNullable *inLcCol;
-        CreateColumnNullable(inNullCol, &inLcCol);
-        auto [code, message] = CreateColumnLowCardinality(inLcCol, &col);
+        chc_column_nullable_create(inNullCol, &inLcCol);
+        auto [code, message] = chc_column_low_cardinality_create(inLcCol, &col);
         delete inNullCol;
         delete inLcCol;
 
@@ -177,9 +177,9 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
         auto in2 = "world!";
         auto in3 = nullptr;
 
-        auto res1 = ColumnLowCardinalityAppend(lcCol, in1);
-        auto res2 = ColumnLowCardinalityAppend(lcCol, in2);
-        auto res3 = ColumnLowCardinalityAppend(lcCol, in3);
+        auto res1 = chc_column_low_cardinality_append(lcCol, in1);
+        auto res2 = chc_column_low_cardinality_append(lcCol, in2);
+        auto res3 = chc_column_low_cardinality_append(lcCol, in3);
 
         CHECK(res1.code == 0);
         CHECK(res2.code == -1);
@@ -187,8 +187,8 @@ TEST_CASE("Appending to and retrieving from ColumnLowCardinality correctly") {
 
         CHECK(chc_column_size(lcCol) == 2);
 
-        auto out1 = static_cast<OptionalStringViewWrapper *>(ColumnLowCardinalityAt(lcCol, 0));
-        auto out3 = static_cast<OptionalStringViewWrapper *>(ColumnLowCardinalityAt(lcCol, 1));
+        auto out1 = static_cast<chc_optional_string_view *>(chc_column_low_cardinality_at(lcCol, 0));
+        auto out3 = static_cast<chc_optional_string_view *>(chc_column_low_cardinality_at(lcCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(strncmp(out1->value.data, in1, out1->value.length) == 0);

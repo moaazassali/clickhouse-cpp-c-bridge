@@ -4,7 +4,7 @@
 #include "columns/column_datetime64.h"
 
 TEST_CASE("Constructed ColumnDateTime64 is valid") {
-    const auto col = CreateColumnDateTime64(3);
+    const auto col = chc_column_datetime64_create(3);
 
     SUBCASE("Type is DateTime64") {
         CHECK(col->Type()->GetCode() == Type::DateTime64);
@@ -16,21 +16,21 @@ TEST_CASE("Constructed ColumnDateTime64 is valid") {
 }
 
 TEST_CASE("Appending to and retrieving from ColumnDateTime64 correctly") {
-    const auto col = CreateColumnDateTime64(3);
+    const auto col = chc_column_datetime64_create(3);
 
-    ColumnDateTime64Append(col, 0);
-    CHECK(ColumnDateTime64At(col, 0) == 0);
+    chc_column_datetime64_append(col, 0);
+    CHECK(chc_column_datetime64_at(col, 0) == 0);
     CHECK(col->Size() == 1);
 
-    ColumnDateTime64Append(col, std::numeric_limits<int64_t>::max());
+    chc_column_datetime64_append(col, std::numeric_limits<int64_t>::max());
     SUBCASE("Returns same value when appending int64_t max value") {
-        CHECK(ColumnDateTime64At(col, 1) == std::numeric_limits<int64_t>::max());
+        CHECK(chc_column_datetime64_at(col, 1) == std::numeric_limits<int64_t>::max());
         CHECK(col->Size() == 2);
     }
 
-    ColumnDateTime64Append(col, std::numeric_limits<int64_t>::min());
+    chc_column_datetime64_append(col, std::numeric_limits<int64_t>::min());
     SUBCASE("Returns same value when appending int64_t min value") {
-        CHECK(ColumnDateTime64At(col, 2) == std::numeric_limits<int64_t>::min());
+        CHECK(chc_column_datetime64_at(col, 2) == std::numeric_limits<int64_t>::min());
         CHECK(col->Size() == 3);
     }
 }

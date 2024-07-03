@@ -4,7 +4,7 @@
 #include "columns/column_enum8.h"
 
 TEST_CASE("Constructed ColumnEnum8 is valid") {
-    const auto col = CreateColumnEnum8();
+    const auto col = chc_column_enum8_create();
 
     SUBCASE("Type is Enum8") {
         CHECK(col->Type()->GetCode() == Type::Enum8);
@@ -16,21 +16,21 @@ TEST_CASE("Constructed ColumnEnum8 is valid") {
 }
 
 TEST_CASE("Appending to and retrieving from ColumnEnum8 correctly") {
-    const auto col = CreateColumnEnum8();
+    const auto col = chc_column_enum8_create();
 
-    ColumnEnum8Append(col, 1);
-    CHECK(ColumnEnum8At(col, 0) == 1);
+    chc_column_enum8_append(col, 1);
+    CHECK(chc_column_enum8_at(col, 0) == 1);
     CHECK(col->Size() == 1);
 
-    ColumnEnum8Append(col, std::numeric_limits<int8_t>::max());
+    chc_column_enum8_append(col, std::numeric_limits<int8_t>::max());
     SUBCASE("Returns same value when appending int8_t max value") {
-        CHECK(ColumnEnum8At(col, 1) == std::numeric_limits<int8_t>::max());
+        CHECK(chc_column_enum8_at(col, 1) == std::numeric_limits<int8_t>::max());
         CHECK(col->Size() == 2);
     }
 
-    ColumnEnum8Append(col, std::numeric_limits<int8_t>::min());
+    chc_column_enum8_append(col, std::numeric_limits<int8_t>::min());
     SUBCASE("Returns same value when appending int8_t min value") {
-        CHECK(ColumnEnum8At(col, 2) == std::numeric_limits<int8_t>::min());
+        CHECK(chc_column_enum8_at(col, 2) == std::numeric_limits<int8_t>::min());
         CHECK(col->Size() == 3);
     }
 }

@@ -7,11 +7,11 @@
 
 using namespace clickhouse;
 
-struct EndpointWrapper {
+struct chc_endpoint {
     const char *host;
     uint16_t port;
 
-    EndpointWrapper() : host(nullptr),
+    chc_endpoint() : host(nullptr),
                         port(9000) {
     };
 
@@ -24,7 +24,7 @@ struct EndpointWrapper {
     }
 };
 
-extern "C" EXPORT inline void FreeEndpointWrapper(EndpointWrapper *wrapper) {
+extern "C" EXPORT inline void chc_endpoint_free(chc_endpoint *wrapper) {
     delete[] wrapper->host;
     wrapper->host = nullptr;
 }

@@ -9,10 +9,10 @@
 
 using namespace clickhouse;
 
-struct ClientOptionsWrapper {
+struct chc_client_options {
     const char *host;
     uint16_t port;
-    const EndpointWrapper *endpoints;
+    const chc_endpoint *endpoints;
     size_t endpoints_count;
     const char *default_database;
     const char *user;
@@ -33,7 +33,7 @@ struct ClientOptionsWrapper {
     bool backward_compatibility_lowcardinality_as_wrapped_column;
     uint32_t max_compression_chunk_size;
 
-    ClientOptionsWrapper() : host(""),
+    chc_client_options() : host(""),
                              port(9000),
                              endpoints(nullptr),
                              endpoints_count(0),

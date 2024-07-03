@@ -13,12 +13,12 @@ extern "C" EXPORT inline ColumnUUID *chc_column_uuid_create() {
     return new ColumnUUID();
 }
 
-extern "C" EXPORT inline void chc_column_uuid_append(ColumnUUID *column, const UUIDWrapper value) {
+extern "C" EXPORT inline void chc_column_uuid_append(ColumnUUID *column, const chc_uuid value) {
     column->Append(std::make_pair(value.first, value.second));
 }
 
 // Should we return a pointer to the UUIDWrapper instead?
-extern "C" EXPORT inline UUIDWrapper chc_column_uuid_at(const ColumnUUID *column, const size_t index) {
+extern "C" EXPORT inline chc_uuid chc_column_uuid_at(const ColumnUUID *column, const size_t index) {
     const auto [first, second] = column->At(index);
-    return UUIDWrapper{first, second};
+    return chc_uuid{first, second};
 }

@@ -4,7 +4,7 @@
 #include "columns/column_int8.h"
 
 TEST_CASE("Constructed ColumnInt8 is valid") {
-    const auto col = CreateColumnInt8();
+    const auto col = chc_column_int8_create();
 
     SUBCASE("Type is Int8") {
         CHECK(col->Type()->GetCode() == Type::Int8);
@@ -16,21 +16,21 @@ TEST_CASE("Constructed ColumnInt8 is valid") {
 }
 
 TEST_CASE("Appending to and retrieving from ColumnInt8 correctly") {
-    const auto col = CreateColumnInt8();
+    const auto col = chc_column_int8_create();
 
-    ColumnInt8Append(col, 1);
-    CHECK(ColumnInt8At(col, 0) == 1);
+    chc_column_int8_append(col, 1);
+    CHECK(chc_column_int8_at(col, 0) == 1);
     CHECK(col->Size() == 1);
 
-    ColumnInt8Append(col, std::numeric_limits<int8_t>::max());
+    chc_column_int8_append(col, std::numeric_limits<int8_t>::max());
     SUBCASE("Returns same value when appending int8_t max value") {
-        CHECK(ColumnInt8At(col, 1) == std::numeric_limits<int8_t>::max());
+        CHECK(chc_column_int8_at(col, 1) == std::numeric_limits<int8_t>::max());
         CHECK(col->Size() == 2);
     }
 
-    ColumnInt8Append(col, std::numeric_limits<int8_t>::min());
+    chc_column_int8_append(col, std::numeric_limits<int8_t>::min());
     SUBCASE("Returns same value when appending int8_t min value") {
-        CHECK(ColumnInt8At(col, 2) == std::numeric_limits<int8_t>::min());
+        CHECK(chc_column_int8_at(col, 2) == std::numeric_limits<int8_t>::min());
         CHECK(col->Size() == 3);
     }
 }

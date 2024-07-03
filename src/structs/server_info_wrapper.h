@@ -4,7 +4,7 @@
 
 #include <export.h>
 
-struct ServerInfoWrapper {
+struct chc_server_info {
     const char *name;
     const char *timezone;
     const char *display_name;
@@ -14,7 +14,7 @@ struct ServerInfoWrapper {
     uint64_t revision;
 };
 
-extern "C" EXPORT inline void FreeServerInfoWrapper(ServerInfoWrapper *info) {
+extern "C" EXPORT inline void chc_server_info_free(chc_server_info *info) {
     delete[] info->name;
     delete[] info->timezone;
     delete[] info->display_name;

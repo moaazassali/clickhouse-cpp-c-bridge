@@ -8,14 +8,14 @@
 
 using namespace clickhouse;
 
-extern "C" EXPORT inline ColumnInt16 *CreateColumnInt16() {
+extern "C" EXPORT inline ColumnInt16 *chc_column_int16_create() {
     return new ColumnInt16();
 }
 
-extern "C" EXPORT inline void ColumnInt16Append(ColumnInt16 *column, const int16_t value) {
+extern "C" EXPORT inline void chc_column_int16_append(ColumnInt16 *column, const int16_t value) {
     column->Append(value);
 }
 
-extern "C" EXPORT inline int16_t ColumnInt16At(const ColumnInt16 *column, const size_t index) {
+extern "C" EXPORT inline int16_t chc_column_int16_at(const ColumnInt16 *column, const size_t index) {
     return column->At(index);
 }

@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-struct UUIDWrapper {
+struct chc_uuid {
     uint64_t first;
     uint64_t second;
 };

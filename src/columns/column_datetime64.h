@@ -8,14 +8,14 @@
 
 using namespace clickhouse;
 
-extern "C" EXPORT inline ColumnDateTime64 *CreateColumnDateTime64(const size_t precision) {
+extern "C" EXPORT inline ColumnDateTime64 *chc_column_datetime64_create(const size_t precision) {
     return new ColumnDateTime64(precision);
 }
 
-extern "C" EXPORT inline void ColumnDateTime64Append(ColumnDateTime64 *column, const int64_t value) {
+extern "C" EXPORT inline void chc_column_datetime64_append(ColumnDateTime64 *column, const int64_t value) {
     column->Append(value);
 }
 
-extern "C" EXPORT inline int64_t ColumnDateTime64At(const ColumnDateTime64 *column, const size_t index) {
+extern "C" EXPORT inline int64_t chc_column_datetime64_at(const ColumnDateTime64 *column, const size_t index) {
     return column->At(index);
 }

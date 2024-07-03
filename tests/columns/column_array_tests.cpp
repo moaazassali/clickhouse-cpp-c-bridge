@@ -11,10 +11,10 @@ Column *CreateNestedArray(Column *innerCol, const size_t depth) {
 
     for (size_t i = 0; i < depth; i++) {
         if (i == 0) {
-            CreateColumnArray(innerCol, &outerCol);
+            chc_column_array_create(innerCol, &outerCol);
         } else {
             innerCol = outerCol;
-            CreateColumnArray(innerCol, &outerCol);
+            chc_column_array_create(innerCol, &outerCol);
         }
     }
 
@@ -23,7 +23,7 @@ Column *CreateNestedArray(Column *innerCol, const size_t depth) {
 
 TEST_CASE("Constructed ColumnArray is valid") {
     ColumnArray *col;
-    const auto [code, message] = CreateColumnArray(CreateColumnInt8(), &col);
+    const auto [code, message] = chc_column_array_create(chc_column_int8_create(), &col);
 
     CHECK(code == 0);
 
@@ -36,7 +36,7 @@ TEST_CASE("Constructed ColumnArray is valid") {
     }
 
     SUBCASE("Valid with many nested arrays") {
-        auto innerCol = static_cast<Column *>(CreateColumnInt8());
+        auto innerCol = static_cast<Column *>(chc_column_int8_create());
 
         auto outerCol = CreateNestedArray(innerCol, 1);
         CHECK(outerCol->Type()->GetName() == "Array(Int8)");
@@ -73,33 +73,33 @@ TEST_CASE("Constructed ColumnArray is valid") {
 
 TEST_CASE("ColumnArrayItemType returns correct type") {
     ColumnArray *col;
-    CreateColumnArray(CreateColumnInt8(), &col);
+    chc_column_array_create(chc_column_int8_create(), &col);
 
     CHECK(col->Type()->GetCode() == Type::Array);
-    CHECK(ColumnArrayItemType(col) == Type::Int8);
+    CHECK(chc_column_array_item_type(col) == Type::Int8);
 }
 
 // this test is more of a sanity check to guide implementing the code that constructs appending to ColumnArray
 // given the individual array columns and their offsets
 TEST_CASE("Appending to ColumnArray using AddOffset() matches expected structure") {
     SUBCASE("Depth = 1") {
-        const auto col1 = CreateColumnInt8();
+        const auto col1 = chc_column_int8_create();
         ColumnArray *col2;
-        CreateColumnArray(col1, &col2);
+        chc_column_array_create(col1, &col2);
 
         // append [1, 2, 3] to the array
-        ColumnInt8Append(col1, 1);
-        ColumnInt8Append(col1, 2);
-        ColumnInt8Append(col1, 3);
-        ColumnArrayAddOffset(col2, 3);
+        chc_column_int8_append(col1, 1);
+        chc_column_int8_append(col1, 2);
+        chc_column_int8_append(col1, 3);
+        chc_column_array_add_offset(col2, 3);
 
         // append [] to the array
-        ColumnArrayAddOffset(col2, 0);
+        chc_column_array_add_offset(col2, 0);
 
         // append [4, 5] to the array
-        ColumnInt8Append(col1, 4);
-        ColumnInt8Append(col1, 5);
-        ColumnArrayAddOffset(col2, 2);
+        chc_column_int8_append(col1, 4);
+        chc_column_int8_append(col1, 5);
+        chc_column_array_add_offset(col2, 2);
 
         const auto typedCol2 = static_cast<ColumnArrayT<ColumnInt8> *>(col2);
         CHECK(typedCol2->At(0).Size() == 3);
@@ -115,35 +115,35 @@ TEST_CASE("Appending to ColumnArray using AddOffset() matches expected structure
     }
 
     SUBCASE("Depth = 2") {
-        const auto col1 = CreateColumnInt8();
+        const auto col1 = chc_column_int8_create();
         ColumnArray *col2;
-        CreateColumnArray(col1, &col2);
+        chc_column_array_create(col1, &col2);
         ColumnArray *col3;
-        CreateColumnArray(col2, &col3);
+        chc_column_array_create(col2, &col3);
 
         // append [[1], [], [3,4]] to the array
-        ColumnInt8Append(col1, 1);
-        ColumnArrayAddOffset(col2, 1);
-        ColumnArrayAddOffset(col2, 0);
-        ColumnInt8Append(col1, 3);
-        ColumnInt8Append(col1, 4);
-        ColumnArrayAddOffset(col2, 2);
-        ColumnArrayAddOffset(col3, 3);
+        chc_column_int8_append(col1, 1);
+        chc_column_array_add_offset(col2, 1);
+        chc_column_array_add_offset(col2, 0);
+        chc_column_int8_append(col1, 3);
+        chc_column_int8_append(col1, 4);
+        chc_column_array_add_offset(col2, 2);
+        chc_column_array_add_offset(col3, 3);
 
         // append [] to the array
-        ColumnArrayAddOffset(col3, 0);
+        chc_column_array_add_offset(col3, 0);
 
         // append [[]] to the array
-        ColumnArrayAddOffset(col2, 0);
-        ColumnArrayAddOffset(col3, 1);
+        chc_column_array_add_offset(col2, 0);
+        chc_column_array_add_offset(col3, 1);
 
         // append [[5,6], [7]] to the array
-        ColumnInt8Append(col1, 5);
-        ColumnInt8Append(col1, 6);
-        ColumnArrayAddOffset(col2, 2);
-        ColumnInt8Append(col1, 7);
-        ColumnArrayAddOffset(col2, 1);
-        ColumnArrayAddOffset(col3, 2);
+        chc_column_int8_append(col1, 5);
+        chc_column_int8_append(col1, 6);
+        chc_column_array_add_offset(col2, 2);
+        chc_column_int8_append(col1, 7);
+        chc_column_array_add_offset(col2, 1);
+        chc_column_array_add_offset(col3, 2);
 
 
         const auto typedCol3 = static_cast<ColumnArrayT<ColumnArrayT<ColumnInt8> > *>(col3);
@@ -170,35 +170,35 @@ TEST_CASE("Appending to ColumnArray using AddOffset() matches expected structure
     }
 
     SUBCASE("Depth = 3") {
-        const auto col1 = CreateColumnInt8();
+        const auto col1 = chc_column_int8_create();
         ColumnArray *col2;
-        CreateColumnArray(col1, &col2);
+        chc_column_array_create(col1, &col2);
         ColumnArray *col3;
-        CreateColumnArray(col2, &col3);
+        chc_column_array_create(col2, &col3);
         ColumnArray *col4;
-        CreateColumnArray(col3, &col4);
+        chc_column_array_create(col3, &col4);
 
         // append [  [[], [5,6], [7]]  ,  []  ,  [[]]  ,  [[2,3]]  ] to the array
         // [[], [5,6], [7]]
-        ColumnArrayAddOffset(col2, 0);
-        ColumnInt8Append(col1, 5);
-        ColumnInt8Append(col1, 6);
-        ColumnArrayAddOffset(col2, 2);
-        ColumnInt8Append(col1, 7);
-        ColumnArrayAddOffset(col2, 1);
-        ColumnArrayAddOffset(col3, 3);
+        chc_column_array_add_offset(col2, 0);
+        chc_column_int8_append(col1, 5);
+        chc_column_int8_append(col1, 6);
+        chc_column_array_add_offset(col2, 2);
+        chc_column_int8_append(col1, 7);
+        chc_column_array_add_offset(col2, 1);
+        chc_column_array_add_offset(col3, 3);
         // []
-        ColumnArrayAddOffset(col3, 0);
+        chc_column_array_add_offset(col3, 0);
         // [[]]
-        ColumnArrayAddOffset(col2, 0);
-        ColumnArrayAddOffset(col3, 1);
+        chc_column_array_add_offset(col2, 0);
+        chc_column_array_add_offset(col3, 1);
         // [[2,3]]
-        ColumnInt8Append(col1, 2);
-        ColumnInt8Append(col1, 3);
-        ColumnArrayAddOffset(col2, 2);
-        ColumnArrayAddOffset(col3, 1);
+        chc_column_int8_append(col1, 2);
+        chc_column_int8_append(col1, 3);
+        chc_column_array_add_offset(col2, 2);
+        chc_column_array_add_offset(col3, 1);
 
-        ColumnArrayAddOffset(col4, 4);
+        chc_column_array_add_offset(col4, 4);
 
         const auto typedCol4 = static_cast<ColumnArrayT<ColumnArrayT<ColumnArrayT<ColumnInt8> > > *>(col4);
         // [  [[], [5,6], [7]]  ,  []  ,  [[]]  ,  [[2,3]]  ]
@@ -227,9 +227,9 @@ TEST_CASE("Appending to ColumnArray using AddOffset() matches expected structure
 // in external libraries
 TEST_CASE("Retrieving from ColumnArray using GetOffset() matches expected structure") {
     SUBCASE("Depth = 1") {
-        const auto base = CreateColumnString();
+        const auto base = chc_column_string_create();
         ColumnArray *a1;
-        CreateColumnArray(base, &a1);
+        chc_column_array_create(base, &a1);
 
         const auto typedA1 = static_cast<ColumnArrayT<ColumnString> *>(a1);
 
@@ -242,23 +242,23 @@ TEST_CASE("Retrieving from ColumnArray using GetOffset() matches expected struct
 
         CHECK(typedA1->Size() == 3);
         // [a, b, c]
-        CHECK(ColumnArrayGetOffset(a1, 0) == 0);
+        CHECK(chc_column_array_get_offset(a1, 0) == 0);
         // from the size and offset, we can deduce that the array range is [0,3)
-        auto x = ColumnStringAt(base, 0);
+        auto x = chc_column_string_at(base, 0);
         CHECK(strncmp(x.data, "a", x.length ) == 0);
-        x = ColumnStringAt(base, 1);
+        x = chc_column_string_at(base, 1);
         CHECK(strncmp(x.data, "b", x.length ) == 0);
-        x = ColumnStringAt(base, 2);
+        x = chc_column_string_at(base, 2);
         CHECK(strncmp(x.data, "c", x.length ) == 0);
 
         // []
-        CHECK(ColumnArrayGetOffset(a1, 2) == 3);
+        CHECK(chc_column_array_get_offset(a1, 2) == 3);
 
         // [d, e]
-        CHECK(ColumnArrayGetOffset(a1, 3) == 5);
-        x = ColumnStringAt(base, 3);
+        CHECK(chc_column_array_get_offset(a1, 3) == 5);
+        x = chc_column_string_at(base, 3);
         CHECK(strncmp(x.data, "d", x.length ) == 0);
-        x = ColumnStringAt(base, 4);
+        x = chc_column_string_at(base, 4);
         CHECK(strncmp(x.data, "e", x.length ) == 0);
     }
 
@@ -276,33 +276,33 @@ TEST_CASE("Retrieving from ColumnArray using GetOffset() matches expected struct
 
         CHECK(a2->Size() == 3);
         // [[a, b, c]]
-        CHECK(ColumnArrayGetOffset(a2, 0) == 0);
-        CHECK(ColumnArrayGetOffset(a1, 0) == 0);
-        CHECK(ColumnArrayGetOffset(a1, 1) == 3);
+        CHECK(chc_column_array_get_offset(a2, 0) == 0);
+        CHECK(chc_column_array_get_offset(a1, 0) == 0);
+        CHECK(chc_column_array_get_offset(a1, 1) == 3);
         // given the first and second offsets, we can deduce that the array range is [0,3)
-        auto x = ColumnStringAt(base, 0);
+        auto x = chc_column_string_at(base, 0);
         CHECK(strncmp(x.data, "a", x.length ) == 0);
-        x = ColumnStringAt(base, 1);
+        x = chc_column_string_at(base, 1);
         CHECK(strncmp(x.data, "b", x.length ) == 0);
-        x = ColumnStringAt(base, 2);
+        x = chc_column_string_at(base, 2);
         CHECK(strncmp(x.data, "c", x.length ) == 0);
 
         // []
-        CHECK(ColumnArrayGetOffset(a2, 1) == 1);
-        CHECK(ColumnArrayGetOffset(a2, 2) == 1); // since offset didn't change, array is empty
+        CHECK(chc_column_array_get_offset(a2, 1) == 1);
+        CHECK(chc_column_array_get_offset(a2, 2) == 1); // since offset didn't change, array is empty
 
         // [[], [e], [f, g]]
-        CHECK(ColumnArrayGetOffset(a2, 2) == 1);
-        CHECK(ColumnArrayGetOffset(a2, 3) == 4); // we can deduce we have 3 elements (4-1=3)
-        CHECK(ColumnArrayGetOffset(a1, 1) == 3);
-        CHECK(ColumnArrayGetOffset(a1, 2) == 3); // since our offset = offset of next element, array is empty
-        CHECK(ColumnArrayGetOffset(a1, 3) == 4); // we can deduce we have 1 element (4-3=1)
-        x = ColumnStringAt(base, 3);
+        CHECK(chc_column_array_get_offset(a2, 2) == 1);
+        CHECK(chc_column_array_get_offset(a2, 3) == 4); // we can deduce we have 3 elements (4-1=3)
+        CHECK(chc_column_array_get_offset(a1, 1) == 3);
+        CHECK(chc_column_array_get_offset(a1, 2) == 3); // since our offset = offset of next element, array is empty
+        CHECK(chc_column_array_get_offset(a1, 3) == 4); // we can deduce we have 1 element (4-3=1)
+        x = chc_column_string_at(base, 3);
         CHECK(strncmp(x.data, "e", x.length ) == 0);
-        CHECK(ColumnArrayGetOffset(a1, 4) == 6); // we can deduce we have 2 elements (6-4=2)
-        x = ColumnStringAt(base, 4);
+        CHECK(chc_column_array_get_offset(a1, 4) == 6); // we can deduce we have 2 elements (6-4=2)
+        x = chc_column_string_at(base, 4);
         CHECK(strncmp(x.data, "f", x.length ) == 0);
-        x = ColumnStringAt(base, 5);
+        x = chc_column_string_at(base, 5);
         CHECK(strncmp(x.data, "g", x.length ) == 0);
     }
 }

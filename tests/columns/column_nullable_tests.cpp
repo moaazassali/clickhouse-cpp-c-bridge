@@ -30,7 +30,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     SUBCASE("Correctly create Nullable(UInt8)") {
         auto inCol = chc_column_uint8_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(UInt8)");
         CHECK(outCol->Size() == 0);
@@ -38,7 +38,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     SUBCASE("Correctly create Nullable(UInt16)") {
         auto inCol = chc_column_uint16_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(UInt16)");
         CHECK(outCol->Size() == 0);
@@ -46,7 +46,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     SUBCASE("Correctly create Nullable(UInt32)") {
         auto inCol = chc_column_uint32_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(UInt32)");
         CHECK(outCol->Size() == 0);
@@ -54,47 +54,47 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     SUBCASE("Correctly create Nullable(UInt64)") {
         auto inCol = chc_column_uint64_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(UInt64)");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(Int8)") {
-        auto inCol = CreateColumnInt8();
+        auto inCol = chc_column_int8_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Int8)");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(Int16)") {
-        auto inCol = CreateColumnInt16();
+        auto inCol = chc_column_int16_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Int16)");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(Int32)") {
-        auto inCol = CreateColumnInt32();
+        auto inCol = chc_column_int32_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Int32)");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(Int64)") {
-        auto inCol = CreateColumnInt64();
+        auto inCol = chc_column_int64_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Int64)");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(Int128)") {
-        auto inCol = CreateColumnInt128();
+        auto inCol = chc_column_int128_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Int128)");
         CHECK(outCol->Size() == 0);
@@ -102,111 +102,111 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     SUBCASE("Correctly create Nullable(UUID)") {
         auto inCol = chc_column_uuid_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(UUID)");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(Float32)") {
-        auto inCol = CreateColumnFloat32();
+        auto inCol = chc_column_float32_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Float32)");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(Float64)") {
-        auto inCol = CreateColumnFloat64();
+        auto inCol = chc_column_float64_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Float64)");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(Decimal)") {
-        auto inCol = CreateColumnDecimal(9, 4);
+        auto inCol = chc_column_decimal_create(9, 4);
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Decimal(9,4))");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(Date)") {
-        auto inCol = CreateColumnDate();
+        auto inCol = chc_column_date_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Date)");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(Date32)") {
-        auto inCol = CreateColumnDate32();
+        auto inCol = chc_column_date32_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Date32)");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(DateTime)") {
-        auto inCol = CreateColumnDateTime();
+        auto inCol = chc_column_datetime_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(DateTime)");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(DateTime64)") {
-        auto inCol = CreateColumnDateTime64(3);
+        auto inCol = chc_column_datetime64_create(3);
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(DateTime64(3))");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(Enum8)") {
-        auto inCol = CreateColumnEnum8();
+        auto inCol = chc_column_enum8_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Enum8())");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(Enum16)") {
-        auto inCol = CreateColumnEnum16();
+        auto inCol = chc_column_enum16_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(Enum16())");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(String)") {
-        auto inCol = CreateColumnString();
+        auto inCol = chc_column_string_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(String)");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(FixedString)") {
-        auto inCol = CreateColumnFixedString(10);
+        auto inCol = chc_column_fixed_string_create(10);
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(FixedString(10))");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(IPv4)") {
-        auto inCol = CreateColumnIPv4();
+        auto inCol = chc_column_ipv4_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(IPv4)");
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(IPv6)") {
-        auto inCol = CreateColumnIPv6();
+        auto inCol = chc_column_ipv6_create();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == 0);
         CHECK(outCol->Type()->GetName() == "Nullable(IPv6)");
         CHECK(outCol->Size() == 0);
@@ -214,7 +214,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
     SUBCASE("Returns non-zero result code for unsupported nullable type") {
         auto inCol = new ColumnArrayT<ColumnInt8>();
         ColumnNullable *outCol;
-        auto [code, message] = CreateColumnNullable(inCol, &outCol);
+        auto [code, message] = chc_column_nullable_create(inCol, &outCol);
         CHECK(code == -1);
     }
 }
@@ -223,17 +223,17 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
     SUBCASE("Append and retrieve from Nullable(UInt8)") {
         const auto inCol = chc_column_uint8_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = 1;
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalUInt8Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalUInt8Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_uint8 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_uint8 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
@@ -242,17 +242,17 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
     SUBCASE("Append and retrieve from Nullable(UInt16)") {
         const auto inCol = chc_column_uint16_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = std::numeric_limits<uint16_t>::max();
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalUInt16Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalUInt16Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_uint16 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_uint16 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
@@ -261,17 +261,17 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
     SUBCASE("Append and retrieve from Nullable(UInt32)") {
         const auto inCol = chc_column_uint32_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = std::numeric_limits<uint32_t>::max();;
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalUInt32Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalUInt32Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_uint32 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_uint32 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
@@ -280,112 +280,112 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
     SUBCASE("Append and retrieve from Nullable(UInt64)") {
         const auto inCol = chc_column_uint64_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = std::numeric_limits<uint64_t>::max();
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalUInt64Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalUInt64Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_uint64 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_uint64 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(Int8)") {
-        const auto inCol = CreateColumnInt8();
+        const auto inCol = chc_column_int8_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = std::numeric_limits<int8_t>::max();
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalInt8Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalInt8Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_int8 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_int8 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(Int16)") {
-        const auto inCol = CreateColumnInt16();
+        const auto inCol = chc_column_int16_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = std::numeric_limits<int16_t>::max();
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalInt16Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalInt16Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_int16 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_int16 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(Int32)") {
-        const auto inCol = CreateColumnInt32();
+        const auto inCol = chc_column_int32_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = std::numeric_limits<int32_t>::max();
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalInt32Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalInt32Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_int32 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_int32 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(Int64)") {
-        const auto inCol = CreateColumnInt64();
+        const auto inCol = chc_column_int64_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = std::numeric_limits<int64_t>::max();
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalInt64Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalInt64Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_int64 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_int64 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(Int128)") {
-        const auto inCol = CreateColumnInt128();
+        const auto inCol = chc_column_int128_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
-        constexpr Int128Wrapper in1 = {std::numeric_limits<int64_t>::max(), std::numeric_limits<uint64_t>::max()};
+        constexpr chc_int128 in1 = {std::numeric_limits<int64_t>::max(), std::numeric_limits<uint64_t>::max()};
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalInt128Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalInt128Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_int128 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_int128 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value.high == std::numeric_limits<int64_t>::max());
@@ -395,17 +395,17 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
     SUBCASE("Append and retrieve from Nullable(UUID)") {
         const auto inCol = chc_column_uuid_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
-        constexpr UUIDWrapper in1 = {std::numeric_limits<uint64_t>::max(), std::numeric_limits<int64_t>::max()};
+        constexpr chc_uuid in1 = {std::numeric_limits<uint64_t>::max(), std::numeric_limits<int64_t>::max()};
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalUUIDWrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalUUIDWrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_uuid *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_uuid *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value.first == std::numeric_limits<uint64_t>::max());
@@ -413,57 +413,57 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(Float32)") {
-        const auto inCol = CreateColumnFloat32();
+        const auto inCol = chc_column_float32_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = std::numeric_limits<float>::max();
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalFloat32Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalFloat32Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_float32 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_float32 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(Float64)") {
-        const auto inCol = CreateColumnFloat64();
+        const auto inCol = chc_column_float64_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = std::numeric_limits<double>::max();
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalFloat64Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalFloat64Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_float64 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_float64 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(Decimal)") {
-        const auto inCol = CreateColumnDecimal(10, 5); // Decimal64
+        const auto inCol = chc_column_decimal_create(10, 5); // Decimal64
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
-        constexpr Int128Wrapper in1 = {0, std::numeric_limits<int64_t>::max()};
+        constexpr chc_int128 in1 = {0, std::numeric_limits<int64_t>::max()};
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalInt128Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalInt128Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_int128 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_int128 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value.high == 0);
@@ -471,185 +471,185 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(Date)") {
-        const auto inCol = CreateColumnDate();
+        const auto inCol = chc_column_date_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = std::numeric_limits<uint16_t>::max();
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalUInt16Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalUInt16Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_uint16 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_uint16 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(Date32)") {
-        const auto inCol = CreateColumnDate32();
+        const auto inCol = chc_column_date32_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = std::numeric_limits<int32_t>::max();
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalInt32Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalInt32Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_int32 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_int32 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(DateTime)") {
-        const auto inCol = CreateColumnDateTime();
+        const auto inCol = chc_column_datetime_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = std::numeric_limits<uint32_t>::max();
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalUInt32Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalUInt32Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_uint32 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_uint32 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(DateTime64)") {
-        const auto inCol = CreateColumnDateTime64(3);
+        const auto inCol = chc_column_datetime64_create(3);
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = std::numeric_limits<int64_t>::max();
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalInt64Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalInt64Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_int64 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_int64 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(Enum8)") {
-        const auto inCol = CreateColumnEnum8();
+        const auto inCol = chc_column_enum8_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = std::numeric_limits<int8_t>::max();
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalInt8Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalInt8Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_int8 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_int8 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(Enum16)") {
-        const auto inCol = CreateColumnEnum16();
+        const auto inCol = chc_column_enum16_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = std::numeric_limits<int16_t>::max();
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalInt16Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalInt16Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_int16 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_int16 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(String)") {
-        const auto inCol = CreateColumnString();
+        const auto inCol = chc_column_string_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         const auto in1 = "hello";
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalStringViewWrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalStringViewWrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_string_view *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_string_view *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(strncmp(out1->value.data, in1, out1->value.length) == 0);
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(FixedString)") {
-        const auto inCol = CreateColumnFixedString(5);
+        const auto inCol = chc_column_fixed_string_create(5);
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         const auto in1 = "hello";
         constexpr auto in2 = nullptr;
         const auto in3 = "world!";
-        ColumnNullableAppend(outCol, in1);
-        ColumnNullableAppend(outCol, in2);
-        auto res = ColumnNullableAppend(outCol, in3);
+        chc_column_nullable_append(outCol, in1);
+        chc_column_nullable_append(outCol, in2);
+        auto res = chc_column_nullable_append(outCol, in3);
 
         CHECK(res.code == -1); // validation error since in3 is 6 chars long
         // Identified a bug in the original clickhouse-cpp library
         // This check fails as a result
         // CHECK(GetColumnSize(outCol) == 2);
 
-        auto out1 = static_cast<OptionalStringViewWrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalStringViewWrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_string_view *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_string_view *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(strncmp(out1->value.data, in1, out1->value.length) == 0);
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(IPv4)") {
-        const auto inCol = CreateColumnIPv4();
+        const auto inCol = chc_column_ipv4_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         constexpr auto in1 = std::numeric_limits<uint32_t>::max();
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, &in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, &in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalUInt32Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalUInt32Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_uint32 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_uint32 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(out1->value == in1);
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(IPv6)") {
-        const auto inCol = CreateColumnIPv6();
+        const auto inCol = chc_column_ipv6_create();
         ColumnNullable *outCol;
-        CreateColumnNullable(inCol, &outCol);
+        chc_column_nullable_create(inCol, &outCol);
 
         unsigned char in1[16] = {
             0x00, 0x01, 0x02, 0x03,
@@ -658,13 +658,13 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
             0x0C, 0x0D, 0x0E, 0x0F
         };
         constexpr auto in2 = nullptr;
-        ColumnNullableAppend(outCol, in1);
-        ColumnNullableAppend(outCol, in2);
+        chc_column_nullable_append(outCol, in1);
+        chc_column_nullable_append(outCol, in2);
 
         CHECK(chc_column_size(outCol) == 2);
 
-        auto out1 = static_cast<OptionalIPv6Wrapper *>(ColumnNullableAt(outCol, 0));
-        auto out2 = static_cast<OptionalIPv6Wrapper *>(ColumnNullableAt(outCol, 1));
+        auto out1 = static_cast<chc_optional_ipv6 *>(chc_column_nullable_at(outCol, 0));
+        auto out2 = static_cast<chc_optional_ipv6 *>(chc_column_nullable_at(outCol, 1));
 
         CHECK(out1->has_value == true);
         CHECK(memcmp(&out1->value, in1, 16) == 0);
@@ -674,11 +674,11 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         const auto outCol = new ColumnNullableT<ColumnArrayT<ColumnInt8> >();
 
         constexpr auto in1 = 1;
-        auto res = ColumnNullableAppend(outCol, &in1);
+        auto res = chc_column_nullable_append(outCol, &in1);
 
         CHECK(res.code == -1);
 
-        auto value = ColumnNullableAt(outCol, 0);
+        auto value = chc_column_nullable_at(outCol, 0);
         CHECK(value == nullptr);
     }
 }

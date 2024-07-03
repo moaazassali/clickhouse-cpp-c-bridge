@@ -15,29 +15,29 @@ TEST_CASE("Constructed ColumnTuple is valid") {
         const auto col3 = new ColumnInt32();
 
         ColumnTuple *tupleCol;
-        const auto res = CreateColumnTuple(&tupleCol, 3, col1, col2, col3);
+        const auto res = chc_column_tuple_create(&tupleCol, 3, col1, col2, col3);
 
         CHECK(res.code == 0);
         CHECK(tupleCol->Size() == 0);
         CHECK(tupleCol->Type()->GetName() == "Tuple(Int8, Int16, Int32)");
-        CHECK(ColumnTupleColumnCount(tupleCol) == 3);
+        CHECK(chc_column_tuple_column_count(tupleCol) == 3);
 
-        CHECK(ColumnTupleColumnCount(tupleCol) == 3);
-        CHECK(ColumnTupleColumnAt(tupleCol, 0)->Type()->GetCode() == Type::Int8);
-        CHECK(ColumnTupleColumnAt(tupleCol, 1)->Type()->GetCode() == Type::Int16);
-        CHECK(ColumnTupleColumnAt(tupleCol, 2)->Type()->GetCode() == Type::Int32);
+        CHECK(chc_column_tuple_column_count(tupleCol) == 3);
+        CHECK(chc_column_tuple_column_at(tupleCol, 0)->Type()->GetCode() == Type::Int8);
+        CHECK(chc_column_tuple_column_at(tupleCol, 1)->Type()->GetCode() == Type::Int16);
+        CHECK(chc_column_tuple_column_at(tupleCol, 2)->Type()->GetCode() == Type::Int32);
     }
 
     SUBCASE("Result code is non-zero if n is less than or equal to 0") {
         ColumnTuple *tupleCol;
 
-        const auto res1 = CreateColumnTuple(&tupleCol, 0);
+        const auto res1 = chc_column_tuple_create(&tupleCol, 0);
         CHECK(res1.code != 0);
 
-        const auto res2 = CreateColumnTuple(&tupleCol, -1);
+        const auto res2 = chc_column_tuple_create(&tupleCol, -1);
         CHECK(res2.code != 0);
 
-        const auto res3 = CreateColumnTuple(&tupleCol, 1, nullptr);
+        const auto res3 = chc_column_tuple_create(&tupleCol, 1, nullptr);
         CHECK(res3.code != 0);
     }
 }
@@ -48,7 +48,7 @@ TEST_CASE("Appending to ColumnTuple increases its size") {
     const auto col3 = new ColumnInt32();
 
     ColumnTuple *tupleCol;
-    CreateColumnTuple(&tupleCol, 3, col1, col2, col3);
+    chc_column_tuple_create(&tupleCol, 3, col1, col2, col3);
 
     CHECK(tupleCol->Size() == 0);
 
