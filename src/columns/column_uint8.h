@@ -1,21 +1,19 @@
 #pragma once
 
 #include <clickhouse/columns/numeric.h>
-#include <clickhouse/columns/nullable.h>
 
 #include "export.h"
-#include "structs/optional_wrapper.h"
 
 using namespace clickhouse;
 
-extern "C" EXPORT inline ColumnUInt8 *CreateColumnUInt8() {
+extern "C" EXPORT inline ColumnUInt8 *chc_column_uint8_create() {
     return new ColumnUInt8();
 }
 
-extern "C" EXPORT inline void ColumnUInt8Append(ColumnUInt8 *column, const uint8_t value) {
+extern "C" EXPORT inline void chc_column_uint8_append(ColumnUInt8 *column, const uint8_t value) {
     column->Append(value);
 }
 
-extern "C" EXPORT inline uint8_t ColumnUInt8At(const ColumnUInt8 *column, const size_t index) {
+extern "C" EXPORT inline uint8_t chc_column_uint8_at(const ColumnUInt8 *column, const size_t index) {
     return column->At(index);
 }

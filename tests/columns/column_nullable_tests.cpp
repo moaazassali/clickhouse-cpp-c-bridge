@@ -28,7 +28,7 @@
 
 TEST_CASE("Constructed ColumnNullable is valid") {
     SUBCASE("Correctly create Nullable(UInt8)") {
-        auto inCol = CreateColumnUInt8();
+        auto inCol = chc_column_uint8_create();
         ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
@@ -36,7 +36,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(UInt16)") {
-        auto inCol = CreateColumnUInt16();
+        auto inCol = chc_column_uint16_create();
         ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
@@ -44,7 +44,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(UInt32)") {
-        auto inCol = CreateColumnUInt32();
+        auto inCol = chc_column_uint32_create();
         ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
@@ -52,7 +52,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(UInt64)") {
-        auto inCol = CreateColumnUInt64();
+        auto inCol = chc_column_uint64_create();
         ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
@@ -100,7 +100,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
         CHECK(outCol->Size() == 0);
     }
     SUBCASE("Correctly create Nullable(UUID)") {
-        auto inCol = CreateColumnUUID();
+        auto inCol = chc_column_uuid_create();
         ColumnNullable *outCol;
         auto [code, message] = CreateColumnNullable(inCol, &outCol);
         CHECK(code == 0);
@@ -221,7 +221,7 @@ TEST_CASE("Constructed ColumnNullable is valid") {
 
 TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
     SUBCASE("Append and retrieve from Nullable(UInt8)") {
-        const auto inCol = CreateColumnUInt8();
+        const auto inCol = chc_column_uint8_create();
         ColumnNullable *outCol;
         CreateColumnNullable(inCol, &outCol);
 
@@ -240,7 +240,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(UInt16)") {
-        const auto inCol = CreateColumnUInt16();
+        const auto inCol = chc_column_uint16_create();
         ColumnNullable *outCol;
         CreateColumnNullable(inCol, &outCol);
 
@@ -259,7 +259,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(UInt32)") {
-        const auto inCol = CreateColumnUInt32();
+        const auto inCol = chc_column_uint32_create();
         ColumnNullable *outCol;
         CreateColumnNullable(inCol, &outCol);
 
@@ -278,7 +278,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(UInt64)") {
-        const auto inCol = CreateColumnUInt64();
+        const auto inCol = chc_column_uint64_create();
         ColumnNullable *outCol;
         CreateColumnNullable(inCol, &outCol);
 
@@ -393,7 +393,7 @@ TEST_CASE("Appending to and retrieving from ColumnNullable correctly") {
         CHECK(out2->has_value == false);
     }
     SUBCASE("Append and retrieve from Nullable(UUID)") {
-        const auto inCol = CreateColumnUUID();
+        const auto inCol = chc_column_uuid_create();
         ColumnNullable *outCol;
         CreateColumnNullable(inCol, &outCol);
 
