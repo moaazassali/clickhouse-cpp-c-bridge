@@ -1,7 +1,9 @@
 #pragma once
 
 #include <clickhouse/block.h>
+
 #include "export.h"
+#include "utils.h"
 
 using namespace clickhouse;
 

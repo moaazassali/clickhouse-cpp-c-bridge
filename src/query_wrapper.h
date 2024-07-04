@@ -1,6 +1,7 @@
 #pragma once
 
 #include <clickhouse/query.h>
+
 #include "export.h"
 
 using namespace clickhouse;
