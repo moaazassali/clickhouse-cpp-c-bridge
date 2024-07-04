@@ -3,10 +3,10 @@ Clickhouse C++ C Bridge
 This is a C interface for the [clickhouse-cpp](https://github.com/ClickHouse/clickhouse-cpp) library providing all
 the essential functionality to interact with ClickHouse from C using the Native protocol.
 
-It is intended to be used for creating client libraries in other languages using this repository as a base for interop
+It is intended to be used for creating client libraries in other languages with this library as a base for interop
 as well as in C projects that need to interact with ClickHouse.
 
-With this library, developers using any other language with C interop support can easily create highly performant client 
+Developers using any other language with C interop support can easily create highly performant client 
 libraries for ClickHouse built on top of this library without having to worry about reverse-engineering the ClickHouse 
 native protocol.
 
