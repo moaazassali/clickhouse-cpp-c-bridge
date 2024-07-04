@@ -14,20 +14,24 @@ extern "C" EXPORT inline void chc_query_free(const Query *query) {
     delete query;
 }
 
-typedef void (*SelectCallbackWrapper)(const Block *block);
-
-extern "C" EXPORT inline void chc_query_on_data(Query *query, SelectCallbackWrapper cb) {
-    query->OnData([&cb](const Block &block) {
+inline SelectCallback GetSelectCallback(void (*cb)(const Block *block)) {
+    return [cb](const Block &block) {
         cb(&block);
-    });
+    };
 }
 
-typedef bool (*SelectCancelableCallbackWrapper)(const Block *block);
+extern "C" EXPORT inline void chc_query_on_data(Query *query, void (*cb)(const Block *block)) {
+    query->OnData(GetSelectCallback(cb));
+}
 
-extern "C" EXPORT inline void chc_query_on_data_cancelable(Query *query, SelectCancelableCallbackWrapper cb) {
-    query->OnDataCancelable([&cb](const Block &block) {
+inline SelectCancelableCallback GetSelectCancelableCallback(bool (*cb)(const Block *block)) {
+    return [cb](const Block &block) {
         return cb(&block);
-    });
+    };
+}
+
+extern "C" EXPORT inline void chc_query_on_data_cancelable(Query *query, bool (*cb)(const Block *block)) {
+    query->OnDataCancelable(GetSelectCancelableCallback(cb));
 }
 
 // typedef bool (*SelectServerLogCallbackWrapper)(const Block *block);
