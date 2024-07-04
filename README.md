@@ -17,7 +17,7 @@ non-exposed methods can most likely be implemented using the exposed ones from t
 - Just like the `Client` instance in clickhouse-cpp, the `Client` instance here is also NOT thread-safe.
 
 ## Common pitfalls
-- With managed languages, make sure to keep references to every object returned from the library until you are done with them:
+- With memory-managed languages, make sure to keep references to every object returned from the library until you are done with them:
   - If you create a block using `chc_block_create` and store the returned pointer in a private field in 
   your library's `CHBlock` class and then create some columns using `chc_column_create` and simply pass those pointers to 
   `chc_block_append`, you will often be appending freed memory to the block. Even though you have a reference to the block,
