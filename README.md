@@ -19,8 +19,8 @@ non-exposed methods can most likely be implemented using the exposed ones from t
 ## Common pitfalls
 - With memory-managed languages, make sure to keep references to every object returned from the library until you are done with them:
   - If you create a block using `chc_block_create` and store the returned pointer in a private field in 
-  your library's `CHBlock` class and then create some columns using `chc_column_create` and simply pass those pointers to 
+  your library's `CHBlock` class and then create some columns using `chc_column_X_create` and simply pass those pointers to 
   `chc_block_append`, you will often be appending freed memory to the block. Even though you have a reference to the block,
   the block does not have references to the columns, so they are freed by the garbage collector before you append them 
-  to the block (this is assuming your have properly implemented a way to dispose of the objects when they go out of scope 
+  to the block (this is assuming you have properly implemented a way to dispose of the objects when they go out of scope 
   or are freed by the GC). To avoid this, keep references to the columns as well by appending them to a list in the block class.
