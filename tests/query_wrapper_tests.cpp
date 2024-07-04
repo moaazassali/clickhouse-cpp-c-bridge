@@ -10,7 +10,20 @@ TEST_CASE("Correctly create and free query") {
     CHECK_NOTHROW(chc_query_free(q));
 }
 
-void FakeCallback(const Block *block) {
+static bool CALLED = false;
+
+static void FakeCallback(const Block *block) {
+    CALLED = true;
+}
+
+TEST_CASE("Correctly convert and execute SelectCallbackWrapper") {
+    const auto query = "SELECT 1";
+    Query *q = chc_query_create(query);
+    CHECK(q != nullptr);
+
+    const auto cb = GetSelectCallback(FakeCallback);
+    cb(Block()); // call the fake callback
+    CHECK(CALLED);
 }
 
 TEST_CASE("Correctly set query on data callback") {
@@ -20,8 +33,18 @@ TEST_CASE("Correctly set query on data callback") {
     CHECK_NOTHROW(chc_query_on_data(q, FakeCallback));
 }
 
-bool FakeCancelableCallback(const Block *block) {
+
+static bool FakeCancelableCallback(const Block *block) {
     return true;
+}
+
+TEST_CASE("Correctly convert and execute SelectCancelableCallbackWrapper") {
+    const auto query = "SELECT 1";
+    Query *q = chc_query_create(query);
+    CHECK(q != nullptr);
+
+    const auto cb = GetSelectCancelableCallback(FakeCancelableCallback);
+    CHECK(cb(Block()) == true); // call the fake callback
 }
 
 TEST_CASE("Correctly set query on data cancelable callback") {
