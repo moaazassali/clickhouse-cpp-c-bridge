@@ -9,18 +9,18 @@
 
 using namespace clickhouse;
 
-extern "C" EXPORT inline chc_result_status CreateClient(const chc_client_options *optionsWrapper,
+extern "C" EXPORT inline chc_result_status chc_client_create(const chc_client_options *optionsWrapper,
                                                              Client **client) {
     return TryCatchClickHouseError([&]() {
         *client = new Client(optionsWrapper->toClientOptions());
     });
 }
 
-extern "C" EXPORT inline void FreeClient(const Client *client) {
+extern "C" EXPORT inline void chc_client_free(const Client *client) {
     delete client;
 }
 
-extern "C" EXPORT inline chc_result_status Execute(Client *client, const Query *query) {
+extern "C" EXPORT inline chc_result_status chc_client_execute(Client *client, const Query *query) {
     return TryCatchClickHouseError([&]() {
         client->Execute(*query);
     });
@@ -33,33 +33,33 @@ extern "C" EXPORT inline chc_result_status Execute(Client *client, const Query *
  * string and converts it to a query object in the actual client library.
  */
 
-extern "C" EXPORT inline chc_result_status Insert(Client *client, const char *table_name,
-                                                       const Block *block) {
+extern "C" EXPORT inline chc_result_status chc_client_insert(Client *client, const char *table_name,
+                                                             const Block *block) {
     return TryCatchClickHouseError([&]() {
         client->Insert(table_name, *block);
     });
 }
 
-extern "C" EXPORT inline chc_result_status InsertWithQueryId(
+extern "C" EXPORT inline chc_result_status chc_client_insert_with_query_id(
     Client *client, const char *table_name, const char *query_id, const Block *block) {
     return TryCatchClickHouseError([&]() {
         client->Insert(table_name, query_id, *block);
     });
 }
 
-extern "C" EXPORT inline chc_result_status Ping(Client *client) {
+extern "C" EXPORT inline chc_result_status chc_client_ping(Client *client) {
     return TryCatchClickHouseError([&]() {
         client->Ping();
     });
 }
 
-extern "C" EXPORT inline chc_result_status ResetConnection(Client *client) {
+extern "C" EXPORT inline chc_result_status chc_client_reset_connection(Client *client) {
     return TryCatchClickHouseError([&]() {
         client->ResetConnection();
     });
 }
 
-extern "C" EXPORT inline chc_server_info GetServerInfo(const Client *client) {
+extern "C" EXPORT inline chc_server_info chc_client_get_server_info(const Client *client) {
     if (client == nullptr) {
         constexpr chc_server_info wrapper{
             nullptr,
@@ -101,7 +101,7 @@ extern "C" EXPORT inline chc_server_info GetServerInfo(const Client *client) {
     return wrapper;
 }
 
-extern "C" EXPORT inline chc_endpoint GetCurrentEndpoint(const Client *client) {
+extern "C" EXPORT inline chc_endpoint chc_client_get_current_endpoint(const Client *client) {
     auto endpointWrapper = chc_endpoint();
     if (const auto &optionalEndpoint = client->GetCurrentEndpoint(); optionalEndpoint.has_value()) {
         endpointWrapper.port = optionalEndpoint.value().port;
@@ -119,12 +119,12 @@ extern "C" EXPORT inline chc_endpoint GetCurrentEndpoint(const Client *client) {
     return endpointWrapper;
 }
 
-extern "C" EXPORT inline chc_result_status ResetConnectionEndpoint(Client *client) {
+extern "C" EXPORT inline chc_result_status chc_client_reset_connection_endpoint(Client *client) {
     return TryCatchClickHouseError([&]() {
         client->ResetConnectionEndpoint();
     });
 }
 
-extern "C" EXPORT inline Client::Version GetClientVersion() {
+extern "C" EXPORT inline Client::Version chc_get_client_version() {
     return Client::GetVersion();
 }

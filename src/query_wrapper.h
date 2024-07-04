@@ -5,17 +5,17 @@
 
 using namespace clickhouse;
 
-extern "C" EXPORT inline Query *CreateQuery(const char *query, const char *query_id = nullptr) {
+extern "C" EXPORT inline Query *chc_query_create(const char *query, const char *query_id = nullptr) {
     return new Query(query, query_id);
 }
 
-extern "C" EXPORT inline void FreeQuery(const Query *query) {
+extern "C" EXPORT inline void chc_query_free(const Query *query) {
     delete query;
 }
 
 typedef void (*SelectCallbackWrapper)(const Block *block);
 
-extern "C" EXPORT inline void QueryOnData(Query *query, SelectCallbackWrapper cb) {
+extern "C" EXPORT inline void chc_query_on_data(Query *query, SelectCallbackWrapper cb) {
     query->OnData([&cb](const Block &block) {
         cb(&block);
     });
@@ -23,7 +23,7 @@ extern "C" EXPORT inline void QueryOnData(Query *query, SelectCallbackWrapper cb
 
 typedef bool (*SelectCancelableCallbackWrapper)(const Block *block);
 
-extern "C" EXPORT inline void QueryOnDataCancelable(Query *query, SelectCancelableCallbackWrapper cb) {
+extern "C" EXPORT inline void chc_query_on_data_cancelable(Query *query, SelectCancelableCallbackWrapper cb) {
     query->OnDataCancelable([&cb](const Block &block) {
         return cb(&block);
     });
