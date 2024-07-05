@@ -41,22 +41,3 @@
 #include "structs/uuid_wrapper.h"
 #include "structs/int128_wrapper.h"
 #include "structs/optional_wrapper.h"
-
-#include <iostream>
-
-int main() {
-    std::cout << "Hello, World!dsvdsv" << std::endl;
-    auto options = ClientOptionsWrapper();
-    auto query = Query();
-    options.host = "192.168.70.176";
-    std::cout << "Host set:" << options.host << std::endl;
-    Client *client;
-    CreateClient(&options, &client);
-    //const auto client = new Client(ClientOptions().SetHost("192.168.70.176"));
-    std::cout << "Client created" << std::endl;
-
-    // keep the console window open
-    std::cin.get();
-
-    return 0;
-}
