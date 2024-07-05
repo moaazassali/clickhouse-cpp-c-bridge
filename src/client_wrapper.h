@@ -1,6 +1,8 @@
 #pragma once
 
 #include <clickhouse/client.h>
+#include <cstring>
+
 #include "structs/clickhouse_result_status.h"
 #include "structs/server_info_wrapper.h"
 #include "export.h"
@@ -77,15 +79,15 @@ extern "C" EXPORT inline chc_server_info chc_client_get_server_info(const Client
     // Allocate memory and copy string contents
     const size_t nameLen = serverInfo.name.length();
     const auto name = new char[nameLen + 1];
-    std::strcpy(name, serverInfo.name.c_str());
+    strcpy(name, serverInfo.name.c_str());
 
     const size_t timezoneLen = serverInfo.timezone.length();
     const auto timezone = new char[timezoneLen + 1];
-    std::strcpy(timezone, serverInfo.timezone.c_str());
+    strcpy(timezone, serverInfo.timezone.c_str());
 
     const size_t displayNameLen = serverInfo.display_name.length();
     const auto display_name = new char[displayNameLen + 1];
-    std::strcpy(display_name, serverInfo.display_name.c_str());
+    strcpy(display_name, serverInfo.display_name.c_str());
 
     const chc_server_info wrapper{
         name,
@@ -107,7 +109,7 @@ extern "C" EXPORT inline chc_endpoint chc_client_get_current_endpoint(const Clie
 
         const size_t displayNameLen = optionalEndpoint.value().host.length();
         const auto display_name = new char[displayNameLen + 1];
-        std::strcpy(display_name, optionalEndpoint.value().host.c_str());
+        strcpy(display_name, optionalEndpoint.value().host.c_str());
 
         endpointWrapper.host = display_name;
     } else {

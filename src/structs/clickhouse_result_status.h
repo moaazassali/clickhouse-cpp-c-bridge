@@ -1,6 +1,7 @@
 #pragma once
 
 #include <clickhouse/exceptions.h>
+#include <cstring>
 
 #include <export.h>
 
@@ -18,9 +19,9 @@ inline void SetMessage(chc_result_status &result, const char *message) {
     delete[] result.message;
 
     // Allocate new memory for the message and copy it
-    const size_t length = std::strlen(message);
+    const size_t length = strlen(message);
     result.message = new char[length + 1];
-    std::strcpy(result.message, message);
+    strcpy(result.message, message);
 }
 
 template<typename Func>
