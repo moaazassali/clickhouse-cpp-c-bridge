@@ -4,6 +4,8 @@ project(clickhouse-cpp-c-bridge)
 
 set(CMAKE_CXX_STANDARD 17)
 
+# Required to build on linux (needs fpic)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # ========================================
 # Library
