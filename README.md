@@ -14,9 +14,9 @@ native protocol.
 
 - Not all methods from clickhouse-cpp are exposed; only the essential ones are. This is because most of the
   non-exposed methods can most likely be implemented using the exposed ones from the client library side.
+- For example, Map, Point, Ring, Polygon and MultiPolygon are not exposed, but they can all be built using a combination
+  of Array and Tuple columns.
 - If there is a method that is not exposed, but you think it should be, please open an issue or a pull request.
-- For example, Map, Point, Ring, Polygon and MultiPolygon are not exposed, but they can all be built using a
-  combination of Array and Tuple columns.
 - Just like the `Client` instance in clickhouse-cpp, the `Client` instance here is also NOT thread-safe.
 
 ## Common pitfalls
