@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include <clickhouse/client.h>
 #include "structs/clickhouse_result_status.h"
 #include "structs/server_info_wrapper.h"
