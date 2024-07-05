@@ -87,11 +87,10 @@ TEST_CASE("Created chc_result_status correctly reflects error type") {
 
     SUBCASE("std::exception") {
         auto result = TryCatchClickHouseError([]() {
-            throw std::exception("std::exception");
+            throw std::exception();
         });
 
         CHECK(result.code == -8);
-        CHECK(std::string(result.message) == "std::exception");
         chc_result_status_free(&result);
     }
 
