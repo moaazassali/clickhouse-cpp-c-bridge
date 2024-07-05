@@ -1,4 +1,4 @@
-Clickhouse C++ C Bridge
+Clickhouse C++ C Bridge <br/>[![Linux](https://github.com/moaazassali/clickhouse-cpp-c-bridge/actions/workflows/linux.yml/badge.svg)](https://github.com/moaazassali/clickhouse-cpp-c-bridge/actions/workflows/linux.yml) [![Linux](https://github.com/moaazassali/clickhouse-cpp-c-bridge/actions/workflows/windows.yml/badge.svg)](https://github.com/moaazassali/clickhouse-cpp-c-bridge/actions/workflows/windows.yml)
 ========================
 This is a C interface for the [clickhouse-cpp](https://github.com/ClickHouse/clickhouse-cpp) library providing all
 the essential functionality to interact with ClickHouse from C using the Native protocol.
