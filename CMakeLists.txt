@@ -57,3 +57,12 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/dependencies/doctest/script
 include(doctest)
 
 doctest_discover_tests(${PROJECT_NAME}-tests)
+
+
+# ========================================
+# Code Coverage
+# ========================================
+if (CMAKE_BUILD_TYPE STREQUAL "Coverage")
+    SET(CMAKE_CXX_FLAGS "-g -O0 --coverage")
+    SET(CMAKE_C_FLAGS "-g -O0 --coverage")
+endif ()
