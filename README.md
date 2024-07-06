@@ -12,7 +12,7 @@ native protocol.
 
 ## Some notes
 
-- Not all methods from clickhouse-cpp are exposed; only the essential ones are. This is because most of the
+- Not all methods from clickhouse-cpp are exposed; only the essential ones are. This is because the
   non-exposed methods can most likely be implemented using the exposed ones from the client library side.
 - For example, Map, Point, Ring, Polygon and MultiPolygon are not exposed, but they can all be built using a combination
   of Array and Tuple columns.
