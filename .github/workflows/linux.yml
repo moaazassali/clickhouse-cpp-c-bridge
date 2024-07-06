@@ -70,17 +70,16 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest --build-config ${{ matrix.build_type }}
 
-#    - name: Code Coverage
-#      if: matrix.c_compiler == 'gcc'
-#      working-directory: ${{ steps.strings.outputs.build-output-dir }}
-#      run: |
-#        sudo apt-get update
-#        sudo apt-get install -y gcovr
-#        gcovr -r .. -f ../src --coveralls coverage.json
+    - name: Code Coverage
+      if: matrix.c_compiler == 'gcc'
+      working-directory: ${{ steps.strings.outputs.build-output-dir }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcovr
+        gcovr -r .. -f ../src --coveralls coverage.json
 
     - name: Upload coverage reports to Codecov
-      if: matrix.c_compiler == 'gcc'
-      uses: codecov/codecov-action@v4.0.1
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        file: ${{ steps.strings.outputs.build-output-dir }}/coverage.json
+      run: |
+        curl -Os https://cli.codecov.io/latest/linux/codecov
+        chmod +x codecov
+        ./codecov --verbose upload-process --fail-on-error -t ${{ secrets.CODECOV_TOKEN }} -n 'service'-${{ github.run_id }} -F service -f ${{ steps.strings.outputs.build-output-dir }}/coverage.json
