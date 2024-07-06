@@ -73,4 +73,10 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y gcovr
-        gcovr -r .. -f ../src
+        gcovr -r .. -f ../src --coveralls coverage.json
+
+    - name: Upload coverage reports to Codecov
+      if: matrix.c_compiler == 'gcc'
+      uses: codecov/codecov-action@v4.0.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
