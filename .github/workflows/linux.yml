@@ -5,9 +5,12 @@ name: Linux
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - '**.md'
   pull_request:
     branches: [ "main" ]
-
+    paths-ignore:
+      - '**.md'
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -67,13 +70,13 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest --build-config ${{ matrix.build_type }}
 
-    - name: Code Coverage
-      if: matrix.c_compiler == 'gcc'
-      working-directory: ${{ steps.strings.outputs.build-output-dir }}
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y gcovr
-        gcovr -r .. -f ../src --coveralls coverage.json
+#    - name: Code Coverage
+#      if: matrix.c_compiler == 'gcc'
+#      working-directory: ${{ steps.strings.outputs.build-output-dir }}
+#      run: |
+#        sudo apt-get update
+#        sudo apt-get install -y gcovr
+#        gcovr -r .. -f ../src --coveralls coverage.json
 
     - name: Upload coverage reports to Codecov
       if: matrix.c_compiler == 'gcc'
