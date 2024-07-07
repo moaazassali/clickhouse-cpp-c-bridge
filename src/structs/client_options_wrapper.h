@@ -97,6 +97,8 @@ struct chc_client_options {
                 return CompressionMethod::None;
             case 1:
                 return CompressionMethod::LZ4;
+            case 2:
+                return CompressionMethod::ZSTD;
             default:
                 return CompressionMethod::None;
         }
