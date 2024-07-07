@@ -34,3 +34,22 @@ TEST_CASE("Correctly create client options") {
     CHECK(std::string(options.host) == std::string(host));
     CHECK(options.port == port);
 }
+
+TEST_CASE("Adding endpoints to client options correctly") {
+    chc_client_options optionsWrapper{};
+    chc_endpoint endpointWrapper1{};
+    endpointWrapper1.host = "localhost";
+    endpointWrapper1.port = 8000;
+    chc_endpoint endpointWrapper2{};
+    endpointWrapper2.host = "localhost";
+    endpointWrapper2.port = 8001;
+    optionsWrapper.endpoints = new chc_endpoint[2]{endpointWrapper1, endpointWrapper2};
+    optionsWrapper.endpoints_count = 2;
+
+    ClientOptions options = optionsWrapper.toClientOptions();
+    CHECK(options.endpoints.size() == 2);
+    CHECK(options.endpoints[0].host == "localhost");
+    CHECK(options.endpoints[0].port == 8000);
+    CHECK(options.endpoints[1].host == "localhost");
+    CHECK(options.endpoints[1].port == 8001);
+}
