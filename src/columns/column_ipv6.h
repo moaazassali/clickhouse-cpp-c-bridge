@@ -10,12 +10,8 @@ extern "C" EXPORT inline ColumnIPv6 *chc_column_ipv6_create() {
     return new ColumnIPv6();
 }
 
-extern "C" EXPORT inline void chc_column_ipv6_append(ColumnIPv6 *column, const unsigned char value[16]) {
-    in6_addr addr{};
-    for (int i = 0; i < 16; i++) {
-        addr.s6_addr[i] = value[i];
-    }
-    column->Append(addr);
+extern "C" EXPORT inline void chc_column_ipv6_append(ColumnIPv6 *column, const in6_addr value) {
+    column->Append(value);
 }
 
 // returns a 16-byte array

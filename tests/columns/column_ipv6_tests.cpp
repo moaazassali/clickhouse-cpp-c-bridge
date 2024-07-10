@@ -18,14 +18,10 @@ TEST_CASE("Constructed ColumnIPv6 is valid") {
 TEST_CASE("Appending to and retrieving from ColumnIPv6 correctly") {
     const auto col = chc_column_ipv6_create();
 
-    const unsigned char value[16] = {
-        0x00, 0x01, 0x02, 0x03,
-        0x04, 0x05, 0x06, 0x07,
-        0x08, 0x09, 0x0A, 0x0B,
-        0x0C, 0x0D, 0x0E, 0x0F
-    };
+    in6_addr value = {};
+    value.u = {0x20, 0x01, 0x0d, 0xb8, 0x85, 0xa3, 0x08, 0x96, 0x00, 0x00, 0x00, 0x00, 0x8a, 0x2e, 0x03, 0x70};
     chc_column_ipv6_append(col, value);
     const auto out = chc_column_ipv6_at(col, 0);
-    CHECK(memcmp(&out, value, 16) == 0);
+    CHECK(memcmp(&out, &value, 16) == 0);
     CHECK(col->Size() == 1);
 }
