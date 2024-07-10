@@ -10,8 +10,12 @@ extern "C" EXPORT inline void chc_column_free(const Column *col) {
     delete col;
 }
 
-extern "C" EXPORT inline int32_t chc_column_type(const Column *col) {
+extern "C" EXPORT inline int32_t chc_column_type_code(const Column *col) {
     return col->Type()->GetCode();
+}
+
+extern "C" EXPORT inline const char *chc_column_type_name(const Column *col) {
+    return col->Type()->GetName().c_str();
 }
 
 extern "C" EXPORT inline void chc_column_reserve(Column *col, const size_t new_cap) {

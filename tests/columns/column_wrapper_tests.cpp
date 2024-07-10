@@ -1,6 +1,7 @@
 #include <doctest/doctest.h>
 #include <clickhouse/columns/numeric.h>
 
+#include "clickhouse/columns/array.h"
 #include "columns/column_wrapper.h"
 
 TEST_CASE("Column is nullptr after being freed") {
@@ -10,7 +11,12 @@ TEST_CASE("Column is nullptr after being freed") {
 
 TEST_CASE("GetColumnType() returns correct type") {
     const auto col = new ColumnInt8();
-    CHECK(chc_column_type(col) == Type::Int8);
+    CHECK(chc_column_type_code(col) == Type::Int8);
+}
+
+TEST_CASE("GetColumnTypeName() returns correct type name") {
+    const auto col = new ColumnArrayT<ColumnArrayT<ColumnInt8> >();
+    CHECK(std::string(chc_column_type_name(col)) == "Array(Array(Int8))");
 }
 
 TEST_CASE("ReserveColumn() correctly changes capacity") {
