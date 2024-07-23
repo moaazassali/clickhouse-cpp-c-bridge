@@ -30,3 +30,17 @@ native protocol.
       collector before you append them to the block (this is assuming you have properly implemented a way to dispose of
       the objects when they go out of scope or are freed by the GC). To avoid this, keep references to the columns as
       well by appending them to a list in the block class.
+
+
+## Benchmarks
+List of client libraries in other languages utilizing this library and achieving better performance compared to all other available open-source ones:
+### C# [(clickhouse-csharp)](https://github.com/moaazassali/clickhouse-csharp):
+
+For 1M rows inserted, `ClickHouse.Driver` is 5x faster than the second-fastest library (`ClickHouse.Client`)
+
+| Library                    | Insertion Time Ratio  | Memory Usage  |
+|:---------------------------|:----------------------|:--------------|
+| ClickHouse.Driver (this)   | 1x                    | 1x            |
+| ClickHouse.Client          | 5.09x                 | 3.33x         |
+| Octonica.ClickHouseClient  | 6.21x                 | 0.71x         |
+| ClickHouse.Ado             | 63.35x                | 4.56x         |
